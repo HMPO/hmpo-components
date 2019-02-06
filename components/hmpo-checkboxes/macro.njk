@@ -1,0 +1,34 @@
+{% macro hmpoCheckboxes(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set value = hmpoGetValue(ctx, params) %}
+    {%- set items = hmpoGetItems(ctx, params, value) %}
+
+    {%- if items.length === 0 %}
+        {%- set items = {
+            id: params.id,
+            name: params.id,
+            label: hmpoGetOptions(ctx, params, 'label'),
+            conditional: params.conditional,
+            checked: value,
+            attributes: hmpoGetAttributes(ctx, params, {
+                'aria-required': hmpoGetValidatorAttribute(ctx, params, 'required')
+            })
+        } %}
+    {% endif %}
+
+    {%- set args = {
+        idPrefix: params.id,
+        fieldset: {
+            legend: hmpoGetOptions(ctx, params, 'legend')
+        },
+        hint: hmpoGetOptions(ctx, params, 'hint', true),
+        errorMessage: hmpoGetError(ctx, params),
+        classes: params.classes,
+        formGroup: params.formGroup,
+        items: items
+    } %}
+
+    {%- from "checkboxes/macro.njk" import govukCheckboxes %}
+    {{- govukCheckboxes(args) }}
+{% endmacro %}

@@ -1,0 +1,31 @@
+
+{% macro hmpoText(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set args = {
+        id: params.id,
+        name: params.id,
+        label: hmpoGetOptions(ctx, params, 'label'),
+        hint: hmpoGetOptions(ctx, params, 'hint', true),
+        value: hmpoGetValue(ctx, params),
+        errorMessage: hmpoGetError(ctx, params),
+        type: params.type,
+        classes: params.classes,
+        formGroup: params.formGroup,
+        autocomplete: params.autocomplete,
+        attributes: hmpoGetAttributes(ctx, params, {
+            'aria-required': hmpoGetValidatorAttribute(ctx, params, 'required'),
+            'min': hmpoGetValidatorAttribute(ctx, params, 'min', 0),
+            'max': hmpoGetValidatorAttribute(ctx, params, 'max', 0),
+            'maxlength': hmpoGetValidatorAttribute(ctx, params, 'maxlength', 0),
+        })
+    } %}
+
+    {%- if params.type == 'textarea' %}
+        {%- from "textarea/macro.njk" import govukTextarea %}
+        {{- govukTextarea(args) }}
+    {%- else %}
+        {%- from "input/macro.njk" import govukInput %}
+        {{- govukInput(args) }}
+    {%- endif %}
+{% endmacro %}

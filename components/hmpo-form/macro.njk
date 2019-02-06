@@ -1,0 +1,12 @@
+
+{% macro hmpoForm(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    <form action="{{params.action or ""}}" method="POST" {{parms.encoding | safe or ""}} autocomplete="off" novalidate="true" spellcheck="false">
+        {{- params.content or caller() }}
+        {%- set csrfToken = ctx("csrf-token") %}
+        {%- if csrfToken %}
+            <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}" />
+        {% endif %}
+    </form>
+{% endmacro %}

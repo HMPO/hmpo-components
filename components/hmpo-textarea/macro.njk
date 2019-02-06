@@ -1,0 +1,7 @@
+
+{% macro hmpoTextarea(ctx, params, base) %}
+    {%- from "../hmpo-text/macro.njk" import hmpoText %}
+    {{- hmpoText(ctx, params, {
+        type: "textarea",
+    }, base) }}
+{% endmacro %}

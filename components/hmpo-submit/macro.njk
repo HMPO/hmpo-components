@@ -1,0 +1,21 @@
+
+{% macro hmpoSubmit(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set translate = ctx("translate") %}
+
+    {%- set args = {
+        id: params.id,
+        name: params.id,
+        html: params.html or (not params.text and translate("buttons." + (params.key or 'next'))),
+        text: params.text,
+        href: params.href,
+        type: params.type,
+        disabled: params.disabled,
+        classes: params.classes,
+        attributes: hmpoGetAttributes(ctx, params)
+    } %}
+
+    {%- from "button/macro.njk" import govukButton %}
+    {{- govukButton(args) }}
+{% endmacro %}

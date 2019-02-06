@@ -1,0 +1,10 @@
+
+{% macro hmpoPhone(ctx, params, base) %}
+    {%- from "../hmpo-text/macro.njk" import hmpoText %}
+    {{- hmpoText(ctx, params, {
+        classes: "govuk-input--width-20",
+        attributes: {
+            maxlength: 18
+        }
+    }, base) }}
+{% endmacro %}

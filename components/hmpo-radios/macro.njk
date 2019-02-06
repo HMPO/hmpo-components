@@ -1,0 +1,26 @@
+{% macro hmpoRadios(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set value = hmpoGetValue(ctx, params) %}
+
+    {%- set args = {
+        id: params.id,
+        idPrefix: params.id,
+        name: params.id,
+        fieldset: {
+            legend: hmpoGetOptions(ctx, params, 'label', true) || hmpoGetOptions(ctx, params, 'legend')
+        },
+        hint: hmpoGetOptions(ctx, params, 'hint', true),
+        errorMessage: hmpoGetError(ctx, params),
+        type: params.type,
+        classes: params.classes,
+        formGroup: params.formGroup,
+        attributes: hmpoGetAttributes(ctx, params, {
+            'aria-required': hmpoGetValidatorAttribute(ctx, params, 'required')
+        }),
+        items: hmpoGetItems(ctx, params, value)
+    } %}
+
+    {%- from "radios/macro.njk" import govukRadios %}
+    {{- govukRadios(args) }}
+{% endmacro %}
