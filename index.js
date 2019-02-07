@@ -12,7 +12,7 @@ module.exports = {
     setup: (app, env) => {
         addFilters(env);
         addGlobals(env);
-        app.use(middleware);
+        app.use(middleware(env));
     },
     mixins
 };

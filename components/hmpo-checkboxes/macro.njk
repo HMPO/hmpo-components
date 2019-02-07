@@ -5,7 +5,7 @@
     {%- set items = hmpoGetItems(ctx, params, value) %}
 
     {%- if items.length === 0 %}
-        {%- set items = {
+        {%- set items = [{
             id: params.id,
             name: params.id,
             label: hmpoGetOptions(ctx, params, 'label'),
@@ -13,7 +13,7 @@
             checked: value,
             attributes: hmpoGetAttributes(ctx, params, {
                 'aria-required': hmpoGetValidatorAttribute(ctx, params, 'required')
-            })
+            }])
         } %}
     {% endif %}
 
