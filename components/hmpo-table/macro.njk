@@ -1,0 +1,17 @@
+
+{% macro hmpoTable(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set args = {
+        rows: params.rows,
+        head: params.head,
+        caption: param.caption,
+        captionClasses: param.captionClasses,
+        firstCellIsHeader: params.firstCellIsHeader,
+        classes: params.classes,
+        attributes: param.attributes
+    } %}
+
+    {%- from "table/macro.njk" import govukTable %}
+    {{- govukTable(args) }}
+{% endmacro %}
