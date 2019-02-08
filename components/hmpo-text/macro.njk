@@ -5,8 +5,8 @@
     {%- set args = {
         id: params.id,
         name: params.id,
-        label: hmpoGetOptions(ctx, params, 'label'),
-        hint: hmpoGetOptions(ctx, params, 'hint', true),
+        label: hmpoGetOptions(ctx, params, "label"),
+        hint: hmpoGetOptions(ctx, params, "hint", true),
         value: hmpoGetValue(ctx, params),
         errorMessage: hmpoGetError(ctx, params),
         type: params.type,
@@ -14,14 +14,14 @@
         formGroup: params.formGroup,
         autocomplete: params.autocomplete,
         attributes: hmpoGetAttributes(ctx, params, {
-            'aria-required': hmpoGetValidatorAttribute(ctx, params, 'required'),
-            'min': hmpoGetValidatorAttribute(ctx, params, 'min', 0),
-            'max': hmpoGetValidatorAttribute(ctx, params, 'max', 0),
-            'maxlength': hmpoGetValidatorAttribute(ctx, params, 'maxlength', 0),
+            "aria-required": hmpoGetValidatorAttribute(ctx, params, "required"),
+            "min": hmpoGetValidatorAttribute(ctx, params, "min", 0),
+            "max": hmpoGetValidatorAttribute(ctx, params, "max", 0),
+            "maxlength": hmpoGetValidatorAttribute(ctx, params, "maxlength", 0)
         })
     } %}
 
-    {%- if params.type == 'textarea' %}
+    {%- if params.type == "textarea" %}
         {%- from "textarea/macro.njk" import govukTextarea %}
         {{- govukTextarea(args) }}
     {%- else %}
