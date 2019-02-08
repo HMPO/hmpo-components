@@ -8,11 +8,11 @@
         {%- set items = [{
             id: params.id,
             name: params.id,
-            label: hmpoGetOptions(ctx, params, 'label'),
+            label: hmpoGetOptions(ctx, params, "label"),
             conditional: params.conditional,
-            checked: value,
+            value: true,
             attributes: hmpoGetAttributes(ctx, params, {
-                'aria-required': hmpoGetValidatorAttribute(ctx, params, 'required')
+                "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
             })
         ]} %}
     {% endif %}
@@ -20,9 +20,9 @@
     {%- set args = {
         idPrefix: params.id,
         fieldset: {
-            legend: hmpoGetOptions(ctx, params, 'legend')
+            legend: hmpoGetOptions(ctx, params, "legend")
         },
-        hint: hmpoGetOptions(ctx, params, 'hint', true),
+        hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessage: hmpoGetError(ctx, params),
         classes: params.classes,
         formGroup: params.formGroup,

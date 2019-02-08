@@ -1,63 +1,67 @@
 
 {% macro hmpoDate(ctx, params, base) %}
+    {%- set translate = ctx("translate") %}
     {%- set params = hmpoGetParams(ctx, params, base) %}
 
-    {%- if !params.inexact %}
+    {%- if not params.inexact %}
         {%- set day = hmpoGetParams(ctx, { id: params.id + "-day" }) %}
-        {%- set day.error = hmpoGetError(ctx, params.day) %}
-        {%- set day.args = {
+        {%- set dayError = hmpoGetError(ctx, day) %}
+        {%- set dayArgs = {
             id: day.id,
             name: day.id,
             value: hmpoGetValue(ctx, day),
-            label: hmpoGetOptions(ctx, day, "label"),
+            label: translate(params.dayKey or 'fields.date-day.label'),
             attributes: hmpoGetAttributes(ctx, day, {
+                maxlength: 2,
                 autocomplete: day.autocomplete,
-                'aria-required': hmpoGetValidatorAttribute(ctx, day, "required")
-            })
-            classes: "govuk-input--width-2" + day.error ? " govuk-input--error" : "",
+                "aria-required": hmpoGetValidatorAttribute(ctx, day, "required")
+            }),
+            classes: "govuk-input--width-2" + (" govuk-input--error" if dayError)
         } %}
     {% endif %}
 
     {%- set month = hmpoGetParams(ctx, { id: params.id + "-month" }) %}
-    {%- set month.error = hmpoGetError(ctx, month) %}
-    {%- set month.args = {
+    {%- set monthError = hmpoGetError(ctx, month) %}
+    {%- set monthArgs = {
         id: month.id,
         name: month.id,
         value: hmpoGetValue(ctx, month),
-        label: hmpoGetOptions(ctx, month, "label"),
+        label: translate(params.monthKey or 'fields.date-month.label'),
         attributes: hmpoGetAttributes(ctx, month, {
+            maxlength: 2,
             autocomplete: month.autocomplete,
-            'aria-required': hmpoGetValidatorAttribute(ctx, month, "required")
-        })
-        classes: "govuk-input--width-2" + month.error ? " govuk-input--error" : "",
+            "aria-required": hmpoGetValidatorAttribute(ctx, month, "required")
+        }),
+        classes: "govuk-input--width-2" + (" govuk-input--error" if monthError)
     } %}
 
     {%- set year = hmpoGetParams(ctx, { id: params.id + "-year" }) %}
-    {%- set year.error = hmpoGetError(ctx, year) %}
-    {%- set year.args = {
+    {%- set yearError = hmpoGetError(ctx, year) %}
+    {%- set yearArgs = {
         id: year.id,
         name: year.id,
         value: hmpoGetValue(ctx, year),
-        label: hmpoGetOptions(ctx, year, "label"),
+        label: translate(params.yearKey or 'fields.date-year.label'),
         attributes: hmpoGetAttributes(ctx, year, {
+            maxlength: 4,
             autocomplete: year.autocomplete,
-            'aria-required': hmpoGetValidatorAttribute(ctx, year, "required")
-        })
-        classes: "govuk-input--width-4" + year.error ? " govuk-input--error" : "",
+            "aria-required": hmpoGetValidatorAttribute(ctx, year, "required")
+        }),
+        classes: "govuk-input--width-4" + (" govuk-input--error" if yearError)
     } %}
 
     {%- set args = {
         id: params.id,
         fieldset: {
-            legend: hmpoGetOptions(ctx, params, 'legend'),
+            legend: hmpoGetOptions(ctx, params, "legend")
         },
-        hint: hmpoGetOptions(ctx, params, 'hint', true),
-        errorMessage: hmpoGetError(ctx, params),
+        hint: hmpoGetOptions(ctx, params, "hint", true),
+        errorMessage: hmpoGetError(ctx, params) or dayError or monthError or yearError,
         classes: params.classes,
         formGroup: params.formGroup,
-        items: day ? [ day.args, month.args, year.args ] : [ month.args, year.args ]
+        items: [ dayArgs, monthArgs, yearArgs ] if dayArgs else [ monthArgs, yearArgs ]
     } %}
-
+{% if args.errorMessage %}{{errorMessage.message}}{% endif %}
     {%- from "date-input/macro.njk" import govukDateInput %}
     {{- govukDateInput(args) }}
 {% endmacro %}

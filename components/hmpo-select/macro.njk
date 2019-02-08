@@ -6,15 +6,15 @@
     {%- set args = {
         id: params.id,
         name: params.id,
-        label: hmpoGetOptions(ctx, params, 'label'),
-        hint: hmpoGetOptions(ctx, params, 'hint', true),
+        label: hmpoGetOptions(ctx, params, "label"),
+        hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessage: hmpoGetError(ctx, params),
         type: params.type,
         classes: params.classes,
         formGroup: params.formGroup,
         autocomplete: params.autocomplete,
         attributes: hmpoGetAttributes(ctx, params, {
-            'aria-required': hmpoGetValidatorAttribute(ctx, params, 'required')
+            "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
         }),
         items: hmpoGetItems(ctx, params, value)
     } %}
