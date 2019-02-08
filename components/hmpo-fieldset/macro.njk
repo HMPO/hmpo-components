@@ -1,0 +1,14 @@
+
+{% macro hmpoFieldset(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set args = {
+        describedBy: params.describedBy,
+        legend: hmpoGetOptions(ctx, params, 'label', true) or hmpoGetOptions(ctx, params, 'legend'),
+        classes: params.classes,
+        attributes: params.attributes
+    } %}
+
+    {% from "fieldset/macro.njk" import govukFieldset %}
+    {{- govukFieldset(args) }}
+{% endmacro %}
