@@ -2,6 +2,7 @@
     {%- set params = hmpoGetParams(ctx, params, base) %}
 
     {%- set value = hmpoGetValue(ctx, params) %}
+    {%- set required = hmpoGetValidatorAttribute(ctx, params, "required") and true %}
 
     {%- set args = {
         id: params.id,
@@ -14,9 +15,9 @@
         formGroup: params.formGroup,
         autocomplete: params.autocomplete,
         attributes: hmpoGetAttributes(ctx, params, {
-            "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
+            "aria-required": required
         }),
-        items: hmpoGetItems(ctx, params, value)
+        items: hmpoGetItems(ctx, params, value, required)
     } %}
 
     {%- from "select/macro.njk" import govukSelect %}
