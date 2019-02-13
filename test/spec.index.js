@@ -2,7 +2,7 @@
 
 const index = require('../');
 
-describe('Template Mixins', () => {
+describe('Components', () => {
 
     it('returns a setup function', () => {
         index.setup.should.be.a('function');
