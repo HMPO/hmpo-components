@@ -3,6 +3,7 @@ instrumentation:
     excludes:
         - 'public/**'
         - 'assets/**'
+        - 'components/**'
 check:
     global:
         statements: 0
