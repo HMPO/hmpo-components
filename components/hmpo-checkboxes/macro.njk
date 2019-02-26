@@ -10,7 +10,7 @@
             name: params.id,
             label: hmpoGetOptions(ctx, params, "label"),
             conditional: params.conditional,
-            value: true,
+            checked: value,
             attributes: hmpoGetAttributes(ctx, params, {
                 "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
             })
