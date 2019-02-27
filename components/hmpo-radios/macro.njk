@@ -4,20 +4,20 @@
     {%- set value = hmpoGetValue(ctx, params) %}
 
     {%- set args = {
-        id: params.id,
         idPrefix: params.id,
         name: params.id,
-        fieldset: {
-            legend: hmpoGetOptions(ctx, params, "legend")
-        },
+        fieldset: merge({
+            legend: hmpoGetOptions(ctx, params, "legend"),
+            attributes: {
+                id: params.id + "-fieldset",
+                "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
+            }
+        }, params.fieldset),
         hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessage: hmpoGetError(ctx, params),
         type: params.type,
         classes: params.classes,
         formGroup: params.formGroup,
-        attributes: hmpoGetAttributes(ctx, params, {
-            "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
-        }),
         items: hmpoGetItems(ctx, params, value)
     } %}
 

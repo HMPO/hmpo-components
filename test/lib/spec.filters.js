@@ -166,6 +166,11 @@ describe('Filters', () => {
                 let result = filters.filters.currency.call(context, '3.00', { currencySymbol: '$' });
                 result.should.equal('$3');
             });
+
+            it('returns original value if not a number', () => {
+                let result = filters.filters.currency.call(context, 'abcd');
+                result.should.equal('abcd');
+            });
         });
 
         describe('currencyOrFree', () => {
@@ -216,6 +221,16 @@ describe('Filters', () => {
                 context.ctx.baseUrl = '/base';
                 let result = filters.filters.url.call(context, '/path');
                 result.should.equal('/path');
+            });
+        });
+
+        describe('jsonStringify', () => {
+            it('returns json stringified object', () => {
+                let obj = {
+                    foo: { bar: [ 'baz' ] }
+                };
+                let result = filters.filters.jsonStringify.call(context, obj);
+                result.should.equal('{\n  "foo": {\n    "bar": [\n      "baz"\n    ]\n  }\n}');
             });
         });
     });

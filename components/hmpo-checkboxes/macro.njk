@@ -19,9 +19,13 @@
 
     {%- set args = {
         idPrefix: params.id,
-        fieldset: {
-            legend: hmpoGetOptions(ctx, params, "legend")
-        },
+        fieldset: merge(
+            {
+                legend: hmpoGetOptions(ctx, params, "legend"),
+                attributes: { id: params.id + '-fieldset' }
+            },
+            params.fieldset
+        ),
         hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessage: hmpoGetError(ctx, params),
         classes: params.classes,

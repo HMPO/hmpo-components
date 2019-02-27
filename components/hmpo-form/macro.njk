@@ -4,14 +4,14 @@
 
     {%- set attributes = hmpoGetAttributes(ctx, params, {
         action: params.action | default(""),
-        method: "POST",
+        method: params.method | default("POST"),
         autocomplete: "off",
         novalidate: "true",
         spellcheck: "false"
     }) %}
 
     <form {%- for attribute, value in attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>
-        {{- params.content or caller() }}
+        {{- params.content if params.content }}{{- caller() if caller }}
         {%- set csrfToken = ctx("csrf-token") %}
         {%- if csrfToken %}
             <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}" />
