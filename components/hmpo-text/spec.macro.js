@@ -35,6 +35,20 @@ describe('hmpoText', () => {
         expect($hint.text().trim()).to.equal('fields.my-input.hint');
     });
 
+    it('does not render hint if there is no localisation', () => {
+        locals.translate = sinon.stub();
+        locals.translate.returnsArg(0);
+        locals.translate.withArgs('fields.my-input.hint').returns(undefined);
+
+        const $ = render('hmpoText', { id: 'my-input' }, locals);
+
+        const $label = $('.govuk-label');
+        expect($label.text().trim()).to.equal('fields.my-input.label');
+        expect($label.attr('id')).to.equal('my-input-label');
+        const $hint = $('.govuk-hint');
+        expect($hint.length).to.equal(0);
+    });
+
     it('renders with value', () => {
         const $ = render('hmpoText', { id: 'my-input' }, locals);
 
