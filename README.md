@@ -39,7 +39,42 @@ If rendering as part of an HMPO controller's middleware chain then the field con
 
 Translation is performed using a `req.translate` local function, for example as provided by [hmpo-i18n](https://npmjs.com/package/hmpo-i18n)
 
-## filters
+## Components
+
+Components can be called as macros:
+```
+{% from "hmpo-input/macro.njk" import hmpoInput %}
+{% from "hmpo-submit/macro.njk" import hmpoSubmit %}
+
+{{ hmpoInput(ctx, { id: "fieldId" }) }}
+{{ hmpoSubmit(ctx, { key: "textKey" }) }}
+```
+
+### Available components:
+```
+hmpoCheckboxes(ctx, params);
+hmpoDate(ctx, params)
+hmpoForm(ctx, params)
+hmpoNumber(ctx, params)
+hmpoPhone(ctx, params)
+hmpoRadios(ctx, params)
+hmpoSelect(ctx, params)
+hmpoSubmit(ctx, params)
+hmpoText(ctx, params)
+hmpoTextarea(ctx, params)
+```
+
+### Field parameters
+Most govuk-frontend parameters can be specified in the fields config, or supplied to the component directly.
+Label, hint, and legend text is loaded from localisation using a default key structure unless overridden.
+
+- `label.key`: overridden label key.
+- `legend.key`: overridden legend key.
+- `hint.key`: overridden hint key
+- `items`: Array of select box, radio, or checkbox options, or an Array of govuk item objects.
+- `legend`: Applicable to `radio` button controls, which are wrapped in a HTML `fieldset` with a `legend` element.
+
+## Filters
 
 ```
 translate
@@ -54,31 +89,8 @@ currency
 currencyOrFree
 url
 ```
-## compnents
 
-```
-hmpoSelect
-hmpoText
-hmpoNumber
-hmpoPhone
-hmpoRadios
-hmpoCheckboxes
-hmpoSubmit
-hmpoTextarea
-hmpoDate
-```
-
-## Field options
-Most govuk-frontend parameters can be specified in the fields config, or supplied to the component.
-Label, hint, and legend text is loaded from localisation using a default key structure unless overridden.
-
-- `label.key`: overridden label key.
-- `legend.key`: overridden legend key.
-- `hint.key`: overridden hint key
-- `items`: Array of select box, radio, or checkbox options, or an Array of govuk item objects.
-- `legend`: Applicable to `radio` button controls, which are wrapped in a HTML `fieldset` with a `legend` element.
-
-## `date` filter
+### `date` filter
 
 Dates should be provided a a format that moment can decode, such as ISO String format, moment object, or epoch milliseconds.
 ```
@@ -92,7 +104,7 @@ A moment format can be supplied. The default format is D MMMM YYYY.
 03 Jun 2017 12:34pm
 ```
 
-## `time` filter
+### `time` filter
 
 The time formatter wraps a formatted time to correct for GDS standard:
 ```
@@ -111,4 +123,46 @@ Options can be provided to only do transforms for midday, midnight, or shortened
 {{ "12:00pm" | time({ short: true, midnight: true, midnight: false }) }}
 12pm
 ```
+
+## Controller mixins
+
+Use the controller mixins to extend the base wizard controller:
+```
+const BaseController = require('hmpo-form-wizard').Controller;
+const DateControllerMixin = require('hmpo-components').mixins.Date;
+
+const DateController = DateControllerMixin(BaseController);
+
+class MyController extends DateController {    
+}
+```
+
+## DateController mixin
+
+The `DateController` mixin adds day, month, and year fields for a YYYY-MM-DD date field so the `hmpoDate` component can be validated and processed properly.
+
+The date field must use the `date` validator to use this functionality.
+
+Additional validation errors can be produced and need localisation, for example:
+
+```
+"validation": {
+    "date": "Enter a complete {{label}}",
+    "date-year": "Enter a valid year",
+    "date-month": "Enter a valid month",
+    "date-day": "Enter a valid day",
+
+    "required-day": "Enter a complete {{label}}",
+    "required-month": "Enter a complete {{label}}",
+    "required-year": "Enter a complete {{label}}",
+
+    "numeric-year": "Enter a year using numbers only",
+    "numeric-month": "Enter a month using numbers only",
+    "numeric-day": "Enter a day using numbers only",
+}
+```
+
+
+
+
 

@@ -5,7 +5,10 @@
     {%- set args = {
         id: params.id,
         name: params.id,
-        label: hmpoGetOptions(ctx, params, "label"),
+        label: merge(
+            { attributes: { id: params.id + "-label" } },
+            hmpoGetOptions(ctx, params, "label")
+        ),
         hint: hmpoGetOptions(ctx, params, "hint", true),
         value: hmpoGetValue(ctx, params),
         errorMessage: hmpoGetError(ctx, params),

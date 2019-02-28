@@ -6,7 +6,7 @@ instrumentation:
         - 'components/**'
 check:
     global:
-        statements: 0
-        branches: 0
-        functions: 0
-        lines: 0
+        statements: 90
+        branches: 84
+        functions: 96
+        lines: 94

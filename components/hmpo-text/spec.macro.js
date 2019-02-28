@@ -30,6 +30,7 @@ describe('hmpoText', () => {
 
         const $label = $('.govuk-label');
         expect($label.text().trim()).to.equal('fields.my-input.label');
+        expect($label.attr('id')).to.equal('my-input-label');
         const $hint = $('.govuk-hint');
         expect($hint.text().trim()).to.equal('fields.my-input.hint');
     });
