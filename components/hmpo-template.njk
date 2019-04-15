@@ -31,13 +31,15 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {% if backLink %}
-        {% from "back-link/macro.njk" import govukBackLink %}
-        {{ govukBackLink({
-            text: translate("govuk.backLink"),
-            href: backLink
-        }) }}
-    {% endif %}
+    {% block backLink %}
+        {% if backLink %}
+            {% from "back-link/macro.njk" import govukBackLink %}
+            {{ govukBackLink({
+                text: translate("govuk.backLink"),
+                href: backLink
+            }) }}
+        {% endif %}
+    {% endblock %}
 {% endblock %}
 
 {% block content %}
@@ -48,7 +50,16 @@
             errorList: hmpoGetErrorSummary(ctx)
         }) }}
     {% endif %}
-    {% block hmpoContent %}{% endblock %}
+    {% block hmpoContent %}
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                {% block mainContent %}
+                    <h1>{{ translate("pages." + hmpoPageKey + ".h1", { self: false }) | default(hmpoTitle) }}</h1>
+                    {{ translate("pages." + hmpoPageKey + ".content") | safe }}
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
 {% endblock %}
 
 {% block bodyEnd %}

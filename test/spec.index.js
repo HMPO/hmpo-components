@@ -42,7 +42,7 @@ describe('Components', () => {
         });
         it('uses locals middleware', () => {
             index.setup(app, env);
-            locals.middleware.should.have.been.calledWithExactly(env);
+            locals.middleware.should.have.been.calledWithExactly(app, env);
             app.use.should.have.been.calledWithExactly('locals-middleware');
         });
     });
