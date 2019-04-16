@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit && npm run test:cover",
     "test:lint": "eslint .",
-    "test:unit": "istanbul cover _mocha -- --recursive test components",
+    "test:unit": "istanbul cover _mocha -- --recursive test 'components/**/spec*'",
     "test:cover": "istanbul check-coverage"
   },
   "repository": {

@@ -21,6 +21,10 @@
 {% endblock %}
 
 {% block header %}
+    {% from "hmpo-cookie-banner/macro.njk" import hmpoCookieBanner %}
+    {{ hmpoCookieBanner({
+        html: translate("govuk.cookieBanner")
+    }) }}
     {{ govukHeader({
         homepageUrl: govukHomePage or "https://gov.uk",
         serviceName: govukServiceName,
@@ -64,4 +68,5 @@
 
 {% block bodyEnd %}
     <script src="{{assetsPath}}/javascripts/application.js"></script>
+    {% block scripts %}{% endblock %}
 {% endblock %}
