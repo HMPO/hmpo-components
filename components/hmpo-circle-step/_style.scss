@@ -1,0 +1,41 @@
+@import "../../stylesheets/mixins";
+
+li > .circle-step {
+    float: left;
+    margin-top: -0.2em;
+}
+
+li > .circle-step + p {
+    margin-left: 1.9em;
+}
+
+.circle-step {
+    display: inline-block;
+    @include border-radius(50%);
+
+    background: govuk-colour("black");
+    color: govuk-colour("white");
+
+    min-width: 24px;
+    min-height: 24px;
+    height: 24px;
+    max-height: 24px;
+
+    font-size: 12px;
+    line-height: 26px;
+    font-weight: bold;
+    text-align: center;
+}
+
+li > .circle-step-large + p {
+    margin-left: 2.5em;
+}
+
+.circle-step-large {
+    font-size: 19px;
+    line-height: 40px;
+    min-width: 38px;
+    min-height: 38px;
+    height: 38px;
+    max-height: 38px;
+}

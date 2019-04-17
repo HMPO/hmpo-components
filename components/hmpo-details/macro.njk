@@ -1,0 +1,14 @@
+
+{% macro hmpoDetails(params) %}
+    {%- from "details/macro.njk" import govukDetails %}
+    {{ govukDetails({
+        id: params.id,
+        open: params.open,
+        classes: params.classes,
+        attributes: params.attributes,
+        summaryText: params.summaryText,
+        summaryHtml: params.summaryHtml,
+        html: caller() if caller else params.html,
+        text: params.text
+    }) }}
+{% endmacro %}

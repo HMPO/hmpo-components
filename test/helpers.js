@@ -39,6 +39,10 @@ global.render = (macroName, params, context, children = false) => {
         macroString += `{{- ${macroName}(${macroParams}) -}}`;
     }
 
-    const output = nunjucksEnv.renderString(macroString, context);
+    let output = nunjucksEnv.renderString(macroString, context);
+
+    output = output.replace(/(^ +|\n *| +$| +$)/g, '');
+    output = output.replace(/> +</g, '><');
+
     return cheerio.load(output);
 };
