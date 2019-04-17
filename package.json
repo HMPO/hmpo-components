@@ -7,7 +7,8 @@
     "test": "npm run test:lint && npm run test:unit && npm run test:cover",
     "test:lint": "eslint .",
     "test:unit": "istanbul cover _mocha -- --recursive test 'components/**/spec*'",
-    "test:cover": "istanbul check-coverage"
+    "test:cover": "istanbul check-coverage",
+    "postinstall": "uglifyjs components/**/script.js -o all.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
   "dependencies": {
     "deep-clone-merge": "^1.4.0",
     "moment": "^2.13.0",
+    "uglify-js": "^3.5.4",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
