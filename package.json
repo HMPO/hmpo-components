@@ -8,7 +8,7 @@
     "test:lint": "eslint .",
     "test:unit": "istanbul cover _mocha -- --recursive test 'components/**/spec*'",
     "test:cover": "istanbul check-coverage",
-    "postinstall": "uglifyjs components/**/script.js -o all.js"
+    "prepare": "uglifyjs components/**/script.js -o all.js"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,6 @@
   "dependencies": {
     "deep-clone-merge": "^1.4.0",
     "moment": "^2.13.0",
-    "uglify-js": "^3.5.4",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -44,6 +43,7 @@
     "mocha": "^6.1.3",
     "nunjucks": "^3.2.0",
     "sinon": "^7.3.2",
-    "sinon-chai": "^3.0.0"
+    "sinon-chai": "^3.0.0",
+    "uglify-js": "^3.5.4"
   }
 }
