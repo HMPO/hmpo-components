@@ -1,0 +1,25 @@
+
+h1 {
+    @extend .govuk-heading-l;
+}
+h2 {
+    @extend .govuk-heading-m;
+}
+h3 {
+    @extend .govuk-heading-s;
+}
+h4 {
+    @extend .govuk-heading-s;
+}
+
+main p {
+    @extend .govuk-body;
+}
+
+main a {
+    @extend .govuk-link;
+}
+
+main ol, main ul {
+    @extend .govuk-list;
+}

@@ -76,7 +76,7 @@ describe('hmpoTextarea', () => {
         const $ = render('hmpoTextarea', { id: 'my-input' }, locals);
 
         const $component = $('#my-input-error');
-        expect($component.text().trim()).to.equal('fields.my-input.validation.validator');
+        expect($component.text().trim()).to.equal('govuk.error: fields.my-input.validation.validator');
     });
 
 });

@@ -4,9 +4,12 @@ const locals = require('../../lib/locals');
 
 describe('Locals', () => {
     describe('middleware', () => {
-        let env, req, res, next;
+        let app, env, req, res, next;
 
         beforeEach(() => {
+            app = {
+                locals: { appLocal: true }
+            };
             env = {
                 renderString: sinon.stub().returns('rendered')
             };
@@ -28,36 +31,41 @@ describe('Locals', () => {
         });
 
         it('returns a function', () => {
-            locals.middleware(env).should.be.a('function');
+            locals.middleware(app, env).should.be.a('function');
+        });
+
+        it('adds app.locals into res.locals', () => {
+            locals.middleware(app, env)(req, res, next);
+            res.locals.should.contain.key('appLocal');
         });
 
         it('calls next', () => {
-            locals.middleware(env)(req, res, next);
+            locals.middleware(app, env)(req, res, next);
             next.should.have.been.calledWithExactly();
         });
 
         describe('translate', () => {
             it('is a function', () => {
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 res.locals.translate.should.be.a('function');
             });
 
             it('runs req.translate', () => {
                 let options = {};
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 res.locals.translate('key', options);
                 req.translate.should.have.been.calledWithExactly('key', options);
             });
 
             it('renders the result', () => {
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', {});
                 env.renderString.should.have.been.calledWithExactly('translated', res.locals);
                 result.should.equal('rendered');
             });
 
             it('should not render if noRender option is supplied', () => {
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', { noRender: true });
                 env.renderString.should.not.have.been.called;
                 result.should.equal('translated');
@@ -65,14 +73,14 @@ describe('Locals', () => {
 
             it('returns key if no translation function is available', () => {
                 req.translate = null;
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', { noRender: true });
                 result.should.equal('key');
             });
 
             it('returns undefined if no translation is available', () => {
                 req.translate.returns(null);
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key');
                 expect(result).to.be.undefined;
             });
@@ -81,17 +89,17 @@ describe('Locals', () => {
 
         describe('ctx', () => {
             it('is a function', () => {
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 res.locals.ctx.should.be.a('function');
             });
 
             it('should return locals object', () => {
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 res.locals.ctx().should.equal(res.locals);
             });
 
             it('should look up value in locals object', () => {
-                locals.middleware(env)(req, res, next);
+                locals.middleware(app, env)(req, res, next);
                 res.locals.ctx('foo.bar').should.equal('baz');
             });
         });

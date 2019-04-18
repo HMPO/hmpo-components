@@ -1,0 +1,11 @@
+@function tint-25($color) {
+    @return mix($color, white, 25%);
+}
+@function tint-50($color) {
+    @return mix($color, white, 50%);
+}
+@mixin border-radius($radius) {
+	border-radius: $radius;
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+}
