@@ -2,8 +2,8 @@ instrumentation:
     include-all-sources: true
     excludes:
         - 'public/**'
-        - 'assets/**'
-        - 'components/**'
+        - 'components/**/script.js'
+        - 'all.js'
 check:
     global:
         statements: 90
