@@ -58,8 +58,8 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 {% block mainContent %}
-                    <h1>{{ translate("pages." + hmpoPageKey + ".h1", { self: false }) | default(hmpoTitle) }}</h1>
-                    {{ translate("pages." + hmpoPageKey + ".content") | safe }}
+                    <h1>{{ translate("pages." + hmpoPageKey + ".h1", { default: hmpoTitle }) }}</h1>
+                    {{ translate("pages." + hmpoPageKey + ".content") | join | safe }}
                 {% endblock %}
             </div>
         </div>
