@@ -85,6 +85,33 @@ describe('Locals', () => {
                 expect(result).to.be.undefined;
             });
 
+            it('returns deep rendered result', () => {
+                env.renderString
+                    .onCall(0).returns('first')
+                    .onCall(1).returns('second')
+                    .onCall(2).returns('third')
+                    .onCall(3).returns('fourth')
+                    .onCall(4).returns('fith');
+                req.translate.returns([
+                    'item',
+                    { 'key': 'value' },
+                    [ 1, 2, 3 ]
+                ]);
+                locals.middleware(app, env)(req, res, next);
+                let result = res.locals.translate('key');
+                expect(result).to.deep.equal([
+                    'first',
+                    {
+                        'key': 'second'
+                    },
+                    [
+                        'third',
+                        'fourth',
+                        'fith'
+                    ]
+                ]);
+            });
+
         });
 
         describe('ctx', () => {

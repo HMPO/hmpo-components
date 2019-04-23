@@ -1,0 +1,30 @@
+
+{% macro hmpoHtml(params) %}
+    {%- if isArray(params) %}
+        {% for item in params %}
+            {%- if isArray(item) or item.items %}
+                {{ hmpoHtmlList(item) }}
+            {%- else %}
+                {{ hmpoHtmlItem("p", item) }}
+            {% endif %}
+        {% endfor %}
+    {%- else %}
+        {{ hmpoHtmlItem("p", params) }}
+    {%- endif %}
+{% endmacro %}
+
+{% macro hmpoHtmlList(params) %}
+    {%- set items = params.items | default(params) %}
+    <ul{% if params.id %} id="{{params.id}}"{% endif %} class={% if params.classes %}"{{params.classes}}"{% else %}"govuk-list govuk-list--bullet"{% endif %}>
+    {% for item in items %}
+        {{ hmpoHtmlItem("li", item) }}
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro hmpoHtmlItem(tag, value) %}
+    {%- if not isObject(value) %}{%- set value = { "": value } %}{% endif %}
+    {%- for id, html in value %}
+        <{{tag}}{% if id %} id="{{id}}"{% endif %}>{{ html | safe }}</{{tag}}>
+    {%- endfor %}
+{% endmacro %}
