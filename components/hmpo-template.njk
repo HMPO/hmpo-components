@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-    {{ "Error: " if errorlist.length }}{{ hmpoTitle }} – {{ govukServiceName }} – GOV.UK
+    {{ (translate("govuk.error", { default: "Error" }) + ": ") if errorlist.length }}{{ hmpoTitle }} – {{ govukServiceName }} – GOV.UK
 {% endblock %}
 
 {% from "skip-link/macro.njk" import govukSkipLink %}
@@ -22,18 +22,22 @@
 {% endblock %}
 
 {% block header %}
-    {% from "hmpo-cookie-banner/macro.njk" import hmpoCookieBanner %}
-    {{ hmpoCookieBanner({
-        html: translate("govuk.cookieBanner")
-    }) }}
-    {{ govukHeader({
-        assetsPath: assetPath,
-        homepageUrl: govukHomePage or "https://gov.uk",
-        serviceName: govukServiceName,
-        navigation: govukNavigation,
-        serviceUrl: govukServiceUrl or "/",
-        containerClasses: "govuk-width-container"
-    }) }}
+    {% block cookieBanner %}
+        {% from "hmpo-cookie-banner/macro.njk" import hmpoCookieBanner %}
+        {{ hmpoCookieBanner({
+            html: translate("govuk.cookieBanner")
+        }) }}
+    {% endblock %}
+    {% block govukHeader %}
+        {{ govukHeader({
+            assetsPath: assetPath,
+            homepageUrl: govukHomePage or "https://gov.uk",
+            serviceName: govukServiceName,
+            navigation: govukNavigation,
+            serviceUrl: govukServiceUrl or "/",
+            containerClasses: "govuk-width-container"
+        }) }}
+    {% endblock %}
 {% endblock %}
 
 {% block beforeContent %}
