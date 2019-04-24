@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-    {{ "Error: " if errorlist.length }}{{ hmpoTitle }} – {{ govukServiceName }} – GOV.UK
+    {{ (translate("govuk.error", { default: "Error" }) + ": ") if errorlist.length }}{{ hmpoTitle }} – {{ govukServiceName }} – GOV.UK
 {% endblock %}
 
 {% from "skip-link/macro.njk" import govukSkipLink %}
