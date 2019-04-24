@@ -65,7 +65,8 @@
             <div class="govuk-grid-column-two-thirds">
                 {% block mainContent %}
                     <h1>{{ translate("pages." + hmpoPageKey + ".h1", { default: hmpoTitle }) }}</h1>
-                    {{ translate("pages." + hmpoPageKey + ".content") | join | safe }}
+                    {% from "hmpo-html/macro.njk" import hmpoHtml %}
+                    {{ hmpoHtml(translate("pages." + hmpoPageKey + ".content")) }}
                 {% endblock %}
             </div>
         </div>
