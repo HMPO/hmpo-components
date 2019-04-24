@@ -91,7 +91,7 @@ describe('Locals', () => {
                     .onCall(1).returns('second')
                     .onCall(2).returns('third')
                     .onCall(3).returns('fourth')
-                    .onCall(4).returns('fith');
+                    .onCall(4).returns('fifth');
                 req.translate.returns([
                     'item',
                     { 'key': 'value' },
@@ -107,7 +107,7 @@ describe('Locals', () => {
                     [
                         'third',
                         'fourth',
-                        'fith'
+                        'fifth'
                     ]
                 ]);
             });
