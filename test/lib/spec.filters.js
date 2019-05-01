@@ -224,6 +224,95 @@ describe('Filters', () => {
             });
         });
 
+        describe('filter', () => {
+            it('returns null if null passed', () => {
+                let result = filters.filters.filter(null);
+                expect(result).to.be.null;
+            });
+
+            it('returns string if string passed', () => {
+                let result = filters.filters.filter('test');
+                result.should.equal('test');
+            });
+
+            it('filters an array by truthy values', () => {
+                let result = filters.filters.filter([1, 'string', null, undefined, false, {}, 0]);
+                result.should.eql([
+                    1,
+                    'string',
+                    {}
+                ]);
+            });
+
+            it('filters an array by a string', () => {
+                let result = filters.filters.filter([
+                    { foo: 'bar', boo: 'baz' },
+                    { fiz: 'buz', boo: false },
+                    { buz: 'foo' },
+                    { },
+                    null
+                ], 'boo');
+                result.should.eql([
+                    { foo: 'bar', boo: 'baz' }
+                ]);
+            });
+
+            it('filters an array by an object of values', () => {
+                let result = filters.filters.filter([
+                    { foo: 'bar', boo: 'baz' },
+                    { fiz: 'buz', boo: false },
+                    { buz: 'foo' },
+                    { },
+                    null
+                ], { 'boo': false });
+                result.should.eql([
+                    { fiz: 'buz', boo: false }
+                ]);
+            });
+
+            it('filters an object by truthy values', () => {
+                let result = filters.filters.filter({
+                    first: { foo: 'bar', boo: 'baz' },
+                    second: { fiz: 'buz', boo: false },
+                    third: { buz: 'foo' },
+                    fourth: { },
+                    fith: null
+                });
+                result.should.eql({
+                    first: { foo: 'bar', boo: 'baz' },
+                    second: { fiz: 'buz', boo: false },
+                    third: { buz: 'foo' },
+                    fourth: { }
+                });
+            });
+
+            it('filters an object by a string', () => {
+                let result = filters.filters.filter({
+                    first: { foo: 'bar', boo: 'baz' },
+                    second: { fiz: 'buz', boo: false },
+                    third: { buz: 'foo' },
+                    fourth: { },
+                    fith: null
+                }, 'boo');
+                result.should.eql({
+                    first: { foo: 'bar', boo: 'baz' }
+                });
+            });
+
+            it('filters an object by an object of values', () => {
+                let result = filters.filters.filter({
+                    first: { foo: 'bar', boo: 'baz' },
+                    second: { fiz: 'buz', boo: false },
+                    third: { buz: 'foo' },
+                    fourth: { },
+                    fith: null
+                }, { 'boo': false });
+                result.should.eql({
+                    second: { fiz: 'buz', boo: false }
+                });
+            });
+        });
+
         describe('jsonStringify', () => {
             it('returns json stringified object', () => {
                 let obj = {
