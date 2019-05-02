@@ -5,7 +5,6 @@
     {%- set translate = ctx("translate") %}
 
     {%- set args = {
-        id: params.id,
         name: params.id,
         html: params.html if params.html else (translate("buttons." + (params.key or "next")) if not params.text),
         text: params.text,
@@ -13,7 +12,7 @@
         type: params.type,
         disabled: params.disabled,
         classes: params.classes,
-        attributes: hmpoGetAttributes(ctx, params)
+        attributes: hmpoGetAttributes(ctx, params, { id: params.id })
     } %}
 
     {%- from "button/macro.njk" import govukButton %}
