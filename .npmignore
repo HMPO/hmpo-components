@@ -1,0 +1,15 @@
+logs
+*.log
+pids
+*.pid
+*.seed
+lib-cov
+coverage
+.grunt
+build/Release
+.idea/
+*.iml
+*~
+*.sublime-project
+*.sublime-workspace
+node_modules

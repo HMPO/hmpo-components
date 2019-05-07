@@ -1,0 +1,12 @@
+
+{% macro hmpoClose(params) %}
+    {%- from "button/macro.njk" import govukButton %}
+    {{ govukButton({
+        attributes: {
+            "data-module": "hmpo-close",
+            "style": "display: none"
+        },
+        html: params.html,
+        text: params.text | default("Close")
+    }) }}
+{% endmacro %}
