@@ -3,10 +3,18 @@
 
     {%- set value = hmpoGetValue(ctx, params) %}
 
+    {%- set classes = params.classes + " govuk-radios--inline" if params.inline else params.classes %}
+    {%- set pageHeading = {
+        legend: {
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    } if params.isPageHeading %}
+
     {%- set args = {
         idPrefix: params.id,
         name: params.id,
-        fieldset: merge({
+        fieldset: merge(pageHeading, {
             legend: hmpoGetOptions(ctx, params, "legend"),
             attributes: {
                 id: params.id + "-fieldset",
@@ -16,7 +24,7 @@
         hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessage: hmpoGetError(ctx, params),
         type: params.type,
-        classes: params.classes,
+        classes: classes,
         formGroup: params.formGroup,
         items: hmpoGetItems(ctx, params, value)
     } %}
