@@ -25,10 +25,11 @@ globals.addGlobals(nunjucksEnv);
 global.render = (macroName, params, context, children = false) => {
     let macroParams = JSON.stringify(params, null, 2);
     if (context) {
-        context.translate = context.translate || (key => Array.isArray(key) ? key[0] : key);
-        context.ctx = key => key ? key.split('.').reduce((a, k) => a && a[k], context) : context;
         macroParams = 'ctx, ' + macroParams;
     }
+    context = context || {};
+    context.translate = context.translate || (key => Array.isArray(key) ? key[0] : key);
+    context.ctx = key => key ? key.split('.').reduce((a, k) => a && a[k], context) : context;
 
     let macroPath = macroName.replace(/([A-Z])/g, '-$1').toLowerCase();
     let macroString = `{%- from "${macroPath}/macro.njk" import ${macroName} -%}`;

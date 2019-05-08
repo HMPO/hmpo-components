@@ -8,7 +8,7 @@
     "test:lint": "eslint .",
     "test:unit": "istanbul cover _mocha -- --recursive test 'components/**/spec*'",
     "test:cover": "istanbul check-coverage",
-    "prepare": "uglifyjs components/**/script.js -o all.js"
+    "prepare": "uglifyjs components/common.js components/**/script.js -o all.js"
   },
   "repository": {
     "type": "git",

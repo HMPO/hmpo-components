@@ -55,12 +55,14 @@ Components can be called as macros:
 hmpoCheckboxes(ctx, params);
 hmpoCircleStep(params);
 hmpoCircleStepList(params);
+hmpoClose(params);
 hmpoCookieBanner(params);
 hmpoDate(ctx, params)
 hmpoForm(ctx, params)
 hmpoHtml(obj)
 hmpoNumber(ctx, params)
 hmpoPhone(ctx, params)
+hmpoPrintPage(params)
 hmpoRadios(ctx, params)
 hmpoSelect(ctx, params)
 hmpoSubmit(ctx, params)

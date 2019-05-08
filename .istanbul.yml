@@ -3,6 +3,7 @@ instrumentation:
     excludes:
         - 'public/**'
         - 'components/**/script.js'
+        - 'components/common.js'
         - 'all.js'
 check:
     global:
