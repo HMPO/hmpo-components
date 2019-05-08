@@ -42,7 +42,6 @@ describe('hmpoDate', () => {
         const $ = render('hmpoDate', { id: 'my-input', isPageHeading: true }, locals);
         const $legend = $('.govuk-fieldset__legend');
         expect($legend.attr('class')).to.equal('govuk-fieldset__legend govuk-fieldset__legend--l');
-        const $legendH1 = $('.govuk-fieldset__legend h1').parent();
-        expect($legendH1.html()).to.equal('<h1 class="govuk-fieldset__heading">fields.my-input.legend</h1>');
+        expect($legend.html()).to.equal('<h1 class="govuk-fieldset__heading">fields.my-input.legend</h1>');
     });
 });

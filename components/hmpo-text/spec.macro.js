@@ -94,4 +94,10 @@ describe('hmpoText', () => {
         expect($component.text().trim()).to.equal('govuk.error: fields.my-input.validation.validator');
     });
 
+    it('renders label as header', () => {
+        const $ = render('hmpoText', { id: 'my-input', isPageHeading: true }, locals);
+        const $label = $('h1 .govuk-label');
+        expect($label.attr('class')).to.equal('govuk-label govuk-label--l');
+    });
+
 });
