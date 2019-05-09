@@ -2,6 +2,7 @@
 {% macro hmpoClose(params) %}
     {%- from "button/macro.njk" import govukButton %}
     {{ govukButton({
+        type: "button",
         attributes: {
             "data-module": "hmpo-close",
             "style": "display: none"
