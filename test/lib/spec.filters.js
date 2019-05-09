@@ -313,6 +313,70 @@ describe('Filters', () => {
             });
         });
 
+        describe('push', () => {
+            it('returns new array with pushed item', () => {
+                let arr = [ 1, 2, 3 ];
+                let result = filters.filters.push(arr, 6);
+                result.should.not.equal(arr);
+                result.should.eql([ 1, 2, 3, 6 ]);
+            });
+
+            it('returns original object if not an array', () => {
+                let arr = {};
+                let result = filters.filters.push(arr, 6);
+                result.should.equal(arr);
+                result.should.eql({});
+            });
+        });
+
+        describe('unshift', () => {
+            it('returns new array with unshifted item', () => {
+                let arr = [ 1, 2, 3 ];
+                let result = filters.filters.unshift(arr, 6);
+                result.should.not.equal(arr);
+                result.should.eql([ 6, 1, 2, 3 ]);
+            });
+
+            it('returns original object if not an array', () => {
+                let arr = {};
+                let result = filters.filters.unshift(arr, 6);
+                result.should.equal(arr);
+                result.should.eql({});
+            });
+        });
+
+        describe('add', () => {
+            it('returns new object with added item', () => {
+                let obj = { a: 1, b: 2, c: 3 };
+                let result = filters.filters.add(obj, 'd', 4);
+                result.should.not.equal(obj);
+                result.should.eql({ a: 1, b: 2, c: 3, d: 4 });
+            });
+
+            it('returns original object if not an object', () => {
+                let obj = 3;
+                let result = filters.filters.add(obj, 'd', 4);
+                result.should.equal(obj);
+                result.should.eql(3);
+            });
+        });
+
+        describe('delete', () => {
+            it('returns new object with deleted item', () => {
+                let obj = { a: 1, b: 2, c: 3 };
+                let result = filters.filters.delete(obj, 'b');
+                result.should.not.equal(obj);
+                result.should.eql({ a: 1, c: 3 });
+            });
+
+            it('returns original object if not an object', () => {
+                let obj = 3;
+                let result = filters.filters.delete(obj, 'b');
+                result.should.equal(obj);
+                result.should.eql(3);
+            });
+        });
+
         describe('jsonStringify', () => {
             it('returns json stringified object', () => {
                 let obj = {
