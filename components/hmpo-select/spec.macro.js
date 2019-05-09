@@ -50,4 +50,10 @@ describe('hmpoSelect', () => {
         expect($item2.text().trim()).to.equal('fields.my-input.items.b.label');
     });
 
+    it('renders label as header', () => {
+        const $ = render('hmpoSelect', { id: 'my-input', isPageHeading: true }, locals);
+        const $label = $('h1 .govuk-label');
+        expect($label.attr('class')).to.equal('govuk-label govuk-label--l');
+    });
+
 });

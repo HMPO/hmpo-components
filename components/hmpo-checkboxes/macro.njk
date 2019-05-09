@@ -17,9 +17,17 @@
         ]} %}
     {% endif %}
 
+    {%- set pageHeading = {
+        legend: {
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    } if params.isPageHeading %}
+
     {%- set args = {
         idPrefix: params.id,
         fieldset: merge(
+            pageHeading,
             {
                 legend: hmpoGetOptions(ctx, params, "legend"),
                 attributes: { id: params.id + '-fieldset' }

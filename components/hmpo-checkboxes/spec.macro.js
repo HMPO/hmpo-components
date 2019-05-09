@@ -70,4 +70,11 @@ describe('hmpoCheckboxes', () => {
         const $itemlabel2 = $('.govuk-checkboxes__label').eq(1);
         expect($itemlabel2.text().trim()).to.equal('fields.my-input.items.b.label');
     });
+
+    it('renders radio buttons with header', () => {
+        const $ = render('hmpoCheckboxes', { id: 'my-input', isPageHeading: true }, locals);
+        const $legend = $('.govuk-fieldset__legend');
+        expect($legend.attr('class')).to.equal('govuk-fieldset__legend govuk-fieldset__legend--l');
+        expect($legend.html()).to.equal('<h1 class="govuk-fieldset__heading">fields.my-input.legend</h1>');
+    });
 });

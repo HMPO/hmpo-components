@@ -3,6 +3,13 @@
     {%- set translate = ctx("translate") %}
     {%- set params = hmpoGetParams(ctx, params, base) %}
 
+    {%- set pageHeading = {
+        legend: {
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    } if params.isPageHeading %}
+
     {%- if not params.inexact %}
         {%- set day = hmpoGetParams(ctx, { id: params.id + "-day" }) %}
         {%- set dayError = hmpoGetError(ctx, day) %}
@@ -55,7 +62,7 @@
 
     {%- set args = {
         id: params.id,
-        fieldset: merge({
+        fieldset: merge(pageHeading, {
             legend: hmpoGetOptions(ctx, params, "legend"),
             attributes: { id: params.id + "-fieldset" }
         }, params.fieldset),
