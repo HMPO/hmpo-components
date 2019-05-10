@@ -52,6 +52,19 @@ describe('hmpoRadios', () => {
         expect($itemlabel2.text().trim()).to.equal('fields.my-input.items.b.label');
     });
 
+    it('renders items with conditionals', () => {
+        const $ = render('hmpoRadios', { id: 'my-input', conditionals: {
+            a: 'a <b>string</b>',
+            b: { html: 'b <b>object</b>' }
+        } }, locals);
+
+        const $item1 = $('.govuk-radios__conditional').eq(0);
+        expect($item1.html()).to.equal('a <b>string</b>');
+
+        const $item2 = $('.govuk-radios__conditional').eq(1);
+        expect($item2.html()).to.equal('b <b>object</b>');
+    });
+
     it('renders radio buttons with header', () => {
         const $ = render('hmpoRadios', { id: 'my-input', isPageHeading: true }, locals);
         const $legend = $('.govuk-fieldset__legend');
