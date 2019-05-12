@@ -2,23 +2,23 @@
 
 describe('hmpoDetails', () => {
     it('renders with text', () => {
-        const $ = render('hmpoDetails', { text: 'my text <br>' });
+        const $ = render({ component: 'hmpoDetails', params: { text: 'my text <br>' } });
 
         const $component = $('div');
-        expect($component.html().trim()).to.equal('my text &lt;br&gt;');
+        expect(cleanHtml($component)).to.equal('my text &lt;br&gt;');
     });
 
     it('renders with html', () => {
-        const $ = render('hmpoDetails', { html: 'my text <br>' });
+        const $ = render({ component: 'hmpoDetails', params: { html: 'my text <br>' } });
 
         const $component = $('div');
-        expect($component.html().trim()).to.equal('my text <br>');
+        expect(cleanHtml($component)).to.equal('my text <br>');
     });
 
     it('renders with caller', () => {
-        const $ = render('hmpoDetails', { html: 'my text <br>' }, null, '<br>caller text<br>');
+        const $ = render({ component: 'hmpoDetails', params: { html: 'my text <br>' }, caller: '<br>caller text<br>' });
 
         const $component = $('div');
-        expect($component.html().trim()).to.equal('<br>caller text<br>');
+        expect(cleanHtml($component)).to.equal('<br>caller text<br>');
     });
 });

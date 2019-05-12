@@ -3,9 +3,9 @@
 describe('hmpoHtml', () => {
     it('renders string paragraph', () => {
         const html = 'Single <b>string</b>';
-        const $ = render('hmpoHtml', html);
+        const $ = render({ component: 'hmpoHtml', params: html });
 
-        const result = $('body').html();
+        const result = cleanHtml($('body'));
         expect(result).to.equal('<p>Single <b>string</b></p>');
     });
 
@@ -14,9 +14,9 @@ describe('hmpoHtml', () => {
             'First <b>string</b>',
             'Second <b>string</b>'
         ];
-        const $ = render('hmpoHtml', html);
+        const $ = render({ component: 'hmpoHtml', params: html });
 
-        const result = $('body').html();
+        const result = cleanHtml($('body'));
         expect(result).to.equal(
             '<p>First <b>string</b></p>' +
             '<p>Second <b>string</b></p>'
@@ -32,9 +32,9 @@ describe('hmpoHtml', () => {
                 'Second <b>item</b>'
             ]
         ];
-        const $ = render('hmpoHtml', html);
+        const $ = render({ component: 'hmpoHtml', params: html });
 
-        const result = $('body').html();
+        const result = cleanHtml($('body'));
         expect(result).to.equal(
             '<p>First <b>string</b></p>' +
             '<p>Second <b>string</b></p>' +
@@ -54,9 +54,9 @@ describe('hmpoHtml', () => {
                 'Second <b>item</b>'
             ]}
         ];
-        const $ = render('hmpoHtml', html);
+        const $ = render({ component: 'hmpoHtml', params: html });
 
-        const result = $('body').html();
+        const result = cleanHtml($('body'));
         expect(result).to.equal(
             '<p id="id1">First <b>string</b></p>' +
             '<p>Second <b>string</b></p>' +
