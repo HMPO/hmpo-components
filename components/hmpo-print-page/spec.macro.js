@@ -2,20 +2,20 @@
 
 describe('hmpoPrintPage', () => {
     it('renders with text', () => {
-        const $ = render('hmpoPrintPage', { text: 'test' });
+        const $ = render({ component: 'hmpoPrintPage', params: { text: 'test' } });
         const $component = $('.hmpo-print-page');
-        expect($component.html().trim()).to.equal('<a data-module="hmpo-print-page" rel="alternate" href="#" class="govuk-link">test</a>');
+        expect(cleanHtml($component)).to.equal('<a data-module="hmpo-print-page" rel="alternate" href="#" class="govuk-link">test</a>');
     });
 
     it('renders with html', () => {
-        const $ = render('hmpoPrintPage', { html: '<b>html</b>' });
+        const $ = render({ component: 'hmpoPrintPage', params: { html: '<b>html</b>' } });
         const $component = $('.hmpo-print-page');
-        expect($component.html().trim()).to.equal('<a data-module="hmpo-print-page" rel="alternate" href="#" class="govuk-link"><b>html</b></a>');
+        expect(cleanHtml($component)).to.equal('<a data-module="hmpo-print-page" rel="alternate" href="#" class="govuk-link"><b>html</b></a>');
     });
 
     it('renders with default text', () => {
-        const $ = render('hmpoPrintPage');
+        const $ = render({ component: 'hmpoPrintPage' });
         const $component = $('.hmpo-print-page');
-        expect($component.html().trim()).to.equal('<a data-module="hmpo-print-page" rel="alternate" href="#" class="govuk-link">Print page</a>');
+        expect(cleanHtml($component)).to.equal('<a data-module="hmpo-print-page" rel="alternate" href="#" class="govuk-link">Print page</a>');
     });
 });

@@ -2,20 +2,20 @@
 
 describe('hmpoClose', () => {
     it('renders with text', () => {
-        const $ = render('hmpoClose', { text: 'test' });
+        const $ = render({ component: 'hmpoClose', params: { text: 'test' } });
         const $component = $('button');
-        expect($component.html().trim()).to.equal('test');
+        expect(cleanHtml($component)).to.equal('test');
     });
 
     it('renders with html', () => {
-        const $ = render('hmpoClose', { html: '<b>html</b>' });
+        const $ = render({ component: 'hmpoClose', params: { html: '<b>html</b>' } });
         const $component = $('button');
-        expect($component.html().trim()).to.equal('<b>html</b>');
+        expect(cleanHtml($component)).to.equal('<b>html</b>');
     });
 
     it('renders with default text', () => {
-        const $ = render('hmpoClose');
+        const $ = render({ component: 'hmpoClose' });
         const $component = $('button');
-        expect($component.html().trim()).to.equal('Close');
+        expect(cleanHtml($component)).to.equal('Close');
     });
 });

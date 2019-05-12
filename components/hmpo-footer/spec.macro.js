@@ -1,18 +1,18 @@
 describe('hmpoFooter', () => {
     it('entire component must have a role of `contentinfo`', () => {
-        const $ = render('hmpoFooter', {});
+        const $ = render({ component: 'hmpoFooter', params: {} });
 
         const $component = $('.govuk-footer');
         expect($component.attr('role')).equal('contentinfo');
     });
 
     it('renders attributes correctly', () => {
-        const $ = render('hmpoFooter', {
+        const $ = render({ component: 'hmpoFooter', params: {
             attributes: {
                 'data-test-attribute': 'value',
                 'data-test-attribute-2': 'value-2'
             }
-        });
+        }});
 
         const $component = $('.govuk-footer');
         expect($component.attr('data-test-attribute')).equal('value');
@@ -20,18 +20,18 @@ describe('hmpoFooter', () => {
     });
 
     it('renders classes', () => {
-        const $ = render('hmpoFooter', {
+        const $ = render({ component: 'hmpoFooter', params: {
             classes: 'app-footer--custom-modifier'
-        });
+        }});
 
         const $component = $('.govuk-footer');
         expect($component.hasClass('app-footer--custom-modifier')).to.be.true;
     });
 
     it('renders custom container classes', () => {
-        const $ = render('hmpoFooter', {
+        const $ = render({ component: 'hmpoFooter', params: {
             containerClasses: 'app-width-container'
-        });
+        }});
 
         const $component = $('.govuk-footer');
         const $container = $component.find('.govuk-width-container');
@@ -41,11 +41,11 @@ describe('hmpoFooter', () => {
 
     describe('meta', () => {
         it('renders custom meta text', () => {
-            const $ = render('hmpoFooter', {
+            const $ = render({ component: 'hmpoFooter', params: {
                 meta: {
                     text: 'GOV.UK Prototype Kit <strong>v7.0.1</strong>'
                 }
-            });
+            }});
 
             const $component = $('.govuk-footer');
             const $custom = $component.find('.govuk-footer__meta-custom');
@@ -53,11 +53,11 @@ describe('hmpoFooter', () => {
         });
 
         it('renders custom meta html', () => {
-            const $ = render('hmpoFooter', {
+            const $ = render({ component: 'hmpoFooter', params: {
                 meta: {
                     html: 'GOV.UK Prototype Kit <strong>v7.0.1</strong>'
                 }
-            });
+            }});
 
             const $component = $('.govuk-footer');
             const $custom = $component.find('.govuk-footer__meta-custom');
@@ -65,11 +65,11 @@ describe('hmpoFooter', () => {
         });
 
         it('renders custom licence text', () => {
-            const $ = render('hmpoFooter', {
+            const $ = render({ component: 'hmpoFooter', params: {
                 licence: {
                     text: 'GOV.UK Licence'
                 }
-            });
+            }});
 
             const $component = $('.govuk-footer');
             const $custom = $component.find('.govuk-footer__licence-description');
@@ -77,11 +77,11 @@ describe('hmpoFooter', () => {
         });
 
         it('renders custom licence text', () => {
-            const $ = render('hmpoFooter', {
+            const $ = render({ component: 'hmpoFooter', params: {
                 licence: {
                     html: 'GOV.UK Licence'
                 }
-            });
+            }});
 
             const $component = $('.govuk-footer');
             const $custom = $component.find('.govuk-footer__licence-description');
@@ -89,7 +89,7 @@ describe('hmpoFooter', () => {
         });
 
         it('renders attributes on meta links', () => {
-            const $ = render('hmpoFooter', {
+            const $ = render({ component: 'hmpoFooter', params: {
                 meta: {
                     items: [
                         {
@@ -102,7 +102,7 @@ describe('hmpoFooter', () => {
                         }
                     ]
                 }
-            });
+            }});
 
             const $metaLink = $('.govuk-footer__meta .govuk-footer__link');
             expect($metaLink.attr('data-attribute')).equal('my-attribute');
@@ -113,7 +113,7 @@ describe('hmpoFooter', () => {
     describe('navigation', () => {
 
         it('renders attributes on links', () => {
-            const $ = render('hmpoFooter', {
+            const $ = render({ component: 'hmpoFooter', params: {
                 navigation: [
                     {
                         items: [
@@ -128,7 +128,7 @@ describe('hmpoFooter', () => {
                         ]
                     }
                 ]
-            });
+            }});
             const $navigationLink = $('.govuk-footer__list .govuk-footer__link');
             expect($navigationLink.attr('data-attribute')).equal('my-attribute');
             expect($navigationLink.attr('data-attribute-2')).equal('my-attribute-2');

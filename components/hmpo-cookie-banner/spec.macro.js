@@ -2,16 +2,16 @@
 
 describe('hmpoCookieBanner', () => {
     it('renders with text', () => {
-        const $ = render('hmpoCookieBanner', { text: 'my text <br>' });
+        const $ = render({ component: 'hmpoCookieBanner', params: { text: 'my text <br>' } });
 
         const $component = $('.hmpo-cookie-banner .hmpo-cookie-banner__message');
-        expect($component.html()).to.equal('my text &lt;br&gt;');
+        expect(cleanHtml($component)).to.equal('my text &lt;br&gt;');
     });
 
     it('renders with html', () => {
-        const $ = render('hmpoCookieBanner', { html: 'my text <br>' });
+        const $ = render({ component: 'hmpoCookieBanner', params: { html: 'my text <br>' } });
 
         const $component = $('.hmpo-cookie-banner .hmpo-cookie-banner__message');
-        expect($component.html()).to.equal('my text <br>');
+        expect(cleanHtml($component)).to.equal('my text <br>');
     });
 });
