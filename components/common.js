@@ -3,6 +3,8 @@
 (function (scope, window) {
 
     window.hmpoNodeListForEach = function (nodes, callback) {
+        if (!nodes) return;
+
         if (window.NodeList.prototype.forEach) {
             return nodes.forEach(callback);
         }

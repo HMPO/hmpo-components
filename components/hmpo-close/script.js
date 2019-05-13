@@ -6,7 +6,7 @@
     if (!window.opener || !window.close) return;
 
     if (window.opener && window.close) {
-        var $closeButtons = scope.querySelector('[data-module="hmpo-close"]');
+        var $closeButtons = scope.querySelectorAll('[data-module="hmpo-close"]');
 
         window.hmpoNodeListForEach($closeButtons, function (element) {
             element.style.display = 'block';
