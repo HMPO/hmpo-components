@@ -1,6 +1,6 @@
 {
   "name": "hmpo-components",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "description": "Component wrappers for wizard fields",
   "main": "index.js",
   "scripts": {
