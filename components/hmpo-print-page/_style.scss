@@ -12,6 +12,7 @@
 }
 
 @media print {
+    footer,
     .hmpo-print-page,
     .govuk-back-link,
     .govuk-phase-banner {
@@ -19,7 +20,11 @@
     }
 
     a[href^="/"]:after {
-        content: " (${site_url}" attr(href) ")" !important;
+        @if(variable-exists(site-url)) {
+            content: " (" + $site-url attr(href) ")" !important;
+        } else {
+            content: " (" attr(href) ")" !important;
+        }
     }
 
     p a, p a:visited, li a, li a:visited {
