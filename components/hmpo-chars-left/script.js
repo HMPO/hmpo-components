@@ -42,11 +42,8 @@
         var templateHtml = element.getAttribute('data-chars-left-template');
         var showAt = parseInt(element.getAttribute('data-chars-left-showat'), 10);
 
-        var paragraph = document.createElement('P');
-        element.appendChild(paragraph);
-
         var handler = throttle(function () {
-            charsleftHandler(input, paragraph, max, defaultHtml, templateHtml, showAt);
+            charsleftHandler(input, element, max, defaultHtml, templateHtml, showAt);
         }, 50);
 
         window.hmpoOn('keypress', input, handler); // handle new char
