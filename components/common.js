@@ -13,9 +13,13 @@
         }
     };
 
+    window.hmpoOn = function (name, element, handler) {
+        if (element.addEventListener) element.addEventListener(name, handler);
+        else element['on' + name] = handler;
+    };
+
     window.hmpoOnClick = function (element, handler) {
-        if (element.addEventListener) element.addEventListener('click', handler);
-        else element.onclick = handler;
+        return window.hmpoOn('click', element, handler);
     };
 
     window.hmpoPreventDefault = function (fn) {

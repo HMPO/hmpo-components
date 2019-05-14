@@ -41,6 +41,13 @@ describe('hmpoTextarea', () => {
         expect($component.text()).to.equal('abc123');
     });
 
+    it('renders with rows', () => {
+        const $ = render({ component: 'hmpoTextarea', params: { id: 'my-input', rows: 10 }, ctx: true }, locals);
+
+        const $component = $('.govuk-textarea');
+        expect($component.attr('rows')).to.equal('10');
+    });
+
     it('renders with aria-required', () => {
         const $ = render({ component: 'hmpoTextarea', params: { id: 'my-input' }, ctx: true }, locals);
 

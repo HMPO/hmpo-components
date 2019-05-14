@@ -1,0 +1,8 @@
+
+{% macro hmpoCharsLeft(params) %}
+    <div class="hmpo-chars-left"
+        data-module="hmpo-chars-left"
+        data-chars-left-input="{{params.id}}"
+        data-chars-left-template="{{ params.templateHtml if params.templateHtml else "{count} character{s} remaining" }}"
+        data-chars-left-default="{{ params.html if params.html else "{max} characters maximum" }}"></div>
+{% endmacro %}
