@@ -52,6 +52,7 @@ Components can be called as macros:
 
 ### Available components:
 ```
+hmpoCharsLeft(params);
 hmpoCheckboxes(ctx, params);
 hmpoCircleStep(params);
 hmpoCircleStepList(params);
