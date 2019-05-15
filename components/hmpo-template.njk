@@ -1,6 +1,6 @@
 {% extends "template.njk" %}
 
-{% set hmpoTitle = translate(hmpoTitleKey or "pages." + (hmpoPageKey | default("default")) + ".title") %}
+{% set hmpoTitle = hmpoTitle or translate(hmpoTitleKey or "pages." + (hmpoPageKey | default("default")) + ".title") %}
 {% set govukServiceName = translate(govukServiceNameKey or "govuk.serviceName") %}
 {% set assetPath = assetPath | default(assetsPath) | default("/public") %}
 
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-    {{ (translate("govuk.error", { default: "Error" }) + ": ") if errorlist.length }}{{ hmpoTitle }} – {{ govukServiceName }} – GOV.UK
+    {{ (translate("govuk.error", { default: "Error" }) + ": ") if errorlist.length }}{{ hmpoTitle }} {{ "– " + govukServiceName if govukServiceName }} – GOV.UK
 {% endblock %}
 
 {% from "skip-link/macro.njk" import govukSkipLink %}

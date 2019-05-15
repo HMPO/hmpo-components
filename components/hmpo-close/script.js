@@ -5,13 +5,22 @@
 
     if (!window.opener || !window.close) return;
 
-    if (window.opener && window.close) {
-        var $closeButtons = scope.querySelectorAll('[data-module="hmpo-close"]');
+    var $closeButtonDivs = scope.querySelectorAll('[data-module="hmpo-close"]');
 
-        window.hmpoNodeListForEach($closeButtons, function (element) {
-            element.style.display = 'block';
-            window.hmpoOnClick(element, window.hmpoPreventDefault(window.close));
+    window.hmpoNodeListForEach($closeButtonDivs, function (element) {
+        var html = element.getAttribute('data-button');
+        element.innerHTML = html;
+    });
+
+    setTimeout(function () {
+        var close = window.hmpoPreventDefault(function () {
+            window.close();
         });
-    }
+
+        var $closeButtons = scope.querySelectorAll('[data-module="hmpo-close"] button');
+        window.hmpoNodeListForEach($closeButtons, function (element) {
+            window.hmpoOnClick(element, close);
+        });
+    });
 
 })(document, window);
