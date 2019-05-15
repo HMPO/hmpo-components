@@ -59,6 +59,7 @@ hmpoCircleStepList(params);
 hmpoClose(params);
 hmpoCookieBanner(params);
 hmpoDate(ctx, params)
+hmpoDetails(params)
 hmpoForm(ctx, params)
 hmpoHtml(obj)
 hmpoNumber(ctx, params)
@@ -69,6 +70,7 @@ hmpoSelect(ctx, params)
 hmpoSubmit(ctx, params)
 hmpoText(ctx, params)
 hmpoTextarea(ctx, params)
+hmpoWarningText(params)
 
 ```
 
