@@ -40,6 +40,7 @@ describe('hmpoRadios', () => {
         const $item1 = $('.govuk-radios__input').eq(0);
         expect($item1.attr('name')).to.equal('my-input');
         expect($item1.attr('value')).to.equal('a');
+        expect($item1.attr('id')).to.equal('my-input-a');
         expect($item1.attr('checked')).to.be.undefined;
         const $itemlabel1 = $('.govuk-radios__label').eq(0);
         expect($itemlabel1.text().trim()).to.equal('[fields.my-input.items.a.label]');
@@ -47,6 +48,7 @@ describe('hmpoRadios', () => {
         const $item2 = $('.govuk-radios__input').eq(1);
         expect($item2.attr('name')).to.equal('my-input');
         expect($item2.attr('value')).to.equal('b');
+        expect($item2.attr('id')).to.equal('my-input-b');
         expect($item2.attr('checked')).to.equal('checked');
         const $itemlabel2 = $('.govuk-radios__label').eq(1);
         expect($itemlabel2.text().trim()).to.equal('[fields.my-input.items.b.label]');

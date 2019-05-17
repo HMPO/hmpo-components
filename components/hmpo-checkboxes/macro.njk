@@ -2,7 +2,7 @@
     {%- set params = hmpoGetParams(ctx, params, base) %}
 
     {%- set value = hmpoGetValue(ctx, params) %}
-    {%- set items = hmpoGetItems(ctx, params, value) %}
+    {%- set items = hmpoGetItems(ctx, params, value, false, true) %}
 
     {%- if items.length === 0 %}
         {%- set items = [{

@@ -26,7 +26,7 @@
         attributes: hmpoGetAttributes(ctx, params, {
             "aria-required": required
         }),
-        items: hmpoGetItems(ctx, params, value, required)
+        items: hmpoGetItems(ctx, params, value, required, false)
     } %}
 
     {%- from "select/macro.njk" import govukSelect %}
