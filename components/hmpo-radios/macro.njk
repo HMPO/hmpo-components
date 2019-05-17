@@ -26,7 +26,7 @@
         type: params.type,
         classes: classes,
         formGroup: params.formGroup,
-        items: hmpoGetItems(ctx, params, value)
+        items: hmpoGetItems(ctx, params, value, false, true)
     } %}
 
     {%- from "radios/macro.njk" import govukRadios %}

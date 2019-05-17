@@ -41,6 +41,7 @@ describe('hmpoCheckboxes', () => {
 
         const $component = $('.govuk-checkboxes__input');
         expect($component.attr('name')).to.equal('my-input');
+        expect($component.attr('id')).to.equal('my-input');
         expect($component.attr('checked')).to.equal('checked');
     });
 
@@ -59,6 +60,7 @@ describe('hmpoCheckboxes', () => {
         const $item1 = $('.govuk-checkboxes__input').eq(0);
         expect($item1.attr('name')).to.equal('my-input');
         expect($item1.attr('value')).to.equal('a');
+        expect($item1.attr('id')).to.equal('my-input-a');
         expect($item1.attr('checked')).to.equal('checked');
         const $itemlabel1 = $('.govuk-checkboxes__label').eq(0);
         expect($itemlabel1.text().trim()).to.equal('[fields.my-input.items.a.label]');
@@ -66,6 +68,7 @@ describe('hmpoCheckboxes', () => {
         const $item2 = $('.govuk-checkboxes__input').eq(1);
         expect($item2.attr('name')).to.equal('my-input');
         expect($item2.attr('value')).to.equal('b');
+        expect($item2.attr('id')).to.equal('my-input-b');
         expect($item2.attr('checked')).to.be.undefined;
         const $itemlabel2 = $('.govuk-checkboxes__label').eq(1);
         expect($itemlabel2.text().trim()).to.equal('[fields.my-input.items.b.label]');
