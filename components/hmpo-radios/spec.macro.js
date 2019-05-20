@@ -44,6 +44,7 @@ describe('hmpoRadios', () => {
         expect($item1.attr('checked')).to.be.undefined;
         const $itemlabel1 = $('.govuk-radios__label').eq(0);
         expect($itemlabel1.text().trim()).to.equal('[fields.my-input.items.a.label]');
+        expect($itemlabel1.attr('id')).to.equal('my-input-a-label');
 
         const $item2 = $('.govuk-radios__input').eq(1);
         expect($item2.attr('name')).to.equal('my-input');
@@ -52,6 +53,7 @@ describe('hmpoRadios', () => {
         expect($item2.attr('checked')).to.equal('checked');
         const $itemlabel2 = $('.govuk-radios__label').eq(1);
         expect($itemlabel2.text().trim()).to.equal('[fields.my-input.items.b.label]');
+        expect($itemlabel2.attr('id')).to.equal('my-input-b-label');
     });
 
     it('renders items with conditionals', () => {
