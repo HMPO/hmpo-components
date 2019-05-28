@@ -10,6 +10,7 @@
                 attributes: item.attributes | default(params.itemAttributes),
                 circleClasses: item.circleClasses | default(params.circleClasses),
                 html: item.html if isObject(item) else item,
+                title: item.title,
                 text: item.text
             }) }}
             {%- set itemNumber = itemNumber + 1 %}

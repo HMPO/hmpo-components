@@ -18,7 +18,9 @@ describe('hmpoCircleStepList', () => {
                     circleClasses: 'overridden circleClasses',
                     text: 'overridden'
                 },
-                'string html <br>'
+                'string html <br>',
+                { title: 'title', text: 'text <br>' },
+
             ]
         }});
 
@@ -45,5 +47,8 @@ describe('hmpoCircleStepList', () => {
 
         const $li4 = $($li.get(4));
         expect(cleanHtml($li4)).to.equal('<span class="circle-step circleClasses">5</span><p>string html <br></p>');
+        const $li5 = $($li.get(5));
+        expect(cleanHtml($li5)).to.equal('<span class="circle-step circleClasses">6</span><h2>title</h2><p>text &lt;br&gt;</p>');
+
     });
 });
