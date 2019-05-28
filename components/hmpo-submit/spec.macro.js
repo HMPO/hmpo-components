@@ -19,4 +19,9 @@ describe('hmpoSubmit', () => {
         expect($component.attr('id')).to.equal('myid');
         expect($component.attr('name')).to.equal('myid');
     });
+    it('renders with button class', () => {
+        const $ = render({ component: 'hmpoSubmit', params: { id: 'myid' }, ctx: true }, locals);
+        const $component = $('.govuk-button');
+        expect($component.attr('class')).to.equal('govuk-button button');
+    });
 });

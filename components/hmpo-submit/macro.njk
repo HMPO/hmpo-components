@@ -11,7 +11,7 @@
         href: params.href,
         type: params.type,
         disabled: params.disabled,
-        classes: params.classes,
+        classes: params.classes | default("button"),
         attributes: hmpoGetAttributes(ctx, params, { id: params.id })
     } %}
 
