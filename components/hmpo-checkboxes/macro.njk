@@ -10,6 +10,7 @@
         {%- set items = [{
             id: params.id,
             name: params.id,
+            value: params.value | default("true"),
             label: merge(
                 { attributes: { id: params.id + "-label" } },
                 label

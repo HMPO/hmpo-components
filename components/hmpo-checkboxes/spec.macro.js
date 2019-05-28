@@ -41,11 +41,32 @@ describe('hmpoCheckboxes', () => {
 
         const $component = $('.govuk-checkboxes__input');
         expect($component.attr('name')).to.equal('my-input');
+        expect($component.attr('value')).to.equal('true');
         expect($component.attr('id')).to.equal('my-input');
         expect($component.attr('checked')).to.equal('checked');
         const $componentlabel = $('.govuk-checkboxes__label');
         expect($componentlabel.text().trim()).to.equal('[fields.my-input.label]');
         expect($componentlabel.attr('id')).to.equal('my-input-label');
+    });
+
+    it('renders single checkbox with custom value', () => {
+        locals = {
+            options: {
+                fields: {
+                    'my-input': {
+                        validate: 'required'
+                    }
+                }
+            },
+            values: {
+                'my-input': true
+            }
+        };
+        const $ = render({ component: 'hmpoCheckboxes', params: { id: 'my-input', value: 'foobar' }, ctx: true }, locals);
+
+        const $component = $('.govuk-checkboxes__input');
+        expect($component.attr('name')).to.equal('my-input');
+        expect($component.attr('value')).to.equal('foobar');
     });
 
     it('renders with legend and hint', () => {
