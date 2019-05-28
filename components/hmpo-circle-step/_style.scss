@@ -1,40 +1,43 @@
-
-li > .circle-step {
-    float: left;
-    margin-top: -0.2em;
-}
-
-li > .circle-step + p {
-    margin-left: 1.9em;
-}
-
 .circle-step {
-    display: inline-block;
-    @include border-radius(50%);
 
-    background: govuk-colour("black");
-    color: govuk-colour("white");
+    & > p, & > h2 {
+        margin-left: 32px;
+    }
 
-    min-width: 24px;
-    min-height: 24px;
-    height: 24px;
-    max-height: 24px;
+    & > h2 {
+        margin-bottom: 0.3em;
+    }
 
-    font-size: 12px;
-    line-height: 26px;
-    font-weight: bold;
-    text-align: center;
-}
+    .circle-step-circle {
+        float: left;
+        margin-top: -0.2em;
+        display: inline-block;
+        @include border-radius(50%);
 
-li > .circle-step-large + p {
-    margin-left: 2.5em;
-}
+        background: govuk-colour("black");
+        color: govuk-colour("white");
 
-.circle-step-large {
-    font-size: 19px;
-    line-height: 40px;
-    min-width: 38px;
-    min-height: 38px;
-    height: 38px;
-    max-height: 38px;
+        min-width: 24px;
+        min-height: 24px;
+        height: 24px;
+        max-height: 24px;
+
+        font-size: 12px;
+        line-height: 26px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    &.circle-step-large > p, &.circle-step-large > h2 {
+        margin-left: 43px;
+    }
+
+    &.circle-step-large > .circle-step-circle {
+        font-size: 19px;
+        line-height: 40px;
+        min-width: 38px;
+        min-height: 38px;
+        height: 38px;
+        max-height: 38px;
+    }
 }

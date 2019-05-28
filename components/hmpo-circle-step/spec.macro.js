@@ -11,7 +11,7 @@ describe('hmpoCircleStep', () => {
         }});
 
         const $component = $('body');
-        expect(cleanHtml($component)).to.equal('<li class="classes" attrib1="value1"><span class="circle-step circleClasses">4</span><p>my text</p></li>');
+        expect(cleanHtml($component)).to.equal('<li class="circle-step classes" attrib1="value1"><span class="circle-step-circle circleClasses">4</span><p>my text</p></li>');
     });
 
     it('renders with text', () => {

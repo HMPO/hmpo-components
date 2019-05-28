@@ -1,0 +1,35 @@
+.flash-card {
+    padding: $govuk-gutter;
+
+    @include govuk-media-query($from: desktop) {
+        margin-top: em(45, 36);
+        padding: $govuk-gutter * 2;
+    }
+    background:  govuk-colour("blue");
+    color: govuk-colour("white");
+    .govuk-button {
+        background: govuk-colour("white");
+        color: govuk-colour("blue");
+        padding-right: 3.6em;
+        padding-left: 3.6em;
+        @include govuk-typography-weight-bold;
+        box-shadow: 0 $govuk-border-width-form-element 0 darken(govuk-colour("blue"), 25%);
+        margin-top: $govuk-gutter;
+        &:link,
+        &:hover,
+        &:focus,
+        &:visited {
+            color: govuk-colour("blue");
+        }
+    }
+    .circle-step-circle {
+        color: govuk-colour("blue");
+        background: govuk-colour("white");
+    }
+    h2, h1, p, a:visited, a:link, span, summary, summary:hover, summary:active, summary:focus {
+        color: govuk-colour("white");
+    }
+    .govuk-details__text {
+        border-left-color: govuk-colour("white");
+    }
+}
