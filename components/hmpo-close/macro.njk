@@ -1,0 +1,10 @@
+
+{% macro hmpoClose(params) %}
+    {%- from "button/macro.njk" import govukButton %}
+    {%- set buttonHtml = "  " + govukButton({
+        type: "button",
+        html: params.html,
+        text: params.text | default("Close")
+    }) | replace("\n", "") %}
+    <div data-module="hmpo-close" data-button="{{ buttonHtml | escape }}"></div>
+{% endmacro %}

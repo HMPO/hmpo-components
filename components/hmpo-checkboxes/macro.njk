@@ -2,13 +2,20 @@
     {%- set params = hmpoGetParams(ctx, params, base) %}
 
     {%- set value = hmpoGetValue(ctx, params) %}
-    {%- set items = hmpoGetItems(ctx, params, value) %}
 
-    {%- if items.length === 0 %}
+    {%- if params.items %}
+        {%- set items = hmpoGetItems(ctx, params, value, false, true) %}
+    {% else %}
+        {%- set label = hmpoGetOptions(ctx, params, "label") %}
         {%- set items = [{
             id: params.id,
             name: params.id,
-            label: hmpoGetOptions(ctx, params, "label"),
+            label: merge(
+                { attributes: { id: params.id + "-label" } },
+                label
+            ),
+            html: label.html,
+            text: label.text,
             conditional: params.conditional,
             checked: value,
             attributes: hmpoGetAttributes(ctx, params, {
@@ -17,9 +24,17 @@
         ]} %}
     {% endif %}
 
+    {%- set pageHeading = {
+        legend: {
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    } if params.isPageHeading %}
+
     {%- set args = {
         idPrefix: params.id,
         fieldset: merge(
+            pageHeading,
             {
                 legend: hmpoGetOptions(ctx, params, "legend"),
                 attributes: { id: params.id + '-fieldset' }

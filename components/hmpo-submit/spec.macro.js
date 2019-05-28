@@ -8,13 +8,13 @@ describe('hmpoSubmit', () => {
     });
 
     it('renders with localisation text', () => {
-        const $ = render('hmpoSubmit', { key: 'myButtonTextKey' }, locals);
+        const $ = render({ component: 'hmpoSubmit', params: { key: 'myButtonTextKey' }, ctx: true }, locals);
         const $component = $('.govuk-button');
         expect($component.text()).to.contain('buttons.myButtonTextKey');
     });
 
     it('renders with id', () => {
-        const $ = render('hmpoSubmit', { id: 'myid' }, locals);
+        const $ = render({ component: 'hmpoSubmit', params: { id: 'myid' }, ctx: true }, locals);
         const $component = $('.govuk-button');
         expect($component.attr('id')).to.equal('myid');
         expect($component.attr('name')).to.equal('myid');

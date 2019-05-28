@@ -4,10 +4,16 @@
     {%- set value = hmpoGetValue(ctx, params) %}
     {%- set required = hmpoGetValidatorAttribute(ctx, params, "required") and true %}
 
+    {%- set pageHeading = {
+        isPageHeading: true,
+        classes: "govuk-label--l"
+    } if params.isPageHeading %}
+
     {%- set args = {
         id: params.id,
         name: params.id,
         label: merge(
+            pageHeading,
             { attributes: { id: params.id + "-label" } },
             hmpoGetOptions(ctx, params, "label")
         ),
@@ -20,7 +26,7 @@
         attributes: hmpoGetAttributes(ctx, params, {
             "aria-required": required
         }),
-        items: hmpoGetItems(ctx, params, value, required)
+        items: hmpoGetItems(ctx, params, value, required, false)
     } %}
 
     {%- from "select/macro.njk" import govukSelect %}

@@ -10,7 +10,7 @@ describe('hmpoForm', () => {
     });
 
     it('renders with default action and method', () => {
-        const $ = render('hmpoForm', {}, locals);
+        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
 
         const $component = $('form');
         expect($component.attr('action')).to.equal('');
@@ -18,7 +18,7 @@ describe('hmpoForm', () => {
     });
 
     it('renders with overridden action and method', () => {
-        const $ = render('hmpoForm', { action: '/path', method: 'GET' }, locals);
+        const $ = render({ component: 'hmpoForm', params: { action: '/path', method: 'GET' }, ctx: true }, locals);
 
         const $component = $('form');
         expect($component.attr('action')).to.equal('/path');
@@ -26,15 +26,15 @@ describe('hmpoForm', () => {
     });
 
     it('renders caller children', () => {
-        const children = '<span id="child"></span>';
-        const $ = render('hmpoForm', {}, locals, children);
+        const caller = '<span id="child"></span>';
+        const $ = render({ component: 'hmpoForm', params: {}, caller, ctx: true }, locals);
 
         const $children = $('form #child');
         expect($children.length).to.equal(1);
     });
 
     it('renders csrf hidden input', () => {
-        const $ = render('hmpoForm', {}, locals);
+        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
 
         const $csrf = $('input');
         expect($csrf.attr('type')).to.equal('hidden');
@@ -44,7 +44,7 @@ describe('hmpoForm', () => {
 
     it('does not render csrf hidden input if no value supplied in locals', () => {
         delete locals['csrf-token'];
-        const $ = render('hmpoForm', {}, locals);
+        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
 
         const $csrf = $('input');
         expect($csrf.length).to.equal(0);

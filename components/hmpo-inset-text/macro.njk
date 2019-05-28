@@ -1,0 +1,5 @@
+
+{% macro hmpoInsetText(params) %}
+    {% from "inset-text/macro.njk" import govukInsetText %}
+    {{ govukInsetText(merge(params, { html: caller() if caller else params.html })) }}
+{% endmacro %}

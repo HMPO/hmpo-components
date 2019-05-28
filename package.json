@@ -1,6 +1,6 @@
 {
   "name": "hmpo-components",
-  "version": "1.7.0",
+  "version": "1.17.0",
   "description": "Component wrappers for wizard fields",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test:lint": "eslint .",
     "test:unit": "istanbul cover _mocha -- --recursive test 'components/**/spec*'",
     "test:cover": "istanbul check-coverage",
-    "prepare": "uglifyjs components/**/script.js -o all.js"
+    "prepare": "uglifyjs components/common.js components/**/script.js -o all.js"
   },
   "repository": {
     "type": "git",
@@ -34,16 +34,18 @@
     "moment": "^2.13.0",
     "underscore": "^1.8.3"
   },
+  "peerDependencies": {
+    "govuk-frontend": ">=2.11.0",
+    "nunjucks": ">=3"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
-    "cheerio": "^1.0.0-rc.3",
     "eslint": "^5.16.0",
-    "govuk-frontend": "^2.10.0",
+    "hmpo-nunjucks-test": "^1.1.0",
     "istanbul": "^0.4.3",
-    "mocha": "^6.1.3",
-    "nunjucks": "^3.2.0",
+    "mocha": "^6.1.4",
     "sinon": "^7.3.2",
     "sinon-chai": "^3.0.0",
-    "uglify-js": "^3.5.4"
+    "uglify-js": "^3.5.12"
   }
 }

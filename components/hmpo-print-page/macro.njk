@@ -1,0 +1,6 @@
+
+{% macro hmpoPrintPage(params) %}
+<div class="hmpo-print-page">
+    <a data-module="hmpo-print-page" rel="alternate" href="#" class="govuk-link">{{ params.html | safe if params.html else params.text | default("Print page") }}</a>
+</div>
+{% endmacro %}

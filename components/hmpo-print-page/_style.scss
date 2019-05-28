@@ -1,0 +1,33 @@
+.hmpo-print-page {
+    margin-top: 2em;
+    margin-bottom: 2em;
+
+    a {
+        background-image: govuk-image-url("icon-print.png");
+        background-repeat: no-repeat;
+        background-position: 0 50%;
+        padding: 0.5em 0 0.5em 28px;
+        background-size: 16px 18px;
+    }
+}
+
+@media print {
+    footer,
+    .hmpo-print-page,
+    .govuk-back-link,
+    .govuk-phase-banner {
+        display: none !important;
+    }
+
+    a[href^="/"]:after {
+        @if(variable-exists(site-url)) {
+            content: " (" + $site-url attr(href) ")" !important;
+        } else {
+            content: " (" attr(href) ")" !important;
+        }
+    }
+
+    p a, p a:visited, li a, li a:visited {
+        color: inherit !important;
+    }
+}

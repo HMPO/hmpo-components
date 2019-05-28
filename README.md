@@ -52,16 +52,27 @@ Components can be called as macros:
 
 ### Available components:
 ```
+hmpoCharsLeft(params);
 hmpoCheckboxes(ctx, params);
+hmpoCircleStep(params);
+hmpoCircleStepList(params);
+hmpoClose(params);
+hmpoCookieBanner(params);
 hmpoDate(ctx, params)
+hmpoDetails(params)
 hmpoForm(ctx, params)
+hmpoHtml(obj)
+hmpoInsetText(params)
 hmpoNumber(ctx, params)
 hmpoPhone(ctx, params)
+hmpoPrintPage(params)
 hmpoRadios(ctx, params)
 hmpoSelect(ctx, params)
 hmpoSubmit(ctx, params)
 hmpoText(ctx, params)
 hmpoTextarea(ctx, params)
+hmpoWarningText(params)
+
 ```
 
 ### Field parameters
@@ -88,6 +99,7 @@ time
 currency
 currencyOrFree
 url
+filter
 ```
 
 ### `date` filter

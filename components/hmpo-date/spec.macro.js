@@ -16,7 +16,7 @@ describe('hmpoDate', () => {
     });
 
     it('renders inputs with ids and names', () => {
-        const $ = render('hmpoDate', { id: 'my-input' }, locals);
+        const $ = render({ component: 'hmpoDate', params: { id: 'my-input' }, ctx: true }, locals);
 
         const $day = $('.govuk-input').eq(0);
         expect($day.attr('id')).to.equal('my-input-day');
@@ -33,8 +33,15 @@ describe('hmpoDate', () => {
     });
 
     it('sets id on fieldset', () => {
-        const $ = render('hmpoDate', { id: 'my-input' }, locals);
+        const $ = render({ component: 'hmpoDate', params: { id: 'my-input' }, ctx: true }, locals);
         const $fieldset = $('.govuk-fieldset');
         expect($fieldset.attr('id')).to.equal('my-input-fieldset');
+    });
+
+    it('renders legend as header', () => {
+        const $ = render({ component: 'hmpoDate', params: { id: 'my-input', isPageHeading: true }, ctx: true }, locals);
+        const $legend = $('.govuk-fieldset__legend');
+        expect($legend.attr('class')).to.equal('govuk-fieldset__legend govuk-fieldset__legend--l');
+        expect(cleanHtml($legend)).to.equal('<h1 class="govuk-fieldset__heading">[fields.my-input.legend]</h1>');
     });
 });
