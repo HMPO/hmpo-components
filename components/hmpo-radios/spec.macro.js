@@ -58,13 +58,18 @@ describe('hmpoRadios', () => {
 
     it('renders items with conditionals', () => {
         const $ = render({ component: 'hmpoRadios', ctx: true, params: { id: 'my-input', conditionals: {
-            a: 'a <b>string</b>',
-            b: { html: 'b <b>object</b>' }
+            a: {id: 'a', html: 'a <b>string</b>'},
+            b: {id: 'b', html: 'b <b>object</b>' }
         } }}, locals);
 
+        const $radiosControl = $('.radios-with-conditionals').attr('data-module');
+        expect($radiosControl).to.equal('radios');
+        const $radiosCondition1 = $('.govuk-inset-text').eq(0).attr('id');
+        expect($radiosCondition1).to.equal('a');
         const $item1 = $('.govuk-radios__conditional').eq(0);
         expect(cleanHtml($item1)).to.equal('a <b>string</b>');
-
+        const $radiosCondition2 = $('.govuk-inset-text').eq(1).attr('id');
+        expect($radiosCondition2).to.equal('b');
         const $item2 = $('.govuk-radios__conditional').eq(1);
         expect(cleanHtml($item2)).to.equal('b <b>object</b>');
     });

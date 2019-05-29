@@ -30,5 +30,18 @@
     } %}
 
     {%- from "radios/macro.njk" import govukRadios %}
-    {{- govukRadios(args) }}
+    {% if params.conditionals %}
+        <div data-module="radios" class="radios-with-conditionals">
+            {{- govukRadios(args) }}
+            {% for key, conditional in params.conditionals %}
+                {% from "hmpo-inset-text/macro.njk" import hmpoInsetText %}
+                {% call hmpoInsetText({ id: conditional.id, classes: "govuk-radios__conditional" }) %}
+                    {{ conditional.html | safe }}
+                {% endcall %}
+            {% endfor %}
+        </div>
+    {% else %}
+        {{- govukRadios(args) }}
+    {% endif %}
+
 {% endmacro %}
