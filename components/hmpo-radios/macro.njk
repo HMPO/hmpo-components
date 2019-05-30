@@ -30,7 +30,7 @@
     } %}
 
     {%- from "radios/macro.njk" import govukRadios %}
-    {% if params.conditionals %}
+    {% if params.conditionals  and params.inline %}
         <div data-module="radios" class="radios-with-conditionals">
             {{- govukRadios(args) }}
             {% for key, conditional in params.conditionals %}
