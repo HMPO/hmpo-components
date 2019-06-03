@@ -94,6 +94,28 @@ describe('hmpoRadios', () => {
         expect(cleanHtml($item2)).to.equal('b <b>object</b>');
     });
 
+    it('renders items with conditionals non inset', () => {
+        const $ = render({
+            component: 'hmpoRadios', ctx: true, params: {
+                id: 'my-input', inline: true, conditionals: {
+                    a: {id: 'a', html: 'a <b>string</b>', removeInset: true},
+                    b: {id: 'b', html: 'b <b>object</b>', removeInset: true}
+                }
+            }
+        }, locals);
+
+        const $radiosControl = $('.radios-with-conditionals').attr('data-module');
+        expect($radiosControl).to.equal('radios');
+        const $radiosCondition1 = $('.govuk-inset-text').eq(0).length;
+        expect($radiosCondition1).to.equal(0);
+        const $item1 = $('#a');
+        expect(cleanHtml($item1)).to.equal('a <b>string</b>');
+        const $radiosCondition2 = $('.govuk-inset-text').eq(1).length;
+        expect($radiosCondition2).to.equal(0);
+        const $item2 = $('#b');
+        expect(cleanHtml($item2)).to.equal('b <b>object</b>');
+    });
+
     it('renders radio buttons with header', () => {
         const $ = render({component: 'hmpoRadios', params: {id: 'my-input', isPageHeading: true}, ctx: true}, locals);
         const $legend = $('.govuk-fieldset__legend');
