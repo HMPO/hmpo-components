@@ -46,7 +46,8 @@
             {% from "back-link/macro.njk" import govukBackLink %}
             {{ govukBackLink({
                 text: translate("govuk.backLink"),
-                href: backLink
+                href: backLink,
+                attributes: { id: "back" }
             }) }}
         {% endif %}
     {% endblock %}
