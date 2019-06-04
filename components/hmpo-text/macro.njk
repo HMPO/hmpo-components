@@ -27,7 +27,7 @@
             "aria-required": hmpoGetValidatorAttribute(ctx, params, "required"),
             "min": hmpoGetValidatorAttribute(ctx, params, "min", 0),
             "max": hmpoGetValidatorAttribute(ctx, params, "max", 0),
-            "maxlength": hmpoGetValidatorAttribute(ctx, params, "maxlength", 0)
+            "maxlength": hmpoGetValidatorAttribute(ctx, params, "maxlength", 0) or hmpoGetValidatorAttribute(ctx, params, "exactlength", 0)
         })
     } %}
 
