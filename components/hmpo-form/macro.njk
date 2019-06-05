@@ -3,7 +3,7 @@
     {%- set params = hmpoGetParams(ctx, params, base) %}
 
     {%- set attributes = hmpoGetAttributes(ctx, params, {
-        action: params.action | default(""),
+        action: params.action | default(ctx("action")) | default(""),
         method: params.method | default("POST"),
         autocomplete: "off",
         novalidate: "true",
