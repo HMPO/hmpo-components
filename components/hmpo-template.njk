@@ -44,11 +44,10 @@
     {% block backLink %}
         {% if backLink %}
             {% from "back-link/macro.njk" import govukBackLink %}
-            {{ govukBackLink({
+            <span id="back">{{ govukBackLink({
                 text: translate("govuk.backLink"),
-                href: backLink,
-                attributes: { id: "back" }
-            }) }}
+                href: backLink
+            }) }}</span>
         {% endif %}
     {% endblock %}
 {% endblock %}
