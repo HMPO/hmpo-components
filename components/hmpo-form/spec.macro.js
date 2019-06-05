@@ -17,6 +17,15 @@ describe('hmpoForm', () => {
         expect($component.attr('method')).to.equal('POST');
     });
 
+    it('renders with action from locals', () => {
+        locals.action = '/local/action';
+
+        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
+
+        const $component = $('form');
+        expect($component.attr('action')).to.equal('/local/action');
+    });
+
     it('renders with overridden action and method', () => {
         const $ = render({ component: 'hmpoForm', params: { action: '/path', method: 'GET' }, ctx: true }, locals);
 
