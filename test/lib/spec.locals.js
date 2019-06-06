@@ -14,7 +14,7 @@ describe('Locals', () => {
                 renderString: sinon.stub().returns('rendered')
             };
             req = {
-                translate: sinon.stub().returns('translated')
+                translate: sinon.stub().returns('translated {{local}}')
             };
             res = {
                 locals: {
@@ -60,11 +60,19 @@ describe('Locals', () => {
             it('renders the result', () => {
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', {});
-                env.renderString.should.have.been.calledWithExactly('translated', res.locals);
+                env.renderString.should.have.been.calledWithExactly('translated {{local}}', res.locals);
                 result.should.equal('rendered');
             });
 
             it('should not render if noRender option is supplied', () => {
+                locals.middleware(app, env)(req, res, next);
+                let result = res.locals.translate('key', { noRender: true });
+                env.renderString.should.not.have.been.called;
+                result.should.equal('translated {{local}}');
+            });
+
+            it('should not render if no braces are present in the result', () => {
+                req.translate.returns('translated');
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', { noRender: true });
                 env.renderString.should.not.have.been.called;
@@ -93,9 +101,9 @@ describe('Locals', () => {
                     .onCall(3).returns('fourth')
                     .onCall(4).returns('fifth');
                 req.translate.returns([
-                    'item',
-                    { 'key': 'value' },
-                    [ 1, 2, 3 ]
+                    'item {{}}',
+                    { 'key': 'value {{}}' },
+                    [ '{{a}}', '{{b}}', '{{c}}', 'd' ]
                 ]);
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key');
@@ -107,7 +115,8 @@ describe('Locals', () => {
                     [
                         'third',
                         'fourth',
-                        'fifth'
+                        'fifth',
+                        'd'
                     ]
                 ]);
             });
