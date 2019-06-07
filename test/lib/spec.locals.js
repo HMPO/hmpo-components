@@ -1,6 +1,7 @@
 'use strict';
 
 const locals = require('../../lib/locals');
+const { Template } = require('nunjucks');
 
 describe('Locals', () => {
     describe('middleware', () => {
@@ -11,7 +12,7 @@ describe('Locals', () => {
                 locals: { appLocal: true }
             };
             env = {
-                renderString: sinon.stub().returns('rendered')
+                opts: {}
             };
             req = {
                 translate: sinon.stub().returns('translated {{local}}')
@@ -23,7 +24,12 @@ describe('Locals', () => {
                     }
                 }
             };
+            sinon.stub(Template.prototype, 'render').returns('rendered');
             next = sinon.stub();
+        });
+
+        afterEach(() => {
+            Template.prototype.render.restore();
         });
 
         it('is a function', () => {
@@ -60,14 +66,23 @@ describe('Locals', () => {
             it('renders the result', () => {
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', {});
-                env.renderString.should.have.been.calledWithExactly('translated {{local}}', res.locals);
+                Template.prototype.render.should.have.been.calledWithExactly(res.locals);
                 result.should.equal('rendered');
+            });
+
+            it('renders the result from a cached template', () => {
+                locals.middleware(app, env)(req, res, next);
+                let result1 = res.locals.translate('key', {});
+                let result2 = res.locals.translate('key', {});
+                Template.prototype.render.should.have.been.calledTwice;
+                result1.should.equal('rendered');
+                result2.should.equal('rendered');
             });
 
             it('should not render if noRender option is supplied', () => {
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', { noRender: true });
-                env.renderString.should.not.have.been.called;
+                Template.prototype.render.should.not.have.been.called;
                 result.should.equal('translated {{local}}');
             });
 
@@ -75,7 +90,7 @@ describe('Locals', () => {
                 req.translate.returns('translated');
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', { noRender: true });
-                env.renderString.should.not.have.been.called;
+                Template.prototype.render.should.not.have.been.called;
                 result.should.equal('translated');
             });
 
@@ -94,7 +109,7 @@ describe('Locals', () => {
             });
 
             it('returns deep rendered result', () => {
-                env.renderString
+                Template.prototype.render
                     .onCall(0).returns('first')
                     .onCall(1).returns('second')
                     .onCall(2).returns('third')
