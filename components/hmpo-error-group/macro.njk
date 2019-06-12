@@ -1,0 +1,28 @@
+{% macro hmpoErrorGroup(ctx, params) %}
+    {% from "error-message/macro.njk" import govukErrorMessage %}
+    {%- set translate = ctx("translate") %}
+    {% set error = hmpoGetError(ctx, {id: params.id }) %}
+
+    <div id="{{ params.id }}"
+         class="govuk-form-group hmpo-field-group{%- if params.classes %} {{ params.classes }}{% endif %}{% if error %} govuk-form-group--error{% endif %}" {%- for attribute, value in params.attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>
+
+    <legend>
+        <span id="group-legend" class="{% if params.legend.classes %}{{ params.legend.classes }}{% else %}govuk-fieldset__legend--m{% endif %}">{{ params.legend.text if params.legend.text else translate("fields[\"" + params.id + "\"].legend") }}</span>
+        {% if params.legend.hint %}<span id="{{ params.legend.hint.id }}"
+                                         class="{{ params.legend.hint.classes }}">{{ params.legend.hint.text if  params.legend.hint.text else params.legend.hint.html }}</span>{% endif %}
+        {% if error %}
+            {{ govukErrorMessage({
+                id: params.id + "-error",
+                classes: error.classes,
+                attributes: error.attributes,
+                html: error.html,
+                text: error.text,
+                visuallyHiddenText: error.visuallyHiddenText
+            }) }}
+        {% endif %}
+    </legend>
+
+    {{- params.content if params.content }}{{- caller() if caller }}
+
+    </div>
+{% endmacro %}
