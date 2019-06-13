@@ -124,4 +124,10 @@ describe('hmpoText', () => {
         expect($label.attr('class')).to.equal('govuk-input test js-nopaste');
     });
 
+    it('renders with noPaste set to false', () => {
+        const $ = render({ component: 'hmpoText', params: { id: 'my-input', isPageHeading: true, noPaste: false }, ctx: true }, locals);
+        const $label = $('.govuk-input');
+        expect($label.attr('class')).to.equal('govuk-input');
+    });
+
 });
