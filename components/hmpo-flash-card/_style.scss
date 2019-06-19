@@ -26,7 +26,7 @@
         color: govuk-colour("blue");
         background: govuk-colour("white");
     }
-    h2, h1, p, a:visited, a:link, span, .govuk-details__summary, .govuk-details__summary:hover, .govuk-details__summary:active, .govuk-details__summary:focus {
+    h2, h1, h3, p, a:visited, a:link, span, .govuk-details__summary, .govuk-details__summary:hover, .govuk-details__summary:active, .govuk-details__summary:focus, ul, .govuk-details__text {
         color: govuk-colour("white");
         background: inherit;
     }
