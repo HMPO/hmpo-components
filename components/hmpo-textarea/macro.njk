@@ -2,6 +2,7 @@
 {% macro hmpoTextarea(ctx, params, base) %}
     {%- from "../hmpo-text/macro.njk" import hmpoText %}
     {{- hmpoText(ctx, params, {
-        type: "textarea"
+        type: "textarea",
+        classes: "govuk-!-width-three-quarters"
     }, base) }}
 {% endmacro %}
