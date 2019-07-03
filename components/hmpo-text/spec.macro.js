@@ -103,13 +103,13 @@ describe('hmpoText', () => {
     it('renders with nopaste', () => {
         const $ = render({ component: 'hmpoText', params: { id: 'my-input', isPageHeading: true, noPaste: true }, ctx: true }, locals);
         const $label = $('.govuk-input');
-        expect($label.attr('class')).to.equal('govuk-input  js-nopaste');
+        expect($label.attr('class')).to.equal('govuk-input govuk-!-width-one-half js-nopaste');
     });
 
     it('renders with no extra classes', () => {
         const $ = render({ component: 'hmpoText', params: { id: 'my-input', isPageHeading: true }, ctx: true }, locals);
         const $label = $('.govuk-input');
-        expect($label.attr('class')).to.equal('govuk-input');
+        expect($label.attr('class')).to.equal('govuk-input govuk-!-width-one-half');
     });
 
     it('renders with extra classes', () => {
@@ -127,7 +127,7 @@ describe('hmpoText', () => {
     it('renders with noPaste set to false', () => {
         const $ = render({ component: 'hmpoText', params: { id: 'my-input', isPageHeading: true, noPaste: false }, ctx: true }, locals);
         const $label = $('.govuk-input');
-        expect($label.attr('class')).to.equal('govuk-input');
+        expect($label.attr('class')).to.equal('govuk-input govuk-!-width-one-half');
     });
 
 });

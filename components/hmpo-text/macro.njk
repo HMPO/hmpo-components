@@ -19,7 +19,7 @@
         value: hmpoGetValue(ctx, params),
         errorMessage: hmpoGetError(ctx, params),
         type: params.type,
-        classes: "" + (params.classes if params.classes) + (" js-nopaste" if params.noPaste),
+        classes: "" + (params.classes if params.classes else "govuk-!-width-one-half") + (" js-nopaste" if params.noPaste),
         formGroup: params.formGroup,
         autocomplete: params.autocomplete,
         rows: params.rows,
