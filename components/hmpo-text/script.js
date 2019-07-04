@@ -5,8 +5,8 @@
     documentReady(noPaste);
 
     function documentReady(callback) {
-        this.addEvent(document, 'DOMContentLoaded', callback);
-        this.addEvent(window, 'load', callback);
+        addEvent(document, 'DOMContentLoaded', callback);
+        addEvent(window, 'load', callback);
     }
 
     function each(a, cb) {
