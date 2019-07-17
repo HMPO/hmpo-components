@@ -1,0 +1,8 @@
+
+  .govuk-accordion__section-button {
+    @include govuk-font($size: 19, $weight: bold);
+  }
+
+  .govuk-accordion__section-content {
+      margin-bottom: 1em;
+  }

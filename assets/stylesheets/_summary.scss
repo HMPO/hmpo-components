@@ -1,0 +1,28 @@
+
+.govuk-summary-list.govuk-summary-list--confirmation {
+    .photo {
+        width: 150px;
+        vertical-align: top;
+    }
+
+    .govuk-summary-list__key {
+        color: $govuk-secondary-text-colour;
+        font-weight: normal;
+        @include govuk-media-query($from: tablet) {
+            padding: 1em 1em 1em 0;
+        }
+    }
+    .govuk-summary-list__value {
+        @include govuk-media-query($from: tablet) {
+            padding: 1em 0 1em 0;
+        }
+    }
+}
+
+.govuk-summary-list.govuk-summary-list--wide {
+    .govuk-summary-list__key {
+        @include govuk-media-query($from: tablet) {
+            width: 60%;
+        }
+    }
+}
