@@ -99,12 +99,25 @@ describe('hmpoRadios', () => {
             component: 'hmpoRadios', ctx: true, params: {
                 id: 'my-input', inline: true,  conditionals: {
                     a: {id: 'a', html: 'a <b>string</b>'},
-                    b: {id: 'a'}
+                    b: {id: 'b'}
                 }
             }
         }, locals);
         const $items = $('.govuk-radios__conditional');
         $items.length.should.equal(1);
+    });
+
+    it('renders items with inline conditionals with multiConditional flag', () => {
+        const $ = render({
+            component: 'hmpoRadios', ctx: true, params: {
+                id: 'my-input', inline: true,  conditionals: {
+                    a: {id: 'a', html: 'a <b>string</b>'},
+                    b: {id: 'a'}
+                }, multiConditional: true
+            }
+        }, locals);
+        const multiConditional = $('.radios-with-conditionals').attr('data-multi-conditional');
+        expect(multiConditional).to.equal('true');
     });
 
     it('renders items with conditionals non inset', () => {
