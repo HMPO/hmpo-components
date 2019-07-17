@@ -22,7 +22,7 @@
 .govuk-summary-list.govuk-summary-list--wide {
     .govuk-summary-list__key {
         @include govuk-media-query($from: tablet) {
-            width: 60%;
+            width: 50%;
         }
     }
     .govuk-summary-list__value {
@@ -30,13 +30,13 @@
             margin-bottom: govuk-spacing(3);
         }
         @include govuk-media-query($from: tablet) {
-            width: 20%;
+            width: 30%;
         }
     }
     // Expand width when value is last column (no action)
     .govuk-summary-list__value:last-child {
         @include govuk-media-query($from: tablet) {
-            width: 40%;
+            width: 50%;
         }
     }
 }
