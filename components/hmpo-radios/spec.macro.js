@@ -94,6 +94,19 @@ describe('hmpoRadios', () => {
         expect(cleanHtml($item2)).to.equal('b <b>object</b>');
     });
 
+    it('renders items with inline conditionals with no html', () => {
+        const $ = render({
+            component: 'hmpoRadios', ctx: true, params: {
+                id: 'my-input', inline: true,  conditionals: {
+                    a: {id: 'a', html: 'a <b>string</b>'},
+                    b: {id: 'a'}
+                }
+            }
+        }, locals);
+        const $items = $('.govuk-radios__conditional');
+        $items.length.should.equal(1);
+    });
+
     it('renders items with conditionals non inset', () => {
         const $ = render({
             component: 'hmpoRadios', ctx: true, params: {
