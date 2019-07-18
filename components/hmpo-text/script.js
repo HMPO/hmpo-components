@@ -1,5 +1,3 @@
-/* globals window, document */
-
 (function (scope, window) {
 
     documentReady(noPaste);

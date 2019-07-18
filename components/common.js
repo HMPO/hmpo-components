@@ -1,5 +1,3 @@
-/* globals window, document */
-
 (function (scope, window) {
 
     window.hmpoNodeListForEach = function (nodes, callback) {
