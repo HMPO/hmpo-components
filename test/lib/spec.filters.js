@@ -208,6 +208,25 @@ describe('Filters', () => {
 
         });
 
+        describe('possessive', () => {
+            it('adds possessive s to noun', () => {
+                let result = filters.filters.possessive.call(context, 'Fred');
+                result.should.equal('Fred’s');
+            });
+            it('adds possessive apostrophe if noun ends in s', () => {
+                let result = filters.filters.possessive.call(context, 'Ross');
+                result.should.equal('Ross’');
+            });
+            it('doesn\'t add s if not en', () => {
+                let result = filters.filters.possessive.call(context, 'Fred', 'cy');
+                result.should.equal('Fred');
+            });
+            it('doesn\'t use curly apostrophe if false', () => {
+                let result = filters.filters.possessive.call(context, 'Fred', undefined, false);
+                result.should.equal('Fred\'s');
+            });
+        });
+
         describe('url', () => {
             it('prepends the baseUrl to relative paths', () => {
                 context.ctx.baseUrl = '/base';
