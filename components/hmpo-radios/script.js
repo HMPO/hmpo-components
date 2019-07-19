@@ -1,5 +1,3 @@
-/* globals window */
-
 window.GOVUKFrontend.Radios.prototype.originalSetAttributes = window.GOVUKFrontend.Radios.prototype.setAttributes;
 
 window.GOVUKFrontend.Radios.prototype.setAttributes = function ($input) {

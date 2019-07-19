@@ -1,0 +1,25 @@
+{% from "hmpo-submit/macro.njk" import hmpoSubmit %}
+
+{% macro hmpoAutoSubmit(ctx, params) %}
+    <div class="hmpo-auto-submit"
+        data-module="hmpo-auto-submit"
+        data-submit-delay="{{params.submitDelay | default(1000) }}"
+        data-help-delay="{{params.helpDelay | default(3000) }}"
+        data-manual-delay="{{params.manualDelay | default(30000) }}">
+            <div class="hmpo-auto-submit__spinner" role="alert" aria-busy="true" aria-live="assertive">
+                <img src="{{ctx("assetPath")}}/images/spinner.gif"
+                    alt="{{ params.loader.text if params.loader.text else ctx("translate")("govuk.loading") }}">
+            </div>
+            <div class="hmpo-auto-submit__html">
+                {{ params.html | safe }}
+            </div>
+            <div class="hmpo-auto-submit__help">
+                {{ params.help.html | safe }}
+            </div>
+            <div class="hmpo-auto-submit__manual">
+                {{ params.manual.html | safe }}
+                {{ hmpoSubmit(ctx, params.submit) }}
+            </div>
+        </div>
+
+{% endmacro %}

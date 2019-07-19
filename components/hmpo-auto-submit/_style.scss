@@ -1,0 +1,40 @@
+.js-enabled .hmpo-auto-submit {
+    .hmpo-auto-submit__manual {
+        opacity: 0;
+    }
+    .hmpo-auto-submit__spinner {
+        display: block;
+    }
+}
+
+.hmpo-auto-submit {
+    text-align: center;
+
+    h1 {
+        @extend .govuk-heading-m;
+    }
+    div {
+        margin-bottom: 4em;
+    }
+    .hmpo-auto-submit__spinner {
+        display: none;
+    }
+    .hmpo-auto-submit__help {
+        display: none;
+    }
+}
+
+.hmpo-auto-submit.hmpo-auto-submit__show-help {
+    .hmpo-auto-submit__help {
+        display: block;
+    }
+}
+
+.hmpo-auto-submit.hmpo-auto-submit__show-manual {
+    .hmpo-auto-submit__spinner {
+        display: none;
+    }
+    .hmpo-auto-submit__manual {
+        opacity: 1;
+    }
+}

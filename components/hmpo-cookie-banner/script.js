@@ -1,5 +1,3 @@
-/* globals document */
-
 (function () {
     'use strict';
     var setCookie = function (name, value, days) {
