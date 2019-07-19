@@ -72,6 +72,15 @@ describe('hmpoText', () => {
         expect($component.attr('maxlength')).to.equal('5');
     });
 
+    it('renders with max-length from validator array', () => {
+        locals.options.fields['my-input'].validate = [ { type: 'maxlength', arguments: [ 5 ] } ];
+
+        const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
+
+        const $component = $('.govuk-input');
+        expect($component.attr('maxlength')).to.equal('5');
+    });
+
     it('renders with errorValue if available', () => {
         locals.errorValues = {
             'my-input': 'def456'
