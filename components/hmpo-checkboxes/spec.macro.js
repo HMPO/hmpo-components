@@ -47,6 +47,8 @@ describe('hmpoCheckboxes', () => {
         const $componentlabel = $('.govuk-checkboxes__label');
         expect($componentlabel.text().trim()).to.equal('[fields.my-input.label]');
         expect($componentlabel.attr('id')).to.equal('my-input-label');
+        const $legend = $('.govuk-fieldset__legend');
+        expect($legend.length).to.equal(0);
     });
 
     it('renders single checkbox with custom value', () => {

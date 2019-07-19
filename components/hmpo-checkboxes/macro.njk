@@ -3,6 +3,22 @@
 
     {%- set value = hmpoGetValue(ctx, params) %}
 
+    {%- set pageHeading = {
+        legend: {
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    } if params.isPageHeading %}
+
+    {%- set fieldset = merge(
+        pageHeading,
+        {
+            legend: hmpoGetOptions(ctx, params, "legend"),
+            attributes: { id: params.id + '-fieldset' }
+        },
+        params.fieldset
+    ) %}
+
     {%- if params.items %}
         {%- set items = hmpoGetItems(ctx, params, value, false, true) %}
     {% else %}
@@ -23,25 +39,12 @@
                 "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
             })
         ]} %}
+        {%- set fieldset = false if not params.fieldset and not params.isPageHeading %}
     {% endif %}
-
-    {%- set pageHeading = {
-        legend: {
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
-        }
-    } if params.isPageHeading %}
 
     {%- set args = {
         idPrefix: params.id,
-        fieldset: merge(
-            pageHeading,
-            {
-                legend: hmpoGetOptions(ctx, params, "legend"),
-                attributes: { id: params.id + '-fieldset' }
-            },
-            params.fieldset
-        ),
+        fieldset: fieldset,
         hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessage: hmpoGetError(ctx, params),
         classes: params.classes,
