@@ -1,28 +1,74 @@
-{% macro hmpoErrorGroup(ctx, params) %}
-    {% from "error-message/macro.njk" import govukErrorMessage %}
-    {%- set translate = ctx("translate") %}
-    {% set error = hmpoGetError(ctx, {id: params.id }) %}
+{% macro hmpoErrorGroup(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set pageHeading = {
+        legend: {
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    } if params.isPageHeading %}
+
+    {%- set params = {
+        id: params.id,
+        fieldset: false if params.fieldset == false else merge(pageHeading, {
+            legend: hmpoGetOptions(ctx, params, "legend"),
+            attributes: {
+                id: params.id + "-fieldset"
+            }
+        }, params.fieldset),
+        hint: hmpoGetOptions(ctx, params, "hint", true),
+        errorMessage: hmpoGetError(ctx, params),
+        classes: params.classes,
+        attributes: params.attributes
+    } %}
+
+    {% set innerHtml %}
+
+        {% if params.hint %}
+            {% set hintId = params.id + '-hint' %}
+            {% set describedBy = hintId %}
+            {% from "hint/macro.njk" import govukHint %}
+            {{ govukHint({
+                id: hintId,
+                classes: params.hint.classes,
+                attributes: params.hint.attributes,
+                html: params.hint.html,
+                text: params.hint.text
+            }) | indent(2) | trim }}
+        {% endif %}
+
+        {% if params.errorMessage %}
+            {% set errorId = params.id + '-error' %}
+            {% set describedBy = describedBy + ' ' + errorId if describedBy else errorId %}
+            {% from "error-message/macro.njk" import govukErrorMessage %}
+            {{ govukErrorMessage({
+                id: errorId,
+                classes: params.errorMessage.classes,
+                attributes: params.errorMessage.attributes,
+                html: params.errorMessage.html,
+                text: params.errorMessage.text,
+                visuallyHiddenText: params.errorMessage.visuallyHiddenText
+            }) | indent(2) | trim }}
+        {% endif %}
+
+        {{- params.html if params.html }}{{- caller() if caller }}
+    {% endset %}
 
     <div id="{{ params.id }}"
-         class="govuk-form-group hmpo-field-group{%- if params.classes %} {{ params.classes }}{% endif %}{% if error %} govuk-form-group--error{% endif %}" {%- for attribute, value in params.attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>
-
-    <legend>
-        <span id="group-legend" class="{% if params.legend.classes %}{{ params.legend.classes }}{% else %}govuk-fieldset__legend--m{% endif %}">{{ params.legend.text if params.legend.text else translate("fields[\"" + params.id + "\"].legend") }}</span>
-        {% if params.legend.hint %}<span id="{{ params.legend.hint.id }}"
-                                         class="{{ params.legend.hint.classes }}">{{ params.legend.hint.text if  params.legend.hint.text else params.legend.hint.html }}</span>{% endif %}
-        {% if error %}
-            {{ govukErrorMessage({
-                id: params.id + "-error",
-                classes: error.classes,
-                attributes: error.attributes,
-                html: error.html,
-                text: error.text,
-                visuallyHiddenText: error.visuallyHiddenText
-            }) }}
-        {% endif %}
-    </legend>
-
-    {{- params.content if params.content }}{{- caller() if caller }}
-
+            class="govuk-form-group hmpo-error-group{%- if params.classes %} {{ params.classes }}{% endif %}{% if params.errorMessage %} govuk-form-group--error{% endif %}"
+            {%- for attribute, value in params.attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>
+        {% if params.fieldset %}
+            {% from "fieldset/macro.njk" import govukFieldset %}
+            {% call govukFieldset({
+                describedBy: describedBy,
+                classes: params.fieldset.classes,
+                attributes: params.fieldset.attributes,
+                legend: params.fieldset.legend
+            }) %}
+                {{ innerHtml | safe }}
+            {% endcall %}
+        {% else %}
+            {{ innerHtml | safe }}
+        {% endif %}}
     </div>
 {% endmacro %}
