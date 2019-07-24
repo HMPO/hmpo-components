@@ -12,14 +12,17 @@ describe('hmpoErrorGroup', () => {
 
         const $component = $('div');
         expect($component.attr('id')).to.equal('test-group');
-        expect($component.attr('class')).to.equal('govuk-form-group hmpo-field-group');
+        expect($component.attr('class')).to.equal('govuk-form-group hmpo-error-group');
     });
 
     it('renders with a added class', () => {
-        const $ = render({ component: 'hmpoErrorGroup', params: {classes: 'test'}, ctx: true});
+        const $ = render({ component: 'hmpoErrorGroup', params: {
+            id: 'test-group',
+            classes: 'test'
+        }, ctx: true});
 
         const $component = $('div');
-        expect($component.attr('class')).to.equal('govuk-form-group hmpo-field-group test');
+        expect($component.attr('class')).to.equal('govuk-form-group hmpo-error-group test');
     });
 
     it('renders caller children', () => {
@@ -31,28 +34,70 @@ describe('hmpoErrorGroup', () => {
     });
 
     it('renders with a legend header', () => {
-        const $ = render({ component: 'hmpoErrorGroup', params: {classes: 'test', legend: {text: 'legend'}}, ctx: true});
+        const $ = render({ component: 'hmpoErrorGroup', params: {
+            id: 'test-group',
+            legend: {
+                text: 'legend'
+            }
+        }, ctx: true});
 
-        const $component = $('#group-legend');
-        expect($component.attr('class')).to.equal('govuk-fieldset__legend--m');
-        expect($component.text()).to.equal('legend');
+        const $component = $('#test-group legend');
+        expect($component.attr('class')).to.equal('govuk-fieldset__legend');
+        expect($component.text().trim()).to.equal('legend');
     });
 
-    it('renders with a legend classes', () => {
-        const $ = render({ component: 'hmpoErrorGroup', params: {classes: 'test', legend: {text: 'legend', classes: 'testLegendClass'}}, ctx: true});
+    it('renders with no fieldset if falsey', () => {
+        const $ = render({ component: 'hmpoErrorGroup', params: {
+            id: 'test-group',
+            fieldset: false
+        }, ctx: true});
 
-        const $component = $('#group-legend');
-        expect($component.attr('class')).to.equal('testLegendClass');
-        expect($component.text()).to.equal('legend');
+        const $component = $('#test-group legend');
+        $component.length.should.equal(0);
     });
 
-    it('renders with a legend hint', () => {
-        const $ = render({ component: 'hmpoErrorGroup', params: {classes: 'test', legend: {hint: { id: 'testHint', classes: 'hintClasses', text: 'hint'}}}, ctx: true});
+    it('renders with a default legend header', () => {
+        const $ = render({ component: 'hmpoErrorGroup', params: {
+            id: 'test-group',
+        }, ctx: true});
 
-        const $component = $('#testHint');
-        expect($component.attr('class')).to.equal('hintClasses');
-        expect($component.text()).to.equal('hint');
+        const $component = $('#test-group legend');
+        expect($component.attr('class')).to.equal('govuk-fieldset__legend');
+        expect($component.text().trim()).to.equal('[fields.test-group.legend]');
     });
+
+    it('renders with a hint', () => {
+        const $ = render({ component: 'hmpoErrorGroup', params: {
+            id: 'test-group',
+            classes: 'test',
+            hint: {
+                text: 'hint'
+            }
+        }, ctx: true});
+
+        const $component = $('#test-group-hint');
+        expect($component.text().trim()).to.equal('hint');
+    });
+
+    it('renders with a default hint', () => {
+        const $ = render({ component: 'hmpoErrorGroup', params: {
+            id: 'test-group'
+        }, ctx: true});
+
+        const $component = $('#test-group-hint');
+        expect($component.text().trim()).to.equal('[fields.test-group.hint]');
+    });
+
+    it('renders as page heading', () => {
+        const $ = render({ component: 'hmpoErrorGroup', params: {
+            id: 'test-group',
+            isPageHeading: true,
+        }, ctx: true});
+
+        const $component = $('#test-group legend');
+        expect(cleanHtml($component)).to.equal('<h1 class="govuk-fieldset__heading">[fields.test-group.legend]</h1>');
+    });
+
 
     it('renders error message if available', () => {
         locals.errors = {
