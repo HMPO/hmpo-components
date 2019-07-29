@@ -32,10 +32,10 @@
     } %}
 
     {%- if params.type == "textarea" %}
-        {%- from "textarea/macro.njk" import govukTextarea %}
+        {%- from "govuk/components/textarea/macro.njk" import govukTextarea %}
         {{- govukTextarea(args) }}
     {%- else %}
-        {%- from "input/macro.njk" import govukInput %}
+        {%- from "govuk/components/input/macro.njk" import govukInput %}
         {{- govukInput(args) }}
     {%- endif %}
 {% endmacro %}

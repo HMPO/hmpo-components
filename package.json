@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit && npm run test:cover",
     "test:lint": "eslint .",
-    "test:unit": "istanbul cover _mocha -- --recursive test 'components/**/spec*'",
+    "test:unit": "istanbul cover _mocha -- --recursive test 'components/**/spec.*.js'",
     "test:cover": "istanbul check-coverage",
     "prepare": "uglifyjs components/common.js components/**/script.js -o all.js"
   },
@@ -35,13 +35,14 @@
     "underscore": "^1.8.3"
   },
   "peerDependencies": {
-    "govuk-frontend": ">=2.11.0",
+    "govuk-frontend": ">=3",
     "nunjucks": ">=3"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "eslint": "^6.0.1",
     "hmpo-nunjucks-test": "^1.1.0",
+    "govuk-frontend": "^3.0.0",
     "istanbul": "^0.4.3",
     "mocha": "^6.1.4",
     "sinon": "^7.3.2",

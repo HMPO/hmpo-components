@@ -15,6 +15,6 @@
         attributes: hmpoGetAttributes(ctx, params, { id: params.id })
     } %}
 
-    {%- from "button/macro.njk" import govukButton %}
+    {%- from "govuk/components/button/macro.njk" import govukButton %}
     {{- govukButton(args) }}
 {% endmacro %}

@@ -1,4 +1,4 @@
-{% extends "template.njk" %}
+{% extends "govuk/template.njk" %}
 
 {% set hmpoTitle = hmpoTitle or translate(hmpoTitleKey or "pages." + (hmpoPageKey | default("default")) + ".title") %}
 {% set govukServiceName = translate(govukServiceNameKey or "govuk.serviceName") %}
@@ -13,7 +13,7 @@
     {{ (translate("govuk.error", { default: "Error" }) + ": ") if errorlist.length }}{{ hmpoTitle }} {{ "– " + govukServiceName if govukServiceName }} – GOV.UK
 {% endblock %}
 
-{% from "skip-link/macro.njk" import govukSkipLink %}
+{% from "govuk/components/skip-link/macro.njk" import govukSkipLink %}
 {% block skipLink %}
     {{ govukSkipLink({
         href: '#main-content',
@@ -43,7 +43,7 @@
 {% block beforeContent %}
     {% block backLink %}
         {% if backLink %}
-            {% from "back-link/macro.njk" import govukBackLink %}
+            {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
             <span id="back">{{ govukBackLink({
                 text: translate("govuk.backLink"),
                 href: backLink
@@ -54,7 +54,7 @@
 
 {% block content %}
     {% if errorlist.length %}
-        {% from "error-summary/macro.njk" import govukErrorSummary %}
+        {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
         {{ govukErrorSummary({
             classes: "error-summary",
             titleText: translate("govuk.errorSummaryTitle"),

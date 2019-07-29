@@ -27,7 +27,7 @@
         {% if params.hint %}
             {% set hintId = params.id + '-hint' %}
             {% set describedBy = hintId %}
-            {% from "hint/macro.njk" import govukHint %}
+            {% from "govuk/components/hint/macro.njk" import govukHint %}
             {{ govukHint({
                 id: hintId,
                 classes: params.hint.classes,
@@ -40,7 +40,7 @@
         {% if params.errorMessage %}
             {% set errorId = params.id + '-error' %}
             {% set describedBy = describedBy + ' ' + errorId if describedBy else errorId %}
-            {% from "error-message/macro.njk" import govukErrorMessage %}
+            {% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
             {{ govukErrorMessage({
                 id: errorId,
                 classes: params.errorMessage.classes,
@@ -58,7 +58,7 @@
             class="govuk-form-group hmpo-error-group{%- if params.classes %} {{ params.classes }}{% endif %}{% if params.errorMessage %} govuk-form-group--error{% endif %}"
             {%- for attribute, value in params.attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>
         {% if params.fieldset %}
-            {% from "fieldset/macro.njk" import govukFieldset %}
+            {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
             {% call govukFieldset({
                 describedBy: describedBy,
                 classes: params.fieldset.classes,
