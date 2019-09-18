@@ -8,7 +8,7 @@
 
 {#- a record of other elements that we need to associate with the input using
    aria-describedby – for example hints or error messages -#}
-{% set describedBy = "" %}
+{% set describedBy = params.fieldset.describedBy if params.fieldset.describedBy else "" %}
 
 {% if params.items %}
   {% set dateInputItems = params.items %}
@@ -50,7 +50,8 @@
     classes: params.errorMessage.classes,
     attributes: params.errorMessage.attributes,
     html: params.errorMessage.html,
-    text: params.errorMessage.text
+    text: params.errorMessage.text,
+    visuallyHiddenText: params.errorMessage.visuallyHiddenText
   }) | indent(2) | trim }}
 {% endif %}
   <div class="govuk-date-input {%- if params.classes %} {{ params.classes }}{% endif %}"
@@ -68,10 +69,10 @@
         name: (params.namePrefix + "-" + item.name) if params.namePrefix else item.name,
         value: item.value,
         type: item.type if item.type else "number",
+        inputMode: item.inputMode if item.inputMode else "numeric",
         autocomplete: item.autocomplete,
-        attributes: item.attributes if item.attributes else {
-          pattern: "[0-9]*"
-        }
+        pattern: item.pattern if item.pattern else "[0-9]*",
+        attributes: item.attributes
       }) | indent(6) | trim }}
     </div>
   {% endfor %}
@@ -84,14 +85,16 @@
     announce the description for a fieldset comprised of text inputs, but
     adding the role to the fieldset always makes the output overly verbose for
     radio buttons or checkboxes. -#}
-  {% call govukFieldset(merge({
+  {% call govukFieldset({
     describedBy: describedBy,
-    attributes: { role: "group" }
-  }, params.fieldset)) %}
+    classes: params.fieldset.classes,
+    role: 'group',
+    attributes: params.fieldset.attributes,
+    legend: params.fieldset.legend
+  }) %}
   {{ innerHtml | trim | safe }}
   {% endcall %}
 {% else %}
   {{ innerHtml | trim | safe }}
 {% endif %}
 </div>
-{% endmacro %}
