@@ -3,6 +3,7 @@
     {%- from "../hmpo-text/macro.njk" import hmpoText %}
     {{- hmpoText(ctx, params, {
         classes: "govuk-input--width-20",
+        inputMode: "tel",
         attributes: {
             maxlength: 18
         }
