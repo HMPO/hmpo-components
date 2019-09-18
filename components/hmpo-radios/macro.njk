@@ -29,7 +29,7 @@
         items: hmpoGetItems(ctx, params, value, false, true)
     } %}
 
-    {%- from "radios/macro.njk" import govukRadios %}
+    {%- from "govuk/components/radios/macro.njk" import govukRadios %}
     {% if params.conditionals and params.inline %}
         <div data-module="radios" class="radios-with-conditionals"{% if params.multiConditional %} data-multi-conditional="true"{% endif %}>
             {{- govukRadios(args) }}

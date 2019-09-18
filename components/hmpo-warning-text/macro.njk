@@ -1,5 +1,5 @@
 
 {% macro hmpoWarningText(params) %}
-    {%- from "warning-text/macro.njk" import govukWarningText %}
+    {%- from "govuk/components/warning-text/macro.njk" import govukWarningText %}
     {{ govukWarningText(merge(params, { html: caller() if caller else params.html })) }}
 {% endmacro %}

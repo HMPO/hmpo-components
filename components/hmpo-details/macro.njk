@@ -1,5 +1,5 @@
 
 {% macro hmpoDetails(params) %}
-    {%- from "details/macro.njk" import govukDetails %}
+    {%- from "govuk/components/details/macro.njk" import govukDetails %}
     {{ govukDetails(merge(params, { html: caller() if caller else params.html })) }}
 {% endmacro %}

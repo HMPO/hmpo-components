@@ -29,6 +29,6 @@
         items: hmpoGetItems(ctx, params, value, required, false)
     } %}
 
-    {%- from "select/macro.njk" import govukSelect %}
+    {%- from "govuk/components/select/macro.njk" import govukSelect %}
     {{- govukSelect(args) }}
 {% endmacro %}
