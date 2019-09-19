@@ -3,7 +3,7 @@
 
     {%- set value = hmpoGetValue(ctx, params) %}
 
-    {%- set classes = params.classes + " govuk-radios--inline" if params.inline else params.classes %}
+    {%- set classes = ( params.classes if params.classes + " " else "" ) + "govuk-radios--inline" if params.inline else params.classes %}
     {%- set pageHeading = {
         legend: {
             isPageHeading: true,
@@ -31,7 +31,7 @@
 
     {%- from "govuk/components/radios/macro.njk" import govukRadios %}
     {% if params.conditionals and params.inline %}
-        <div data-module="radios" class="radios-with-conditionals"{% if params.multiConditional %} data-multi-conditional="true"{% endif %}>
+        <div data-module="govuk-radios" class="radios-with-conditionals"{% if params.multiConditional %} data-multi-conditional="true"{% endif %}>
             {{- govukRadios(args) }}
             {% for key, conditional in params.conditionals %}
                 {% if conditional.html %}
