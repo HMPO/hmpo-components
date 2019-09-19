@@ -4,7 +4,7 @@
     {%- set value = hmpoGetValue(ctx, params) %}
 
     {%- set classes = params.classes if params.classes else "" %}
-    {%- set classes = classes + " govuk-radios--inline" if paras.inline else classes %}
+    {%- set classes = classes + " govuk-radios--inline" if params.inline else classes %}
 
     {%- set pageHeading = {
         legend: {
