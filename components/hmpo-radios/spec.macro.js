@@ -83,7 +83,7 @@ describe('hmpoRadios', () => {
         }, locals);
 
         const $radiosControl = $('.radios-with-conditionals').attr('data-module');
-        expect($radiosControl).to.equal('radios');
+        expect($radiosControl).to.equal('govuk-radios');
         const $radiosCondition1 = $('.govuk-inset-text').eq(0).attr('id');
         expect($radiosCondition1).to.equal('a');
         const $item1 = $('.govuk-radios__conditional').eq(0);
@@ -131,7 +131,7 @@ describe('hmpoRadios', () => {
         }, locals);
 
         const $radiosControl = $('.radios-with-conditionals').attr('data-module');
-        expect($radiosControl).to.equal('radios');
+        expect($radiosControl).to.equal('govuk-radios');
         const $radiosCondition1 = $('.govuk-inset-text').eq(0).length;
         expect($radiosCondition1).to.equal(0);
         const $item1 = $('#a');
