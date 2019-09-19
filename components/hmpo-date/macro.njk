@@ -17,7 +17,7 @@
             id: day.id,
             name: day.id,
             type: "text",
-            inputMode: "numeric",
+            inputmode: "numeric",
             value: hmpoGetValue(ctx, day),
             label: translate(params.dayKey or 'fields.date-day.label'),
             attributes: hmpoGetAttributes(ctx, day, {
@@ -35,7 +35,7 @@
         id: month.id,
         name: month.id,
         type: "text",
-        inputMode: "numeric",
+        inputmode: "numeric",
         value: hmpoGetValue(ctx, month),
         label: translate(params.monthKey or 'fields.date-month.label'),
         attributes: hmpoGetAttributes(ctx, month, {
@@ -52,7 +52,7 @@
         id: year.id,
         name: year.id,
         type: "text",
-        inputMode: "numeric",
+        inputmode: "numeric",
         value: hmpoGetValue(ctx, year),
         label: translate(params.yearKey or 'fields.date-year.label'),
         attributes: hmpoGetAttributes(ctx, year, {
