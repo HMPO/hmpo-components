@@ -14,9 +14,9 @@
         this.manualDelay = parseInt($element.getAttribute('data-manual-delay'), 10) || null;
 
         // get elements
-        this.$submitButton = $element.querySelectorAll('button[type=submit]')[0];
         this.$help = $element.querySelectorAll('.hmpo-auto-submit__help')[0];
         this.$manual = $element.querySelectorAll('.hmpo-auto-submit__manual')[0];
+        this.$submitButton = this.$manual.querySelectorAll('button')[0];
 
         this.load();
 
