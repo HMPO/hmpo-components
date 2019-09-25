@@ -37,13 +37,14 @@
             {{- govukRadios(args) }}
             {% for key, conditional in params.conditionals %}
                 {% if conditional.html %}
+                    {% set conditionalClasses = "govuk-radios__conditional " + conditional.classes if conditional.classes else "govuk-radios__conditional" %}
                     {% if conditional.removeInset %}
-                        <div id="{{ conditional.id }}" class="{{ conditional.classes }}">
+                        <div id="{{ conditional.id }}" class="{{ conditionalClasses }}">
                             {{ conditional.html | safe }}
                         </div>
                     {% else %}
                         {% from "hmpo-inset-text/macro.njk" import hmpoInsetText %}
-                        {% call hmpoInsetText({ id: conditional.id, classes: "govuk-radios__conditional" }) %}
+                        {% call hmpoInsetText({ id: conditional.id, classes: conditionalClasses }) %}
                             {{ conditional.html | safe }}
                         {% endcall %}
                     {% endif %}

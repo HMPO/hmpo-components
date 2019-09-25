@@ -76,22 +76,22 @@ describe('hmpoRadios', () => {
         const $ = render({
             component: 'hmpoRadios', ctx: true, params: {
                 id: 'my-input', inline: true, conditionals: {
-                    a: {id: 'a', html: 'a <b>string</b>'},
-                    b: {id: 'b', html: 'b <b>object</b>'}
+                    a: {id: 'a', html: 'a <b>first</b>'},
+                    b: {id: 'b', html: 'b <b>second</b>', classes: 'anotherclass'}
                 }
             }
         }, locals);
 
         const $radiosControl = $('.radios-with-conditionals').attr('data-module');
         expect($radiosControl).to.equal('govuk-radios');
-        const $radiosCondition1 = $('.govuk-inset-text').eq(0).attr('id');
-        expect($radiosCondition1).to.equal('a');
         const $item1 = $('.govuk-radios__conditional').eq(0);
-        expect(cleanHtml($item1)).to.equal('a <b>string</b>');
-        const $radiosCondition2 = $('.govuk-inset-text').eq(1).attr('id');
-        expect($radiosCondition2).to.equal('b');
+        expect($item1.attr('id')).to.equal('a');
+        expect($item1.attr('class')).to.equal('govuk-inset-text govuk-radios__conditional');
+        expect(cleanHtml($item1)).to.equal('a <b>first</b>');
         const $item2 = $('.govuk-radios__conditional').eq(1);
-        expect(cleanHtml($item2)).to.equal('b <b>object</b>');
+        expect($item2.attr('id')).to.equal('b');
+        expect($item2.attr('class')).to.equal('govuk-inset-text govuk-radios__conditional anotherclass');
+        expect(cleanHtml($item2)).to.equal('b <b>second</b>');
     });
 
     it('renders items with inline conditionals with no html', () => {
@@ -120,26 +120,24 @@ describe('hmpoRadios', () => {
         expect(multiConditional).to.equal('true');
     });
 
-    it('renders items with conditionals non inset', () => {
+    it('renders items with conditionals without inset', () => {
         const $ = render({
             component: 'hmpoRadios', ctx: true, params: {
                 id: 'my-input', inline: true, conditionals: {
-                    a: {id: 'a', html: 'a <b>string</b>', removeInset: true},
-                    b: {id: 'b', html: 'b <b>object</b>', removeInset: true}
+                    a: {id: 'a', html: 'a <b>first</b>', removeInset: true},
+                    b: {id: 'b', html: 'b <b>second</b>', removeInset: true, classes: 'anotherclass' }
                 }
             }
         }, locals);
 
         const $radiosControl = $('.radios-with-conditionals').attr('data-module');
         expect($radiosControl).to.equal('govuk-radios');
-        const $radiosCondition1 = $('.govuk-inset-text').eq(0).length;
-        expect($radiosCondition1).to.equal(0);
         const $item1 = $('#a');
-        expect(cleanHtml($item1)).to.equal('a <b>string</b>');
-        const $radiosCondition2 = $('.govuk-inset-text').eq(1).length;
-        expect($radiosCondition2).to.equal(0);
+        expect($item1.attr('class')).to.equal('govuk-radios__conditional');
+        expect(cleanHtml($item1)).to.equal('a <b>first</b>');
         const $item2 = $('#b');
-        expect(cleanHtml($item2)).to.equal('b <b>object</b>');
+        expect($item2.attr('class')).to.equal('govuk-radios__conditional anotherclass');
+        expect(cleanHtml($item2)).to.equal('b <b>second</b>');
     });
 
     it('renders radio buttons with header', () => {
