@@ -11,8 +11,9 @@ window.GOVUKFrontend.Radios.prototype.setAttributes = function ($input) {
     if (!$content) return;
 
     var conditionMet = false;
-    for (var i = 0; i < this.$inputs.length; i++) {
-        var $otherInput = this.$inputs[i];
+    var $allInputs = document.querySelectorAll('input[type="radio"]');
+    for (var i = 0; i < $allInputs.length; i++) {
+        var $otherInput = $allInputs[i];
         var otherInputControls = $otherInput.getAttribute('data-aria-controls') || $otherInput.getAttribute('aria-controls');
         if (controls === otherInputControls && $otherInput.checked) conditionMet = true;
     }
