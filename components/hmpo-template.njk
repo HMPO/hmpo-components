@@ -30,7 +30,7 @@
     {% endblock %}
     {% block govukHeader %}
         {{ govukHeader({
-            assetsPath: assetPath,
+            assetsPath: assetPath + '/images',
             homepageUrl: govukHomePage or "https://gov.uk",
             serviceName: govukServiceName,
             navigation: govukNavigation,
