@@ -1,12 +1,5 @@
-.radios-with-conditionals {
-    & .govuk-inset-text {
-        padding: 0px;
-        margin-bottom: 20px;
-        margin-left: 18px;
-        padding-left: 33px;
-        margin-top: -10px;
-        @include govuk-media-query($from: desktop) {
-            margin-top: -10px;
-        }
-    }
+.govuk-radios__removeInset {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: 0;
 }
