@@ -33,21 +33,14 @@
 
     {%- from "govuk/components/radios/macro.njk" import govukRadios %}
     {% if params.conditionals and params.inline %}
-        <div data-module="govuk-radios" class="radios-with-conditionals"{% if params.multiConditional %} data-multi-conditional="true"{% endif %}>
+        <div data-module="govuk-radios" {% if params.multiConditional %} data-multi-conditional="true"{% endif %}>
             {{- govukRadios(args) }}
             {% for key, conditional in params.conditionals %}
                 {% if conditional.html %}
-                    {% set conditionalClasses = "govuk-radios__conditional " + conditional.classes if conditional.classes else "govuk-radios__conditional" %}
-                    {% if conditional.removeInset %}
-                        <div id="{{ conditional.id }}" class="{{ conditionalClasses }}">
-                            {{ conditional.html | safe }}
-                        </div>
-                    {% else %}
-                        {% from "hmpo-inset-text/macro.njk" import hmpoInsetText %}
-                        {% call hmpoInsetText({ id: conditional.id, classes: conditionalClasses }) %}
-                            {{ conditional.html | safe }}
-                        {% endcall %}
-                    {% endif %}
+                    <div id="{{ conditional.id }}"
+                        class="govuk-radios__conditional{% if conditional.removeInset %} govuk-radios__removeInset{% endif %}{% if conditional.classes %} {{ conditional.classes }}{% endif %}">
+                        {{ conditional.html | safe }}
+                    </div>
                 {% endif %}
             {% endfor %}
         </div>
