@@ -62,18 +62,23 @@ describe('Filters', () => {
                 result.should.equal('2 January 2019');
             });
 
+            it('formats a date in Welsh', () => {
+                let result = filters.filters.date.call(context, moment('2019-01-02'), 'D MMMM YYYY', 'cy');
+                result.should.equal('2 Ionawr 2019');
+            });
+
             it('formats a date with a format', () => {
                 let result = filters.filters.date.call(context, moment('2019-01-02'), 'MMM YY');
                 result.should.equal('Jan 19');
             });
 
             it('uses invalid text if date not supplied', () => {
-                let result = filters.filters.date.call(context, null, undefined, 'invalid text');
+                let result = filters.filters.date.call(context, null, undefined, 'en', 'invalid text');
                 result.should.equal('invalid text');
             });
 
             it('uses invalid text if date not valid', () => {
-                let result = filters.filters.date.call(context, 'aa-bb-cc', undefined, 'invalid text');
+                let result = filters.filters.date.call(context, 'aa-bb-cc', undefined, 'en', 'invalid text');
                 result.should.equal('invalid text');
             });
         });
