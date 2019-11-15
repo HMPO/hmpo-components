@@ -56,6 +56,34 @@ describe('hmpoRadios', () => {
         expect($itemlabel2.attr('id')).to.equal('my-input-b-label');
     });
 
+    it('renders merged items from options and params', () => {
+        locals.options.fields['my-input'].items = [
+            { value: 1 },
+            'a',
+            { value: true, text: 'boolean'  }
+        ];
+        let paramItems = {
+            '1': { text: 'one' },
+            'a': { text: 'alpha' }
+        };
+        const $ = render({component: 'hmpoRadios', params: {id: 'my-input', items: paramItems}, ctx: true}, locals);
+
+        const $item1 = $('.govuk-radios__input').eq(0);
+        expect($item1.attr('value')).to.equal('1');
+        const $itemlabel1 = $('.govuk-radios__label').eq(0);
+        expect($itemlabel1.text().trim()).to.equal('one');
+
+        const $item2 = $('.govuk-radios__input').eq(1);
+        expect($item2.attr('value')).to.equal('a');
+        const $itemlabel2 = $('.govuk-radios__label').eq(1);
+        expect($itemlabel2.text().trim()).to.equal('alpha');
+
+        const $item3 = $('.govuk-radios__input').eq(2);
+        expect($item3.attr('value')).to.equal('true');
+        const $itemlabel3 = $('.govuk-radios__label').eq(2);
+        expect($itemlabel3.text().trim()).to.equal('boolean');
+    });
+
     it('renders items with conditionals', () => {
         const $ = render({
             component: 'hmpoRadios', ctx: true, params: {
