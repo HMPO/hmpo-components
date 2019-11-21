@@ -84,6 +84,20 @@ describe('hmpoRadios', () => {
         expect($itemlabel3.text().trim()).to.equal('boolean');
     });
 
+    it('renders default items', () => {
+        const $ = render({component: 'hmpoRadios', params: {id: 'default-input'}, ctx: true}, locals);
+
+        const $item1 = $('.govuk-radios__input').eq(0);
+        expect($item1.attr('value')).to.equal('true');
+        const $itemlabel1 = $('.govuk-radios__label').eq(0);
+        expect($itemlabel1.text().trim()).to.equal('[fields.default-input.items.true.label]');
+
+        const $item2 = $('.govuk-radios__input').eq(1);
+        expect($item2.attr('value')).to.equal('false');
+        const $itemlabel2 = $('.govuk-radios__label').eq(1);
+        expect($itemlabel2.text().trim()).to.equal('[fields.default-input.items.false.label]');
+    });
+
     it('renders items with conditionals', () => {
         const $ = render({
             component: 'hmpoRadios', ctx: true, params: {
