@@ -1,0 +1,8 @@
+
+$hmpo-assets-path: "#{$govuk-images-path}" !default;
+
+$hmpo-images-path: "#{$hmpo-assets-path}images/" !default;
+
+@function hmpo-image-url($filename) {
+    @return url($hmpo-images-path + $filename);
+}

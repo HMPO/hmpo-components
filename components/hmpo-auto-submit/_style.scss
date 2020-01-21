@@ -1,9 +1,17 @@
+.hmpo-auto-submit__spinner {
+    background-image: hmpo-image-url("spinner.gif");
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
 .js-enabled .hmpo-auto-submit {
     .hmpo-auto-submit__manual {
         opacity: 0;
     }
     .hmpo-auto-submit__spinner {
-        display: block;
+        display: inline-block;
     }
 }
 
