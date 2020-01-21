@@ -7,7 +7,7 @@ describe('hmpoAutoSubmit', () => {
         expect($component.attr('data-submit-delay')).to.equal('1000');
         expect($component.attr('data-help-delay')).to.equal('3000');
         expect($component.attr('data-manual-delay')).to.equal('30000');
-        expect($('.hmpo-auto-submit__spinner img').attr('alt')).to.equal('[govuk.loading]');
+        expect(cleanHtml($('.hmpo-auto-submit__spinner span'))).to.equal('[govuk.loading]');
         expect(cleanHtml($('.hmpo-auto-submit__html'))).to.equal('');
         expect(cleanHtml($('.hmpo-auto-submit__help'))).to.equal('');
         expect(cleanHtml($('.hmpo-auto-submit__manual'))).to.equal('<button class="govuk-button button" data-module="govuk-button">[buttons.next]</button>');
@@ -27,7 +27,7 @@ describe('hmpoAutoSubmit', () => {
         expect($component.attr('data-submit-delay')).to.equal('789');
         expect($component.attr('data-help-delay')).to.equal('1234');
         expect($component.attr('data-manual-delay')).to.equal('4567');
-        expect($('.hmpo-auto-submit__spinner img').attr('alt')).to.equal('test');
+        expect(cleanHtml($('.hmpo-auto-submit__spinner span'))).to.equal('test');
         expect(cleanHtml($('.hmpo-auto-submit__html'))).to.equal('<h1>foo</h1>');
         expect(cleanHtml($('.hmpo-auto-submit__help'))).to.equal('<b>bar</b>');
         expect(cleanHtml($('.hmpo-auto-submit__manual'))).to.equal('<i>manual</i><button class="govuk-button button" data-module="govuk-button">[buttons.next]</button>');
