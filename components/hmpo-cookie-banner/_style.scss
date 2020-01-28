@@ -16,6 +16,8 @@
 
 .hmpo-cookie-banner__message {
     @include govuk-width-container;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 @include mq($media-type: print) {
