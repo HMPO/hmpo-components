@@ -1,7 +1,7 @@
 'use strict';
 
 const locals = require('../../lib/locals');
-const { Template } = require('nunjucks');
+const nunjucks = require('nunjucks');
 
 describe('Locals', () => {
     describe('middleware', () => {
@@ -11,9 +11,7 @@ describe('Locals', () => {
             app = {
                 locals: { appLocal: true }
             };
-            env = {
-                opts: {}
-            };
+            env = {};
             req = {
                 translate: sinon.stub().returns('translated {{local}}')
             };
@@ -24,12 +22,12 @@ describe('Locals', () => {
                     }
                 }
             };
-            sinon.stub(Template.prototype, 'render').returns('rendered');
+            sinon.stub(nunjucks.Template.prototype, 'render').returns('rendered');
             next = sinon.stub();
         });
 
         afterEach(() => {
-            Template.prototype.render.restore();
+            nunjucks.Template.prototype.render.restore();
         });
 
         it('is a function', () => {
@@ -66,23 +64,14 @@ describe('Locals', () => {
             it('renders the result', () => {
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', {});
-                Template.prototype.render.should.have.been.calledWithExactly(res.locals);
+                nunjucks.Template.prototype.render.should.have.been.calledWithExactly(res.locals);
                 result.should.equal('rendered');
-            });
-
-            it('renders the result from a cached template', () => {
-                locals.middleware(app, env)(req, res, next);
-                let result1 = res.locals.translate('key', {});
-                let result2 = res.locals.translate('key', {});
-                Template.prototype.render.should.have.been.calledTwice;
-                result1.should.equal('rendered');
-                result2.should.equal('rendered');
             });
 
             it('should not render if noRender option is supplied', () => {
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', { noRender: true });
-                Template.prototype.render.should.not.have.been.called;
+                nunjucks.Template.prototype.render.should.not.have.been.called;
                 result.should.equal('translated {{local}}');
             });
 
@@ -90,7 +79,7 @@ describe('Locals', () => {
                 req.translate.returns('translated');
                 locals.middleware(app, env)(req, res, next);
                 let result = res.locals.translate('key', { noRender: true });
-                Template.prototype.render.should.not.have.been.called;
+                nunjucks.Template.prototype.render.should.not.have.been.called;
                 result.should.equal('translated');
             });
 
@@ -109,7 +98,7 @@ describe('Locals', () => {
             });
 
             it('returns deep rendered result', () => {
-                Template.prototype.render
+                nunjucks.Template.prototype.render
                     .onCall(0).returns('first')
                     .onCall(1).returns('second')
                     .onCall(2).returns('third')
@@ -153,6 +142,52 @@ describe('Locals', () => {
                 locals.middleware(app, env)(req, res, next);
                 res.locals.ctx('foo.bar').should.equal('baz');
             });
+        });
+    });
+
+    describe('cached templates', () => {
+        let app, env, req, res, next, template;
+
+        beforeEach(() => {
+            app = {
+                locals: { appLocal: true }
+            };
+            env = nunjucks.configure();
+            req = {
+                translate: sinon.stub().returns('translated {{local}}')
+            };
+            res = {
+                locals: {
+                    local: 'abc',
+                    foo: {
+                        bar: 'baz'
+                    }
+                }
+            };
+            next = sinon.stub();
+
+            template = sinon.spy(nunjucks, 'Template');
+        });
+
+
+        afterEach(() => {
+            template.restore();
+        });
+
+        it('renders the result from a cached template', () => {
+            locals.middleware(app, env)(req, res, next);
+            res.locals.translate('key', {});
+            res.locals.translate('key', {});
+
+            template.should.have.been.calledOnce;
+        });
+
+        it('should not cache the template if noCache is specified', () => {
+            locals.middleware(app, env, { noCache: true })(req, res, next);
+            res.locals.translate('key', {});
+            res.locals.translate('key', {});
+
+            template.should.have.been.calledTwice;
         });
     });
 });
