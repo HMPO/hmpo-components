@@ -56,7 +56,23 @@ describe('hmpoText', () => {
         expect($component.attr('value')).to.equal('abc123');
     });
 
-    it('renders with aria-required', () => {
+    it('renders with aria-required if validator is required', () => {
+        const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
+
+        const $component = $('.govuk-input');
+        expect($component.attr('aria-required')).to.equal('true');
+    });
+
+    it('renders with aria-required if validators contains required', () => {
+        locals.options.fields['my-input'].validate = [ 'required' ];
+        const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
+
+        const $component = $('.govuk-input');
+        expect($component.attr('aria-required')).to.equal('true');
+    });
+
+    it('renders with aria-required if validators contains required validator object', () => {
+        locals.options.fields['my-input'].validate = [ { type: 'required' } ];
         const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
 
         const $component = $('.govuk-input');

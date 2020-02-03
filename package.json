@@ -4,10 +4,10 @@
   "description": "Component wrappers for wizard fields",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:lint && npm run test:unit && npm run test:cover",
+    "test": "npm run test:lint && npm run test:unit && npm run test:cover && npm audit",
     "test:lint": "eslint .",
-    "test:unit": "istanbul cover _mocha -- --recursive test 'components/**/spec.*.js'",
-    "test:cover": "istanbul check-coverage",
+    "test:unit": "nyc --reporter=lcov --reporter=text-summary _mocha --recursive test 'components/**/spec.*.js'",
+    "test:cover": "nyc check-coverage",
     "prepare": "uglifyjs components/common.js components/**/script.js -o all.js"
   },
   "repository": {
@@ -23,7 +23,7 @@
   "author": "HMPO",
   "license": "MIT",
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "bugs": {
     "url": "https://github.com/UKHomeOffice/passports-components/issues"
@@ -35,7 +35,7 @@
     "underscore": "^1.9.2"
   },
   "peerDependencies": {
-    "govuk-frontend": ">=3.2",
+    "govuk-frontend": ">=3.5",
     "nunjucks": ">=3"
   },
   "devDependencies": {
@@ -43,10 +43,24 @@
     "eslint": "^6.8.0",
     "govuk-frontend": "^3.5.0",
     "hmpo-nunjucks-test": "^1.1.0",
-    "istanbul": "^0.4.3",
     "mocha": "^7.0.0",
+    "nyc": "^15.0.0",
     "sinon": "^8.1.0",
     "sinon-chai": "^3.4.0",
     "uglify-js": "^3.7.6"
+  },
+  "nyc": {
+    "all": true,
+    "exclude": [
+      "coverage/**",
+      "components/**/script.js",
+      "components/common.js",
+      "all.js",
+      "test/**"
+    ],
+    "statements": 95,
+    "functions": 95,
+    "branches": 90,
+    "lines": 95
   }
 }
