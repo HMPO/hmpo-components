@@ -72,6 +72,7 @@ hmpoSubmit(ctx, params)
 hmpoText(ctx, params)
 hmpoTextarea(ctx, params)
 hmpoWarningText(params)
+hmpoSidebar(params)
 
 ```
 

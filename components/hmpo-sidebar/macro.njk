@@ -1,0 +1,8 @@
+
+{% macro hmpoSidebar(params) %}
+    <div class="hmpo-sidebar{% if params.classes %} {{ params.classes }}{% endif %}"{% for key,value in params.attributes %} {{ key }}="{{ value }}"{% endfor %}>
+        <div class="hmpo-sidebar__inner{% if params.innerClasses %} {{ params.innerClasses }}{% endif %}">
+            {{ caller() }}
+        </div>
+    </div>
+{% endmacro %}
