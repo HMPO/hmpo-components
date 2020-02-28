@@ -40,6 +40,27 @@ main > .govuk-grid-row {
     }
 }
 
+.hmpo-sidebar__photo-preview {
+    h2 {
+        display: none;
+    }
+
+    .hmpo-sidebar__inner > img {
+        width: 140px;
+    }
+
+    @include govuk-media-query ($from: tablet) {
+        h2 {
+            display: block;
+        }
+
+        .hmpo-sidebar__inner > img {
+            width: 160px;
+        }
+    }
+}
+
+
 .hmpo-sidebar__thick-border {
     @include govuk-media-query($from: tablet) {
         .hmpo-sidebar__inner {
