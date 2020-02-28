@@ -18,7 +18,7 @@ main > .govuk-grid-row {
         }
     }
 
-    & > img {
+    .hmpo-sidebar__inner > img {
         display: block;
         width: 100%;
         max-width: 400px;
@@ -30,7 +30,7 @@ main > .govuk-grid-row {
 }
 
 .hmpo-sidebar__small-image {
-    & > img {
+    .hmpo-sidebar__inner > img {
         max-width: 250px;
     }
 }
