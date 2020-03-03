@@ -24,4 +24,9 @@ describe('hmpoSubmit', () => {
         const $component = $('.govuk-button');
         expect($component.attr('class')).to.equal('govuk-button button');
     });
+    it('renders with start button', () => {
+        const $ = render({ component: 'hmpoSubmit', params: { id: 'myid', isStartButton: true }, ctx: true }, locals);
+        const $component = $('.govuk-button');
+        expect($component.attr('class')).to.equal('govuk-button button govuk-button--start');
+    });
 });
