@@ -14,5 +14,5 @@ const views = [
     path.resolve(__dirname, '..', 'node_modules', 'govuk-frontend'),
 ];
 
-global.render = nunjucksTest.renderer(views);
+global.render = nunjucksTest.renderer(views, null, require('../lib/globals'), require('../lib/filters'));
 global.cleanHtml = nunjucksTest.cleanHtml;
