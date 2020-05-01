@@ -69,6 +69,6 @@
         window.hmpoNodeListForEach($elements, function ($element) { new AutoSubmit($element); });
     }
 
-    documentReady(init());
+    documentReady(init);
 
 })(document, window);
