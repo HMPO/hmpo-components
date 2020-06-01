@@ -1,13 +1,31 @@
 
 .hmpo-cookie-banner {
-    @include govuk-font($size: 16);
+    @include govuk-font($size: 19, $line-height: 1.25);
     @include govuk-text-colour;
 
-    width: 100%;
+    background-color: govuk-colour("light-grey");
+    margin: 0;
+    padding: govuk-spacing(4) 0;
+}
 
-    padding-top: govuk-spacing(2);
-    padding-bottom: govuk-spacing(2);
-    background-color: tint-25(govuk-colour("light-blue"));
+.hmpo-cookie-banner__button-wrapper {
+    padding: 0;
+}
+
+.hmpo-cookie-banner__text {
+    margin: 0 0 govuk-spacing(2);
+}
+
+.hmpo-cookie-banner__button {
+    @include mq($until: desktop) {
+        width: 100%;
+        margin: 0 0 govuk-spacing(4) 0;
+    }
+
+    @include mq($from: desktop) {
+        width: 90%;
+        margin: 0 govuk-spacing(2) govuk-spacing(1) 0;
+    }
 }
 
 .js-enabled .hmpo-cookie-banner {
@@ -16,8 +34,16 @@
 
 .hmpo-cookie-banner__message {
     @include govuk-width-container;
-    margin-top: 0;
-    margin-bottom: 0;
+
+    margin:0 !important;
+
+    @include mq($until: desktop) {
+        padding: 0 0 govuk-spacing(2) 0;
+    }
+
+    @include mq($from: desktop) {
+        padding: 0 govuk-spacing(4) govuk-spacing(2) 0;
+    }
 }
 
 @include mq($media-type: print) {
@@ -25,4 +51,3 @@
         display: none !important;
     }
 }
-

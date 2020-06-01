@@ -1,6 +1,36 @@
+{% from "hmpo-submit/macro.njk" import hmpoSubmit %}
 
-{% macro hmpoCookieBanner(params) %}
-<div class="hmpo-cookie-banner js-cookie-banner{%- if params.classes %} {{ params.classes }}{% endif %}"{% for attribute, value in params.attributes %} {{attribute}}="{{value}}"{% endfor %}>
-    <p class="hmpo-cookie-banner__message">{{ params.html | safe if params.html else params.text }}</p>
+{% macro hmpoCookieBanner(ctx, params) %}
+<div class="hmpo-cookie-banner js-cookie-banner govuk-clearfix">
+    <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="hmpo-cookie-banner__content">
+                    <div class="hmpo-cookie-banner__message">
+                        <h2 class="hmpo-cookie-banner__title">{{ params.title | safe }}</h2>
+                        <p class="hmpo-cookie-banner__text">{{ params.html | safe if params.html else params.text }}</p>
+                    </div>
+                    <div class="hmpo-cookie-banner__buttons">
+                        <div class="hmpo-cookie-banner__button-wrapper govuk-grid-column-full govuk-grid-column-one-half-from-desktop">
+                            {{ hmpoSubmit(ctx, {
+                                id: "cookie-banner-accept",
+                                html: params.accept | safe,
+                                classes: "hmpo-cookie-banner__button gem-c-button--inline gem-c-button",
+                                href: params.acceptHref
+                            }) }}
+                        </div>
+                        <div class="hmpo-cookie-banner__button-wrapper govuk-grid-column-full govuk-grid-column-one-half-from-desktop">
+                            {{ hmpoSubmit(ctx, {
+                                id: "cookie-banner-preferences",
+                                html: params.preferences | safe,
+                                classes: "hmpo-cookie-banner__button gem-c-button--inline gem-c-button",
+                                href: params.preferencesHref
+                            }) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endmacro %}

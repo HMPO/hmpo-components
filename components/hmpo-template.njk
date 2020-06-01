@@ -24,8 +24,13 @@
 {% block header %}
     {% block cookieBanner %}
         {% from "hmpo-cookie-banner/macro.njk" import hmpoCookieBanner %}
-        {{ hmpoCookieBanner({
-            html: translate("govuk.cookieBanner")
+        {{ hmpoCookieBanner(ctx, {
+            title: translate("govuk.cookieBanner.title"),
+            html: translate("govuk.cookieBanner.content") ,
+            accept: translate("govuk.cookieBanner.accept"),
+            preferences: translate("govuk.cookieBanner.preferences"),
+            acceptHref: hmpoAcceptCookies,
+            preferencesHref: hmpoCookiePreferences
         }) }}
     {% endblock %}
     {% block govukHeader %}
