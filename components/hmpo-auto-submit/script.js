@@ -19,6 +19,7 @@
         this.$submitButton = this.$manual.querySelectorAll('button')[0];
         this.$form = this.$submitButton.form;
 
+        addEvent(this.$submitButton, 'click', this.lock.bind(this));
         addEvent(this.$form, 'submit', this.lock.bind(this));
 
         addEvent(window, 'pageshow', this.load.bind(this));
@@ -30,7 +31,6 @@
     }
 
     AutoSubmit.prototype.load = function () {
-        if (this.submitTimer) return;
         this.unload();
         this.submitTimer = setTimeout(this.submit.bind(this), this.submitDelay);
         if (this.helpDelay) this.helpTimer = setTimeout(this.showHelp.bind(this), this.helpDelay);
@@ -45,15 +45,16 @@
     };
 
     AutoSubmit.prototype.lock = function () {
-        this.$form.disabled = true;
+        this.$submitButton.disabled = this.$form.disabled = true;
     };
 
     AutoSubmit.prototype.unlock = function () {
-        this.$form.disabled = false;
+        this.$submitButton.disabled = this.$form.disabled = false;
     };
 
     AutoSubmit.prototype.submit = function () {
-        this.$submitButton.click();
+        this.$form.submit();
+        this.lock();
     };
 
     AutoSubmit.prototype.showHelp = function () {
