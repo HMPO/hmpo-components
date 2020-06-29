@@ -19,41 +19,13 @@
         this.$submitButton = this.$manual.querySelectorAll('button')[0];
         this.$form = this.$submitButton.form;
 
-        addEvent(this.$form, 'submit', this.lock.bind(this));
-
-        addEvent(window, 'pageshow', this.load.bind(this));
-        addEvent(window, 'pagehide', this.unload.bind(this));
-
-        addEvent(window, 'unload', this.unload.bind(this));
-
-        this.load();
-    }
-
-    AutoSubmit.prototype.load = function () {
-        if (this.submitTimer) return;
-        this.unload();
         this.submitTimer = setTimeout(this.submit.bind(this), this.submitDelay);
         if (this.helpDelay) this.helpTimer = setTimeout(this.showHelp.bind(this), this.helpDelay);
         if (this.manualDelay) this.manualTimer = setTimeout(this.showManual.bind(this), this.manualDelay);
-    };
-
-    AutoSubmit.prototype.unload = function () {
-        clearTimeout(this.submitTimer);
-        clearTimeout(this.helpTimer);
-        clearTimeout(this.manualTimer);
-        this.unlock();
-    };
-
-    AutoSubmit.prototype.lock = function () {
-        this.$form.disabled = true;
-    };
-
-    AutoSubmit.prototype.unlock = function () {
-        this.$form.disabled = false;
-    };
+    }
 
     AutoSubmit.prototype.submit = function () {
-        this.$submitButton.click();
+        this.$form.submit();
     };
 
     AutoSubmit.prototype.showHelp = function () {
@@ -62,7 +34,6 @@
 
     AutoSubmit.prototype.showManual = function () {
         this.$element.className = this.$element.className + ' hmpo-auto-submit__show-manual';
-        this.unlock();
     };
 
     function addEvent(el, type, callback) {
@@ -74,7 +45,6 @@
     }
 
     function documentReady(callback) {
-        addEvent(document, 'DOMContentLoaded', callback);
         addEvent(window, 'load', callback);
     }
 
