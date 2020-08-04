@@ -1,9 +1,12 @@
-window.GOVUKFrontend.Radios.prototype.originalSetAttributes = window.GOVUKFrontend.Radios.prototype.setAttributes;
+window.GOVUKFrontend.Radios.prototype.originalSyncConditionalRevealWithInputState =
+    window.GOVUKFrontend.Radios.prototype.syncConditionalRevealWithInputState ||
+    window.GOVUKFrontend.Radios.prototype.setAttributes;
 
+window.GOVUKFrontend.Radios.prototype.syncConditionalRevealWithInputState =
 window.GOVUKFrontend.Radios.prototype.setAttributes = function ($input) {
     var isMulti = Boolean(this.$module.getAttribute('data-multi-conditional'));
     if (!isMulti) {
-        return window.GOVUKFrontend.Radios.prototype.originalSetAttributes.apply(this, arguments);
+        return window.GOVUKFrontend.Radios.prototype.originalSyncConditionalRevealWithInputState.apply(this, arguments);
     }
 
     var controls = $input.getAttribute('aria-controls');
