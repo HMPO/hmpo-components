@@ -86,11 +86,11 @@ describe('hmpoCheckboxes', () => {
         const $item1 = $('.govuk-checkboxes__input').eq(0);
         expect($item1.attr('name')).to.equal('my-input');
         expect($item1.attr('value')).to.equal('a');
-        expect($item1.attr('id')).to.equal('my-input-a');
+        expect($item1.attr('id')).to.equal('my-input');
         expect($item1.attr('checked')).to.equal('checked');
         const $itemlabel1 = $('.govuk-checkboxes__label').eq(0);
         expect($itemlabel1.text().trim()).to.equal('[fields.my-input.items.a.label]');
-        expect($itemlabel1.attr('id')).to.equal('my-input-a-label');
+        expect($itemlabel1.attr('id')).to.equal('my-input-label');
 
         const $item2 = $('.govuk-checkboxes__input').eq(1);
         expect($item2.attr('name')).to.equal('my-input');

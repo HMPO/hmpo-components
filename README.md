@@ -50,30 +50,21 @@ Components can be called as macros:
 {{ hmpoSubmit(ctx, { key: "textKey" }) }}
 ```
 
-### Available components:
+### Available form wizard components:
 ```
-hmpoCharsLeft(params);
-hmpoCheckboxes(ctx, params);
-hmpoCircleStep(params);
-hmpoCircleStepList(params);
-hmpoClose(params);
-hmpoCookieBanner(params);
-hmpoDate(ctx, params)
-hmpoDetails(params)
 hmpoForm(ctx, params)
-hmpoHtml(obj)
-hmpoInsetText(params)
+hmpoErrorGroup(ctx, params)
+hmpoAutoSubmit(ctx, params)
+hmpoSubmit(ctx, params)
+
+hmpoCheckboxes(ctx, params);
+hmpoDate(ctx, params)
 hmpoNumber(ctx, params)
 hmpoPhone(ctx, params)
-hmpoPrintPage(params)
 hmpoRadios(ctx, params)
 hmpoSelect(ctx, params)
-hmpoSubmit(ctx, params)
 hmpoText(ctx, params)
 hmpoTextarea(ctx, params)
-hmpoWarningText(params)
-hmpoSidebar(params)
-
 ```
 
 ### Field parameters
@@ -85,6 +76,27 @@ Label, hint, and legend text is loaded from localisation using a default key str
 - `hint.key`: overridden hint key
 - `items`: Array of select box, radio, or checkbox options, or an Array of govuk item objects.
 - `legend`: Applicable to `radio` button controls, which are wrapped in a HTML `fieldset` with a `legend` element.
+
+### Other available components:
+```
+hmpoCharsLeft(params);
+hmpoCircleStep(params);
+hmpoCircleStepList(params);
+hmpoClose(params);
+hmpoCookieBanner(params);
+hmpoDetails(params)
+hmpoFlashCard(params)
+hmpoFooter(params)
+hmpoInsetText(params)
+hmpoPrintPage(params)
+hmpoSidebar(params)
+hmpoWarningText(params)
+```
+
+### Helper and formatting components:
+```
+hmpoHtml(obj)
+```
 
 ## Filters
 
@@ -175,7 +187,9 @@ Additional validation errors can be produced and need localisation, for example:
 }
 ```
 
+## Breaking changes
 
+### 3.0.0
 
-
-
+- The error summary now links to the form field causing the error instead of the error text div. You can add a `field` parameter to custom errors to an error to override the link.
+- The first item in a set of radio buttons or checkboxes will now have the id set to _fieldname_ instead of _fieldname_-_value_.

@@ -387,6 +387,7 @@ describe('Date Mixin', () => {
                 instance.validateDateField(req, 'date1', errors);
 
                 errors['date1'].type.should.equal('required-day');
+                errors['date1'].field.should.equal('date1-day');
             });
 
             it('should create the first part required error if the day and month are missing', () => {
@@ -400,6 +401,7 @@ describe('Date Mixin', () => {
                 instance.validateDateField(req, 'date1', errors);
 
                 errors['date1'].type.should.equal('required-day');
+                errors['date1'].field.should.equal('date1-day');
             });
 
             it('should create a new required error if all three parts are missing', () => {
@@ -414,6 +416,7 @@ describe('Date Mixin', () => {
                 instance.validateDateField(req, 'date1', errors);
 
                 errors['date1'].type.should.equal('required');
+                errors['date1'].field.should.equal('date1-day');
             });
 
             it('should create a new required error if inexact and the month and year parts are missing', () => {
@@ -429,6 +432,7 @@ describe('Date Mixin', () => {
                 instance.validateDateField(req, 'date1', errors);
 
                 errors['date1'].type.should.equal('required');
+                errors['date1'].field.should.equal('date1-day');
             });
         });
 
@@ -457,6 +461,7 @@ describe('Date Mixin', () => {
                 instance.validateDateField(req, 'date1', errors);
 
                 errors['date1'].type.should.equal('numeric-day');
+                errors['date1'].field.should.equal('date1-day');
             });
 
             it('should create a new error if letters are used in the month', () => {
@@ -469,6 +474,7 @@ describe('Date Mixin', () => {
                 instance.validateDateField(req, 'date1', errors);
 
                 errors['date1'].type.should.equal('numeric-month');
+                errors['date1'].field.should.equal('date1-month');
             });
 
             it('should create a new error if letters are used in multiple parts of the date', () => {
@@ -483,6 +489,7 @@ describe('Date Mixin', () => {
                 instance.validateDateField(req, 'date1', errors);
 
                 errors['date1'].type.should.equal('numeric');
+                errors['date1'].field.should.equal('date1-day');
             });
 
             it('should not set a date field error if an error is not numeric', () => {
