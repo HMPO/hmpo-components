@@ -172,14 +172,14 @@ Additional validation errors can be produced and need localisation, for example:
 
 ```
 "validation": {
-    "date": "Enter a complete {{label}}",
+    "date": "Enter a complete {{name}}",
     "date-year": "Enter a valid year",
     "date-month": "Enter a valid month",
     "date-day": "Enter a valid day",
 
-    "required-day": "Enter a complete {{label}}",
-    "required-month": "Enter a complete {{label}}",
-    "required-year": "Enter a complete {{label}}",
+    "required-day": "Enter a complete {{name}}",
+    "required-month": "Enter a complete {{name}}",
+    "required-year": "Enter a complete {{name}}",
 
     "numeric-year": "Enter a year using numbers only",
     "numeric-month": "Enter a month using numbers only",
