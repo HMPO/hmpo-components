@@ -3,3 +3,14 @@
         margin-bottom: 0px;
     }
 }
+
+.hmpo-error-group--inline {
+    .govuk-form-group {
+        display: inline-block;
+    }
+
+    .govuk-form-group:not(:last-child)  {
+        margin-right: 1em;
+    }
+}
+
