@@ -521,11 +521,11 @@ describe('Date Mixin', () => {
 
                 errors['date1'].should.eql(new instance.Error(
                     'date1-day',
-                    { type: 'date-day', errorGroup: 'date1' },
+                    { type: 'date-day', errorGroup: 'date1', field: 'date1-day' },
                     req));
                 errors['date1-day'].should.eql(new instance.Error(
                     'date1-day',
-                    { type: 'date-day', errorGroup: 'date1' },
+                    { type: 'date-day', errorGroup: 'date1', field: 'date1-day' },
                     req));
             });
 
@@ -536,11 +536,11 @@ describe('Date Mixin', () => {
 
                 errors['date1'].should.eql(new instance.Error(
                     'date1-day',
-                    { type: 'date-day', errorGroup: 'date1' },
+                    { type: 'date-day', errorGroup: 'date1', field: 'date1-day' },
                     req));
                 errors['date1-day'].should.eql(new instance.Error(
                     'date1-day',
-                    { type: 'date-day', errorGroup: 'date1' },
+                    { type: 'date-day', errorGroup: 'date1', field: 'date1-day' },
                     req));
             });
 
@@ -551,11 +551,11 @@ describe('Date Mixin', () => {
 
                 errors['date1'].should.eql(new instance.Error(
                     'date1-month',
-                    { type: 'date-month', errorGroup: 'date1' },
+                    { type: 'date-month', errorGroup: 'date1', field: 'date1-month' },
                     req));
                 errors['date1-month'].should.eql(new instance.Error(
                     'date1-month',
-                    { type: 'date-month', errorGroup: 'date1' },
+                    { type: 'date-month', errorGroup: 'date1', field: 'date1-month' },
                     req));
             });
 
