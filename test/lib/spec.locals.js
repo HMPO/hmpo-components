@@ -54,6 +54,11 @@ describe('Locals', () => {
                 res.locals.translate.should.be.a('function');
             });
 
+            it('should also export translate functiion as t', () => {
+                locals.middleware(app, env)(req, res, next);
+                res.locals.t.should.equal(res.locals.translate);
+            });
+
             it('runs req.translate', () => {
                 let options = {};
                 locals.middleware(app, env)(req, res, next);
