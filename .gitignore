@@ -28,5 +28,13 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-all.js
+# IDE files
+.idea/
 *.idea
+*.iml
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Built javascript
+all.js
