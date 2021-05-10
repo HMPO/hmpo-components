@@ -33,23 +33,23 @@
   "dependencies": {
     "deep-clone-merge": "^1.5.2",
     "moment": "^2.29.1",
-    "underscore": "^1.11.0"
+    "underscore": "^1.13.1"
   },
   "peerDependencies": {
     "govuk-frontend": ">=3.5",
     "nunjucks": ">=3"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^7.12.1",
-    "govuk-frontend": "^3.9.1",
+    "chai": "^4.3.4",
+    "eslint": "^7.26.0",
+    "govuk-frontend": "^3.11.0",
     "hmpo-nunjucks-test": "^1.2.1",
     "husky": "^2.7.0",
-    "mocha": "^8.2.1",
+    "mocha": "^8.4.0",
     "nyc": "^15.1.0",
-    "sinon": "^9.2.1",
-    "sinon-chai": "^3.5.0",
-    "uglify-js": "^3.11.5"
+    "sinon": "^10.0.0",
+    "sinon-chai": "^3.6.0",
+    "uglify-js": "^3.13.5"
   },
   "nyc": {
     "all": true,
