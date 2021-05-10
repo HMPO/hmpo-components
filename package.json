@@ -43,7 +43,7 @@
     "chai": "^4.3.4",
     "eslint": "^7.26.0",
     "govuk-frontend": "^3.11.0",
-    "hmpo-nunjucks-test": "^1.2.1",
+    "hmpo-nunjucks-test": "^1.2.2",
     "husky": "^2.7.0",
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
