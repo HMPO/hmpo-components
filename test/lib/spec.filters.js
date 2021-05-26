@@ -135,12 +135,22 @@ describe('Filters', () => {
                 let result = filters.filters.uppercase.call(context, 'abcdEFG');
                 result.should.equal('ABCDEFG');
             });
+
+            it('passes though non string', () => {
+                let result = filters.filters.uppercase.call(context, 1234);
+                result.should.equal(1234);
+            });
         });
 
         describe('lowercase', () => {
             it('changes text to lowercase', () => {
                 let result = filters.filters.lowercase.call(context, 'abcdEFG');
                 result.should.equal('abcdefg');
+            });
+
+            it('passes though non string', () => {
+                let result = filters.filters.lowercase.call(context, 1234);
+                result.should.equal(1234);
             });
         });
 
@@ -158,6 +168,28 @@ describe('Filters', () => {
             it('does not change capitalisation of other words', () => {
                 let result = filters.filters.capscase.call(context, 'abc DEF Hij');
                 result.should.equal('Abc DEF Hij');
+            });
+
+            it('passes though non string', () => {
+                let result = filters.filters.capscase.call(context, 1234);
+                result.should.equal(1234);
+            });
+        });
+
+        describe('camelcase', () => {
+            it('changes text to camelcase', () => {
+                let result = filters.filters.camelcase.call(context, '/this-is-a/test');
+                result.should.equal('thisIsATest');
+            });
+
+            it('ignores /edit on the end of a string', () => {
+                let result = filters.filters.camelcase.call(context, '/this-is-a/test/edit/');
+                result.should.equal('thisIsATest');
+            });
+
+            it('passes though non string', () => {
+                let result = filters.filters.camelcase.call(context, 1234);
+                result.should.equal(1234);
             });
         });
 
@@ -211,6 +243,10 @@ describe('Filters', () => {
                 result.should.equal('apple-blackberry-cherry');
             });
 
+            it('passes though non string', () => {
+                let result = filters.filters.hyphenate.call(context, 1234);
+                result.should.equal(1234);
+            });
         });
 
         describe('possessive', () => {
@@ -229,6 +265,11 @@ describe('Filters', () => {
             it('doesn\'t use curly apostrophe if false', () => {
                 let result = filters.filters.possessive.call(context, 'Fred', undefined, false);
                 result.should.equal('Fred\'s');
+            });
+
+            it('passes though non string', () => {
+                let result = filters.filters.possessive.call(context, 1234);
+                result.should.equal(1234);
             });
         });
 

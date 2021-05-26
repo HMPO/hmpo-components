@@ -1,0 +1,49 @@
+{% macro hmpoField(ctx, fieldName, isPageHeading) %}
+    {% set fields = ctx().options.fields %}
+    {% set field = fields[fieldName] %}
+    {% if field.type == "radios" %}
+        {% from "../hmpo-radios/macro.njk" import hmpoRadios %}
+        {% set component = hmpoRadios %}
+    {% elif field.type == "text" %}
+        {% from "../hmpo-text/macro.njk" import hmpoText %}
+        {% set component = hmpoText %}
+    {% elif field.type == "textarea" %}
+        {% from "../hmpo-textarea/macro.njk" import hmpoTextarea %}
+        {% set component = hmpoTextarea %}
+    {% elif field.type == "date" %}
+        {% from "../hmpo-date/macro.njk" import hmpoDate %}
+        {% set component = hmpoDate %}
+    {% elif field.type == "select" %}
+        {% from "../hmpo-select/macro.njk" import hmpoSelect %}
+        {% set component = hmpoSelect %}
+    {% elif field.type == "number" %}
+        {% from "../hmpo-number/macro.njk" import hmpoNumber %}
+        {% set component = hmpoNumber %}
+    {% elif field.type == "phone" %}
+        {% from "../hmpo-phone/macro.njk" import hmpoPhone %}
+        {% set component = hmpoPhone %}
+    {% endif %}
+
+    {% if component %}
+        {% set conditionals = {} %}
+
+        {% for subFieldName, subField in fields %}
+            {% if subField.dependent.field == fieldName %}
+                {% set html = hmpoField(ctx, subFieldName) %}
+                {% set conditionals = conditionals | add(subField.dependent.value, { html: html }) %}
+            {% endif %}
+        {% endfor %}
+
+        {{ component(ctx, {
+            id: fieldName,
+            isPageHeading: isPageHeading,
+            label: {
+                classes: "govuk-label--m"
+            } if not isPageHeading,
+            fieldset: {
+                legend: { classes: "govuk-fieldset__legend--m"}
+            } if not isPageHeading,
+            conditionals: conditionals
+        } | filter) }}
+    {% endif %}
+{% endmacro %}
