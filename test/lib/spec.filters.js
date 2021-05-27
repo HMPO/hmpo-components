@@ -182,9 +182,14 @@ describe('Filters', () => {
                 result.should.equal('thisIsATest');
             });
 
-            it('ignores /edit on the end of a string', () => {
-                let result = filters.filters.camelcase.call(context, '/this-is-a/test/edit/');
+            it('handles multiple separator characters', () => {
+                let result = filters.filters.camelcase.call(context, '../this-is-a/../test');
                 result.should.equal('thisIsATest');
+            });
+
+            it('hanldes caps in the sting', () => {
+                let result = filters.filters.camelcase.call(context, 'HMPO text');
+                result.should.equal('hmpoText');
             });
 
             it('passes though non string', () => {
