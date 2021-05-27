@@ -1,0 +1,47 @@
+{% extends "app-template.njk" %}
+
+{% from "hmpo-form/macro.njk" import hmpoForm %}
+{% from "hmpo-html/macro.njk" import hmpoHtml %}
+{% from "hmpo-submit/macro.njk" import hmpoSubmit %}
+{% from "hmpo-field/macro.njk" import hmpoField %}
+
+{# make default page key #}
+{% set hmpoPageKey = hmpoPageKey or ( options.route | camelcase ) %}
+
+{# find the top most question fields #}
+{% set topLevelFields = [] %}
+{% for fieldName, field in options.fields %}
+    {% if not field.dependent %}
+        {% set topLevelFields = topLevelFields | push(fieldName) %}
+    {% endif %}
+{% endfor %}
+
+{# find out if the first question should be the page heading #}
+{% set isPageHeading = false %}
+{% if topLevelFields[0] and not translate(['pages.' + hmpoPageKey + '.h1', 'pages.' + hmpoPageKey + '.title'], {self: false}) %}
+    {% set isPageHeading = true %}
+    {% set firstFieldName = topLevelFields[0] %}
+    {% set hmpoTitleKey = [
+        "fields." + firstFieldName + ".label",
+        "fields." + firstFieldName + ".legend"
+    ] %}
+{% endif %}
+
+{% block mainContent %}
+    {% if not isPageHeading %}
+        {{ super() }}
+    {% endif %}
+
+    {% call hmpoForm(ctx) %}
+        {% for fieldName in topLevelFields %}
+            {{ hmpoField(ctx, fieldName, isPageHeading) }}
+            {% set isPageHeading = false %}
+        {% endfor %}
+
+        {% block innerContent %}
+        {% endblock %}
+
+        {{ hmpoSubmit(ctx) }}
+    {% endcall %}
+
+{% endblock %}

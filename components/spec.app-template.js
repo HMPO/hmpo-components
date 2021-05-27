@@ -1,9 +1,9 @@
 'use strict';
 
-describe('hmpo template', () => {
+describe('app template', () => {
     it('renders', () => {
         expect(() => {
-            render({ template: 'hmpo-template.njk' });
+            render({ template: 'app-template.njk' });
         }).to.not.throw();
     });
 });
