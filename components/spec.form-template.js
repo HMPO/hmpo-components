@@ -13,6 +13,9 @@ describe('form template', () => {
             fields: {
                 field1: {
                     legend: 'Field One'
+                },
+                field2: {
+                    content: 'content below the field'
                 }
             }
         };
@@ -39,6 +42,14 @@ describe('form template', () => {
                     field2: {
                         type: 'text',
                         dependent: { field: 'field1', value: true }
+                    },
+                    field3: {
+                        type: 'number',
+                        dependent: { field: 'field1', value: true }
+                    },
+                    field4: {
+                        type: 'checkboxes',
+                        dependent: { field: 'field1', value: false }
                     }
                 }
             }
@@ -48,8 +59,11 @@ describe('form template', () => {
         expect(cleanHtml($('title'))).to.equal('Field One – [govuk.serviceName] – GOV.UK');
         expect(cleanHtml($('h1'))).to.equal('Field One');
         expect($('input#field1').attr('type')).to.equal('radio');
-        expect($('input#field2').attr('type')).to.equal('text');
         expect($('div#conditional-field1').attr('class')).to.equal('govuk-radios__conditional govuk-radios__conditional--hidden');
+        expect($('div#conditional-field1 input#field2').attr('type')).to.equal('text');
+        expect(cleanHtml($('div#conditional-field1 p'))).to.equal('content below the field');
+        expect($('div#conditional-field1 input#field3').attr('type')).to.equal('number');
         expect($('input#field1-false').attr('type')).to.equal('radio');
+        expect($('div#conditional-field1-false input#field4').attr('type')).to.equal('checkbox');
     });
 });

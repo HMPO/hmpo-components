@@ -1,9 +1,13 @@
 {% macro hmpoField(ctx, fieldName, isPageHeading) %}
     {% set fields = ctx().options.fields %}
     {% set field = fields[fieldName] %}
+
     {% if field.type == "radios" %}
-        {% from "../hmpo-radios/macro.njk" import hmpoRadios %}
+        {% from "../hmpo-radios/macro.njk" import hmpoRadios%}
         {% set component = hmpoRadios %}
+    {% elif field.type == "checkboxes" %}
+        {% from "../hmpo-checkboxes/macro.njk" import hmpoCheckboxes %}
+        {% set component = hmpoCheckboxes %}
     {% elif field.type == "text" %}
         {% from "../hmpo-text/macro.njk" import hmpoText %}
         {% set component = hmpoText %}
@@ -29,7 +33,11 @@
 
         {% for subFieldName, subField in fields %}
             {% if subField.dependent.field == fieldName %}
-                {% set html = hmpoField(ctx, subFieldName) %}
+                {% set existing = conditionals[subField.dependent.value].html %}
+                {% set html %}
+                    {{ existing | safe }}
+                    {{ hmpoField(ctx, subFieldName)}}
+                {% endset %}
                 {% set conditionals = conditionals | add(subField.dependent.value, { html: html }) %}
             {% endif %}
         {% endfor %}
@@ -46,4 +54,7 @@
             conditionals: conditionals
         } | filter) }}
     {% endif %}
+
+    {% from "hmpo-html/macro.njk" import hmpoHtml %}
+    {{ hmpoHtml(ctx().translate("fields." + fieldName + ".content", { default: [] })) }}
 {% endmacro %}
