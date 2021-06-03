@@ -223,6 +223,22 @@ describe('Filters', () => {
                 let result = filters.filters.currency.call(context, 'abcd');
                 result.should.equal('abcd');
             });
+
+            it('formats whole numbers with no decimal places from pence to pounds', () => {
+                let result = filters.filters.currency.call(context, 300, { penceToPound: true });
+                result.should.equal('£3');
+            });
+
+            it('formats 3.50 to two decimal places from pence to pounds', () => {
+                let result = filters.filters.currency.call(context, 350, { penceToPound: true });
+                result.should.equal('£3.50');
+            });
+
+            it('formats and rounds 3.567 to two decimal places from pence to pounds', () => {
+                let result = filters.filters.currency.call(context, 356.7, { penceToPound: true });
+                result.should.equal('£3.57');
+            });
+
         });
 
         describe('currencyOrFree', () => {
