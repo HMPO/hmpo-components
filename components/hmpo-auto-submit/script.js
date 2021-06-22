@@ -30,12 +30,14 @@
     };
 
     AutoSubmit.prototype.submit = function () {
-        if (this.cloneForm && this.$form.cloneNode) {
-            var formClone = this.$form.cloneNode(true);
-            this.$form.replaceWith(formClone);
-            this.getElements();
+        if (!this.cloneForm || !this.$form.cloneNode || !this.$form.replaceWith) {
+            return this.$form.submit();
         }
-        this.$form.submit();
+        this.$form.replaceWith(this.$form.cloneNode(true));
+        setTimeout(function () {
+            this.getElements();
+            this.$form.submit();
+        }.bind(this));
     };
 
     AutoSubmit.prototype.showHelp = function () {
