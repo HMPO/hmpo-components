@@ -3,6 +3,7 @@
 {% macro hmpoAutoSubmit(ctx, params) %}
     <div class="hmpo-auto-submit"
         data-module="hmpo-auto-submit"
+        data-clone-form="{{params.cloneForm | default(false) }}"
         data-submit-delay="{{params.submitDelay | default(1000) }}"
         data-help-delay="{{params.helpDelay | default(3000) }}"
         data-manual-delay="{{params.manualDelay | default(30000) }}">

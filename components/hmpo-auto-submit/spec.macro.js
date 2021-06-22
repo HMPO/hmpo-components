@@ -7,6 +7,7 @@ describe('hmpoAutoSubmit', () => {
         expect($component.attr('data-submit-delay')).to.equal('1000');
         expect($component.attr('data-help-delay')).to.equal('3000');
         expect($component.attr('data-manual-delay')).to.equal('30000');
+        expect($component.attr('data-clone-form')).to.equal('false');
         expect(cleanHtml($('.hmpo-auto-submit__spinner span'))).to.equal('[govuk.loading]');
         expect(cleanHtml($('.hmpo-auto-submit__html'))).to.equal('');
         expect(cleanHtml($('.hmpo-auto-submit__help'))).to.equal('');
@@ -18,6 +19,7 @@ describe('hmpoAutoSubmit', () => {
             helpDelay: 1234,
             manualDelay: 4567,
             submitDelay: 789,
+            cloneForm: true,
             html: '<h1>foo</h1>',
             loader: { text: 'test' },
             help: { html: '<b>bar</b>' },
@@ -27,6 +29,7 @@ describe('hmpoAutoSubmit', () => {
         expect($component.attr('data-submit-delay')).to.equal('789');
         expect($component.attr('data-help-delay')).to.equal('1234');
         expect($component.attr('data-manual-delay')).to.equal('4567');
+        expect($component.attr('data-clone-form')).to.equal('true');
         expect(cleanHtml($('.hmpo-auto-submit__spinner span'))).to.equal('test');
         expect(cleanHtml($('.hmpo-auto-submit__html'))).to.equal('<h1>foo</h1>');
         expect(cleanHtml($('.hmpo-auto-submit__help'))).to.equal('<b>bar</b>');
