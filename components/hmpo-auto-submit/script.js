@@ -22,7 +22,8 @@
         if (this.manualDelay) this.manualTimer = setTimeout(this.showManual.bind(this), this.manualDelay);
     }
 
-    AutoSubmit.prototype.getElements = function () {
+    AutoSubmit.prototype.getElements = function (scope) {
+        if (scope) this.$element = scope.querySelectorAll('[data-module="hmpo-auto-submit"]')[0];
         this.$help = this.$element.querySelectorAll('.hmpo-auto-submit__help')[0];
         this.$manual = this.$element.querySelectorAll('.hmpo-auto-submit__manual')[0];
         this.$submitButton = this.$manual.querySelectorAll('button')[0];
@@ -30,14 +31,11 @@
     };
 
     AutoSubmit.prototype.submit = function () {
-        if (!this.cloneForm || !this.$form.cloneNode || !this.$form.replaceWith) {
-            return this.$form.submit();
+        if (this.cloneForm && this.$form.cloneNode && this.$form.replaceWith) {
+            this.$form.replaceWith(this.$form.cloneNode(true));
+            this.getElements(this.$form);
         }
-        this.$form.replaceWith(this.$form.cloneNode(true));
-        setTimeout(function () {
-            this.getElements();
-            this.$form.submit();
-        }.bind(this));
+        this.$form.submit();
     };
 
     AutoSubmit.prototype.showHelp = function () {
