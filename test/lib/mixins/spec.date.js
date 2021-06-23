@@ -142,6 +142,15 @@ describe('Date Mixin', () => {
             req.form.options.fields['date2-month'].autocomplete.should.equal('off');
             req.form.options.fields['date2-year'].autocomplete.should.equal('mycomplete');
         });
+
+        it('should not populate autocomplete if not specified', () => {
+            delete options.fields.date2.autocomplete;
+            delete options.fields['date2-year'];
+            instance.configureDateField(req, 'date2');
+            expect(req.form.options.fields['date2-day'].autocomplete).to.be.undefined;
+            expect(req.form.options.fields['date2-month'].autocomplete).to.be.undefined;
+            expect(req.form.options.fields['date2-year'].autocomplete).to.be.undefined;
+        });
     });
 
     describe('getValues', () => {
