@@ -23,8 +23,8 @@
             attributes: hmpoGetAttributes(ctx, day, {
                 maxlength: 2,
                 autocomplete: day.autocomplete,
-                "aria-required": hmpoGetValidatorAttribute(ctx, day, "required")
-            }),
+                "aria-required": hmpoGetValidatorAttribute(ctx, day, "required", null, false)
+            } | filter(null)),
             classes: "govuk-input--width-2" + (" govuk-input--error" if dayError)
         } %}
     {% endif %}
@@ -41,8 +41,8 @@
         attributes: hmpoGetAttributes(ctx, month, {
             maxlength: 2,
             autocomplete: month.autocomplete,
-            "aria-required": hmpoGetValidatorAttribute(ctx, month, "required")
-        }),
+            "aria-required": hmpoGetValidatorAttribute(ctx, month, "required", null, false)
+        } | filter(null)),
         classes: "govuk-input--width-2" + (" govuk-input--error" if monthError)
     } %}
 
@@ -58,8 +58,8 @@
         attributes: hmpoGetAttributes(ctx, year, {
             maxlength: 4,
             autocomplete: year.autocomplete,
-            "aria-required": hmpoGetValidatorAttribute(ctx, year, "required")
-        }),
+            "aria-required": hmpoGetValidatorAttribute(ctx, year, "required", null, false)
+        } | filter(null)),
         classes: "govuk-input--width-4" + (" govuk-input--error" if yearError)
     } %}
 

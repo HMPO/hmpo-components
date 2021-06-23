@@ -36,8 +36,8 @@
             conditional: params.conditional,
             checked: value,
             attributes: hmpoGetAttributes(ctx, params, {
-                "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
-            })
+                "aria-required": hmpoGetValidatorAttribute(ctx, params, "required", null, false)
+            } | filter(null))
         ]} %}
         {%- set fieldset = false if not params.fieldset and not params.isPageHeading %}
     {% endif %}

@@ -20,8 +20,8 @@
             legend: hmpoGetOptions(ctx, params, "legend"),
             attributes: {
                 id: params.id + "-fieldset",
-                "aria-required": hmpoGetValidatorAttribute(ctx, params, "required")
-            }
+                "aria-required": hmpoGetValidatorAttribute(ctx, params, "required", null, false)
+            } | filter
         }, params.fieldset),
         hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessage: hmpoGetError(ctx, params),

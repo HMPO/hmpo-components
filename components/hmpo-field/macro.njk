@@ -52,7 +52,7 @@
                 legend: { classes: "govuk-fieldset__legend--m"}
             } if not isPageHeading,
             conditionals: conditionals
-        } | filter) }}
+        } | filter(null)) }}
     {% endif %}
 
     {% from "hmpo-html/macro.njk" import hmpoHtml %}

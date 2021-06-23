@@ -64,27 +64,27 @@ describe('hmpoText', () => {
         expect($component.attr('aria-required')).to.equal('false');
     });
 
-    it('renders with aria-required if validator is required', () => {
+    it('renders with no aria-required if validator is required', () => {
         const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
 
         const $component = $('.govuk-input');
-        expect($component.attr('aria-required')).to.equal('true');
+        expect($component.attr('aria-required')).to.be.undefined;
     });
 
-    it('renders with aria-required if validators contains required', () => {
+    it('renders with no aria-required if validators contains required', () => {
         locals.options.fields['my-input'].validate = [ 'required' ];
         const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
 
         const $component = $('.govuk-input');
-        expect($component.attr('aria-required')).to.equal('true');
+        expect($component.attr('aria-required')).to.be.undefined;
     });
 
-    it('renders with aria-required if validators contains required validator object', () => {
+    it('renders with no aria-required if validators contains required validator object', () => {
         locals.options.fields['my-input'].validate = [ { type: 'required' } ];
         const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
 
         const $component = $('.govuk-input');
-        expect($component.attr('aria-required')).to.equal('true');
+        expect($component.attr('aria-required')).to.be.undefined;
     });
 
     it('renders with max-length from validator', () => {
