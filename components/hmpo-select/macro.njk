@@ -2,7 +2,7 @@
     {%- set params = hmpoGetParams(ctx, params, base) %}
 
     {%- set value = hmpoGetValue(ctx, params) %}
-    {%- set required = hmpoGetValidatorAttribute(ctx, params, "required") and true %}
+    {%- set required = hmpoGetValidatorAttribute(ctx, params, "required") %}
 
     {%- set pageHeading = {
         isPageHeading: true,
@@ -24,8 +24,8 @@
         formGroup: params.formGroup,
         autocomplete: params.autocomplete,
         attributes: hmpoGetAttributes(ctx, params, {
-            "aria-required": required
-        }),
+            "aria-required": null if required else false
+        } | filter(null)),
         items: hmpoGetItems(ctx, params, value, required, false)
     } %}
 

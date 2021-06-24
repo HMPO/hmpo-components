@@ -48,11 +48,19 @@ describe('hmpoTextarea', () => {
         expect($component.attr('rows')).to.equal('10');
     });
 
-    it('renders with aria-required', () => {
+    it('renders with no aria-required if required', () => {
         const $ = render({ component: 'hmpoTextarea', params: { id: 'my-input' }, ctx: true }, locals);
 
         const $component = $('.govuk-textarea');
-        expect($component.attr('aria-required')).to.equal('true');
+        expect($component.attr('aria-required')).to.be.undefined;
+    });
+
+    it('renders with aria-required=false if not required', () => {
+        locals.options.fields['my-input'].validate = [];
+        const $ = render({ component: 'hmpoTextarea', params: { id: 'my-input' }, ctx: true }, locals);
+
+        const $component = $('.govuk-textarea');
+        expect($component.attr('aria-required')).to.equal('false');
     });
 
     it('renders with max-length from validator', () => {

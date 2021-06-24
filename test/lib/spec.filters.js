@@ -340,6 +340,17 @@ describe('Filters', () => {
                 ]);
             });
 
+            it('filters out null and undefined from an array', () => {
+                let result = filters.filters.filter([1, 'string', null, undefined, false, {}, 0], null);
+                result.should.eql([
+                    1,
+                    'string',
+                    false,
+                    {},
+                    0
+                ]);
+            });
+
             it('filters an array by a string', () => {
                 let result = filters.filters.filter([
                     { foo: 'bar', boo: 'baz' },
@@ -372,7 +383,9 @@ describe('Filters', () => {
                     second: { fiz: 'buz', boo: false },
                     third: { buz: 'foo' },
                     fourth: { },
-                    fith: null
+                    fith: null,
+                    sixth: false,
+                    seventh: 0
                 });
                 result.should.eql({
                     first: { foo: 'bar', boo: 'baz' },
@@ -381,6 +394,27 @@ describe('Filters', () => {
                     fourth: { }
                 });
             });
+
+            it('filters an object by not null or undefined values', () => {
+                let result = filters.filters.filter({
+                    first: { foo: 'bar', boo: 'baz' },
+                    second: { fiz: 'buz', boo: false },
+                    third: { buz: 'foo' },
+                    fourth: { },
+                    fith: null,
+                    sixth: false,
+                    seventh: 0,
+                }, null);
+                result.should.eql({
+                    first: { foo: 'bar', boo: 'baz' },
+                    second: { fiz: 'buz', boo: false },
+                    third: { buz: 'foo' },
+                    fourth: { },
+                    sixth: false,
+                    seventh: 0,
+                });
+            });
+
 
             it('filters an object by a string', () => {
                 let result = filters.filters.filter({
