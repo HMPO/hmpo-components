@@ -101,5 +101,48 @@ describe('Globals', () => {
                 globals.globals.isBoolean(null).should.be.false;
             });
         });
+
+        describe('startsWith', () => {
+            it('returns true if a string is passed', () => {
+                globals.globals.startsWith('string', 'str').should.be.true;
+                globals.globals.startsWith('', '').should.be.true;
+            });
+            it('returns false if not a string', () => {
+                globals.globals.startsWith('string', 'ing').should.be.false;
+                globals.globals.startsWith({}, 'str').should.be.false;
+                globals.globals.startsWith([], 'str').should.be.false;
+                globals.globals.startsWith(null, 'str').should.be.false;
+                globals.globals.startsWith(true, 'str').should.be.false;
+            });
+        });
+
+        describe('endsWith', () => {
+            it('returns true if a string is passed', () => {
+                globals.globals.endsWith('string', 'ing').should.be.true;
+                globals.globals.endsWith('', '').should.be.true;
+            });
+            it('returns false if not a string', () => {
+                globals.globals.endsWith('string', 'str').should.be.false;
+                globals.globals.endsWith({}, 'str').should.be.false;
+                globals.globals.endsWith([], 'str').should.be.false;
+                globals.globals.endsWith(null, 'str').should.be.false;
+                globals.globals.endsWith(true, 'str').should.be.false;
+            });
+        });
+
+        describe('substr', () => {
+            it('returns sub string if a string is passed', () => {
+                globals.globals.substr('string', 0).should.equal('string');
+                globals.globals.substr('string', 1, 3).should.equal('tri');
+                globals.globals.substr('string', 4).should.equal('ng');
+                globals.globals.substr('', 10).should.equal('');
+                globals.globals.substr({}, 10).should.equal('');
+                globals.globals.substr(false, 10).should.equal('');
+                globals.globals.substr([], 10).should.equal('');
+                globals.globals.substr(null, 10).should.equal('');
+            });
+        });
+
+
     });
 });
