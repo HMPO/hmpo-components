@@ -48,15 +48,18 @@ describe('hmpoHtml', () => {
     it('renders headers', () => {
         const html = [
             'First <b>string</b>',
-            '# Second header',
+            '# Not header',
+            '## Second header',
             'Second <b>string</b>',
-            '## Third header',
+            '### Third header',
+            '#### Fourth header',
             [
                 'First <b>item</b>',
                 'Second <b>item</b>',
                 '# Not header',
+                '## Not header',
                 [
-                    '# Bullet header',
+                    '## Bullet header',
                     'Bullet text'
                 ]
             ]
@@ -66,13 +69,16 @@ describe('hmpoHtml', () => {
         const result = cleanHtml($('body'));
         expect(result).to.equal(
             '<p>First <b>string</b></p>' +
+            '<p># Not header</p>' +
             '<h2>Second header</h2>' +
             '<p>Second <b>string</b></p>' +
             '<h3>Third header</h3>' +
+            '<h4>Fourth header</h4>' +
             '<ul class="govuk-list govuk-list--bullet">' +
                 '<li>First <b>item</b></li>' +
                 '<li>Second <b>item</b></li>' +
                 '<li># Not header</li>' +
+                '<li>## Not header</li>' +
                 '<li>' +
                     '<h2>Bullet header</h2>' +
                     '<p>Bullet text</p>' +
