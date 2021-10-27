@@ -26,8 +26,9 @@
     {%- if not isObject(value) %}{%- set value = { "": value } %}{% endif %}
     {%- for id, html in value %}
         {%- if isArray(html) %}{%- set html = hmpoHtml(html) %}{%- endif %}
-        {%- if tag == "p" and startsWith(html, "# ") %}{%- set tag = "h2" %}{%- set html = substr(html, 2) %}{%- endif %}
-        {%- if tag == "p" and startsWith(html, "## ") %}{%- set tag = "h3" %}{%- set html = substr(html, 3) %}{%- endif %}
+        {%- if tag == "p" and startsWith(html, "## ") %}{%- set tag = "h2" %}{%- set html = substr(html, 3) %}{%- endif %}
+        {%- if tag == "p" and startsWith(html, "### ") %}{%- set tag = "h3" %}{%- set html = substr(html, 4) %}{%- endif %}
+        {%- if tag == "p" and startsWith(html, "#### ") %}{%- set tag = "h4" %}{%- set html = substr(html, 5) %}{%- endif %}
         <{{tag}}{% if id %} id="{{id}}"{% endif %}>{{ html | safe }}</{{tag}}>
     {%- endfor %}
 {% endmacro %}
