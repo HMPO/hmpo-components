@@ -1,8 +1,13 @@
 
-  .govuk-accordion__section-button {
-    @include govuk-font($size: 19, $weight: bold);
-  }
+@if $hmpo-text-size != "big" {
+    .js-enabled {
+        .govuk-accordion__section-heading-text {
+            @include govuk-typography-responsive($size: 19, $important: true);
+            @include govuk-typography-weight-bold($important: true);
+        }
 
-  .govuk-accordion__section-content {
-      margin-bottom: 1em;
-  }
+        .govuk-accordion__section-toggle, .govuk-accordion__show-all {
+            @include govuk-typography-responsive($size: 16, $important: true);
+        }
+    }
+}

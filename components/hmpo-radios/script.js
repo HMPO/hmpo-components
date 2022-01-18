@@ -10,8 +10,8 @@ window.GOVUKFrontend.Radios.prototype.setAttributes = function ($input) {
     }
 
     var controls = $input.getAttribute('aria-controls');
-    var $content = this.$module.querySelector('#' + controls);
-    if (!$content) return;
+    var $content = document.getElementById(controls);
+    if (!$content) return window.GOVUKFrontend.Radios.prototype.originalSyncConditionalRevealWithInputState.apply(this, arguments);
 
     var conditionMet = false;
     var $allInputs = document.querySelectorAll('input[type="radio"]');

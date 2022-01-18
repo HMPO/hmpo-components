@@ -152,12 +152,15 @@ describe('hmpoRadios', () => {
             }
         }, locals);
 
+        // conditionals should not be inside radio group
         const $radiosControl = $('div[data-module=govuk-radios]');
-        const $item1 = $radiosControl.find('.govuk-radios__conditional').eq(0);
+        $radiosControl.find('.govuk-radios__conditional').length.should.equal(0);
+
+        const $item1 = $('.govuk-radios__conditional').eq(0);
         expect($item1.attr('id')).to.equal('a');
         expect($item1.attr('class')).to.equal('govuk-radios__conditional');
         expect(cleanHtml($item1)).to.equal('a <b>first</b>');
-        const $item2 = $radiosControl.find('.govuk-radios__conditional').eq(1);
+        const $item2 = $('.govuk-radios__conditional').eq(1);
         expect($item2.attr('id')).to.equal('b');
         expect($item2.attr('class')).to.equal('govuk-radios__conditional anotherclass');
         expect(cleanHtml($item2)).to.equal('b <b>second</b>');
@@ -200,11 +203,10 @@ describe('hmpoRadios', () => {
             }
         }, locals);
 
-        const $radiosControl = $('div[data-module=govuk-radios]');
-        const $item1 = $radiosControl.find('#a');
+        const $item1 = $('#a');
         expect($item1.attr('class')).to.equal('govuk-radios__conditional govuk-radios__removeInset');
         expect(cleanHtml($item1)).to.equal('a <b>first</b>');
-        const $item2 = $radiosControl.find('#b');
+        const $item2 = $('#b');
         expect($item2.attr('class')).to.equal('govuk-radios__conditional govuk-radios__removeInset anotherclass');
         expect(cleanHtml($item2)).to.equal('b <b>second</b>');
     });
