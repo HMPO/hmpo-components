@@ -193,3 +193,9 @@ Additional validation errors can be produced and need localisation, for example:
 
 - The error summary now links to the form field causing the error instead of the error text div. You can add a `field` parameter to custom errors to an error to override the link.
 - The first item in a set of radio buttons or checkboxes will now have the id set to _fieldname_ instead of _fieldname_-_value_.
+
+### 5.0.0
+
+- This version should only be used with govuk-frontend >= 4. See the govuk-frontend changelog for other breaking changes.
+- Summary lists have the hmpo styling by default. this can be turned off with a css variable `$hmpo-summary-list: false;`
+- The hmpo small font styling is applied by default. This can be changed using the css variable `$hmpo-text-size: "big";`
