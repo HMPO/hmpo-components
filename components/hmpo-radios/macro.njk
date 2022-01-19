@@ -13,8 +13,14 @@
         }
     } if params.isPageHeading %}
 
+    {%- set attributes = params.attributes %}
+    {%- if params.multiConditional %}
+        {%- set attributes = merge({ "data-multi-conditional": "true" }, params.attributes) %}
+    {%- endif %}
+
     {%- set args = {
         idPrefix: params.id,
+        attributes: attributes,
         name: params.id,
         fieldset: merge(pageHeading, {
             legend: hmpoGetOptions(ctx, params, "legend"),
@@ -32,20 +38,16 @@
     } %}
 
     {%- from "govuk/components/radios/macro.njk" import govukRadios %}
+    {{- govukRadios(args) }}
     {% if params.conditionals and params.inline %}
-        <div data-module="govuk-radios" {% if params.multiConditional %} data-multi-conditional="true"{% endif %}>
-            {{- govukRadios(args) }}
-            {% for key, conditional in params.conditionals %}
-                {% if conditional.html %}
-                    <div id="{{ conditional.id }}"
-                        class="govuk-radios__conditional{% if conditional.removeInset %} govuk-radios__removeInset{% endif %}{% if conditional.classes %} {{ conditional.classes }}{% endif %}">
-                        {{ conditional.html | safe }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    {% else %}
-        {{- govukRadios(args) }}
+        {% for key, conditional in params.conditionals %}
+            {% if conditional.html %}
+                <div id="{{ conditional.id }}"
+                    class="govuk-radios__conditional{% if conditional.removeInset %} govuk-radios__removeInset{% endif %}{% if conditional.classes %} {{ conditional.classes }}{% endif %}">
+                    {{ conditional.html | safe }}
+                </div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
 {% endmacro %}
