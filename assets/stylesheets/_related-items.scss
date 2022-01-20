@@ -6,7 +6,10 @@
         max-width: 400px;
     }
     @include govuk-media-query($from: tablet) {
-        border-top: 10px solid govuk-colour("blue");
+        border-top: 2px solid govuk-colour("blue");
+        &.app-related-items__thick-border {
+            border-top: 10px solid govuk-colour("blue");
+        }
         padding-top: govuk-spacing(2);
         margin-bottom: 0;
     }
