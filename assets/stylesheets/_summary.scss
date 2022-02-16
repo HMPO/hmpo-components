@@ -46,7 +46,7 @@
 $hmpo-summary-list: true !default;
 @if $hmpo-summary-list {
     .govuk-summary-list {
-        @extend .govuk-summary-list.govuk-summary-list--confirmation;
+        @extend .govuk-summary-list--confirmation;
     }
 }
 
