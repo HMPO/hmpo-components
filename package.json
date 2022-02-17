@@ -6,8 +6,10 @@
   "scripts": {
     "pretest": "npm run test:lint",
     "test:lint": "eslint .",
-    "test": "npm run test:unit",
+    "test": "npm run test:unit && npm run test:node-sass && npm run test:sass",
     "test:unit": "nyc --reporter=lcov --reporter=text-summary _mocha --recursive test 'components/**/spec.*.js'",
+    "test:node-sass": "node-sass -q test/test.scss /dev/null && echo scss compiles in node-sass",
+    "test:sass": "sass -q -I . --no-source-map test/test.scss /dev/null && echo scss compiles in sass",
     "posttest": "npm audit --production",
     "prepare": "uglifyjs components/common.js components/**/script.js -o all.js"
   },
@@ -46,7 +48,9 @@
     "hmpo-nunjucks-test": "^1.2.3",
     "husky": "^2.7.0",
     "mocha": "^9.1.4",
+    "node-sass": "^7.0.1",
     "nyc": "^15.1.0",
+    "sass": "^1.49.7",
     "sinon": "^12.0.1",
     "sinon-chai": "^3.7.0",
     "uglify-js": "^3.14.5"
