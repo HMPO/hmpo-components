@@ -47,4 +47,12 @@ describe('hmpoDate', () => {
         expect($legend.attr('class')).to.equal('govuk-fieldset__legend govuk-fieldset__legend--l');
         expect(cleanHtml($legend)).to.equal('<h1 class="govuk-fieldset__heading">[fields.my-input.legend]</h1>');
     });
+
+    it('renders with header label localisation instead of legend when legend is not present', () => {
+        const $ = render.withLocale({ component: 'hmpoDate', params: {id: 'labeltest', isPageHeading: true, label: { attributes: { 'data-test': 'test value' }}}, ctx: true}, locals);
+        const $legend = $('.govuk-fieldset__legend');
+        expect($legend.attr('class')).to.equal('govuk-fieldset__legend govuk-fieldset__legend--l');
+        expect(cleanHtml($legend)).to.equal('<h1 class="govuk-fieldset__heading"><span data-test="test value">Label text</span></h1>');
+    });
+
 });

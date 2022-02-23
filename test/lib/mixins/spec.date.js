@@ -185,14 +185,14 @@ describe('Date Mixin', () => {
             });
             options.dateFields = ['date1'];
             BaseController.prototype.getValues.yields(null, {
-                'date1': '1980-04-23',
+                'date1': '1980-04-23'
             });
             instance.getValues(req, res, callback);
             callback.should.have.been.calledWithExactly(null, {
                 'date1': '1980-04-23',
                 'date1-day': '1',
                 'date1-month': '1',
-                'date1-year': '1900',
+                'date1-year': '1900'
             });
         });
 

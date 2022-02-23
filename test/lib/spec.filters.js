@@ -403,7 +403,7 @@ describe('Filters', () => {
                     fourth: { },
                     fith: null,
                     sixth: false,
-                    seventh: 0,
+                    seventh: 0
                 }, null);
                 result.should.eql({
                     first: { foo: 'bar', boo: 'baz' },
@@ -411,7 +411,7 @@ describe('Filters', () => {
                     third: { buz: 'foo' },
                     fourth: { },
                     sixth: false,
-                    seventh: 0,
+                    seventh: 0
                 });
             });
 

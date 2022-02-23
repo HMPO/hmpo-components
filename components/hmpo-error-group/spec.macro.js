@@ -58,7 +58,7 @@ describe('hmpoErrorGroup', () => {
 
     it('renders with a default legend header', () => {
         const $ = render({ component: 'hmpoErrorGroup', params: {
-            id: 'test-group',
+            id: 'test-group'
         }, ctx: true});
 
         const $component = $('#test-group legend');
@@ -91,13 +91,22 @@ describe('hmpoErrorGroup', () => {
     it('renders as page heading', () => {
         const $ = render({ component: 'hmpoErrorGroup', params: {
             id: 'test-group',
-            isPageHeading: true,
+            isPageHeading: true
         }, ctx: true});
 
         const $component = $('#test-group legend');
         expect(cleanHtml($component)).to.equal('<h1 class="govuk-fieldset__heading">[fields.test-group.legend]</h1>');
     });
 
+    it('renders error group with header label localisation instead of legend when legend is not present', () => {
+        const $ = render.withLocale({ component: 'hmpoErrorGroup', params: {
+            id: 'labeltest',
+            isPageHeading: true,
+            label: { attributes: { 'data-test': 'test value' } }
+        }, ctx: true});
+        const $component = $('#labeltest legend');
+        expect(cleanHtml($component)).to.equal('<h1 class="govuk-fieldset__heading"><span data-test="test value">Label text</span></h1>');
+    });
 
     it('renders error message if available', () => {
         locals.errors = {

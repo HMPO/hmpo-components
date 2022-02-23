@@ -14,5 +14,10 @@ const views = [
     path.resolve(__dirname, '..', 'node_modules', 'govuk-frontend'),
 ];
 
+const locales = [
+    path.resolve(__dirname, 'locale')
+];
+
 global.render = nunjucksTest.renderer(views, null, require('../lib/globals'), require('../lib/filters'));
+global.render.withLocale = nunjucksTest.renderer(views, locales, require('../lib/globals'), require('../lib/filters'), true);
 global.cleanHtml = nunjucksTest.cleanHtml;

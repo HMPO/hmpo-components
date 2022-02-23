@@ -1,0 +1,12 @@
+{
+    "fields": {
+        "my-input": {
+        },
+        "labeltest": {
+            "label": "Label text"
+        },
+        "legendtest": {
+            "label": "Legend text"
+        }
+    }
+}
