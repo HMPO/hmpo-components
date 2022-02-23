@@ -11,7 +11,7 @@
     {%- set params = {
         id: params.id,
         fieldset: false if params.fieldset == false else merge(pageHeading, {
-            legend: hmpoGetOptions(ctx, params, "legend"),
+            legend: hmpoGetOptions(ctx, params, "legend", true) or hmpoGetOptions(ctx, params, "label"),
             attributes: {
                 id: params.id + "-fieldset"
             }
@@ -58,6 +58,16 @@
             class="govuk-form-group hmpo-error-group{%- if params.classes %} {{ params.classes }}{% endif %}{% if params.errorMessage %} govuk-form-group--error{% endif %}"
             {%- for attribute, value in params.attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>
         {% if params.fieldset %}
+
+            {%- if params.fieldset.legend.attributes %}
+                {% set legendHtml %}
+                    <span {%- for attribute, value in params.fieldset.legend.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>
+                    {{ params.fieldset.legend.html | safe if params.fieldset.legend.html else params.fieldset.legend.text }}
+                    </span>
+                {% endset %}
+                {%- set params = merge(params, { fieldset: { legend: { html: legendHtml } } }) %}
+            {%- endif %}
+
             {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
             {% call govukFieldset({
                 describedBy: describedBy,

@@ -23,7 +23,7 @@
         attributes: attributes,
         name: params.id,
         fieldset: merge(pageHeading, {
-            legend: hmpoGetOptions(ctx, params, "legend"),
+            legend: hmpoGetOptions(ctx, params, "legend", true) or hmpoGetOptions(ctx, params, "label"),
             attributes: {
                 id: params.id + "-fieldset",
                 "aria-required": hmpoGetValidatorAttribute(ctx, params, "required", null, false)
@@ -36,6 +36,15 @@
         formGroup: params.formGroup,
         items: hmpoGetItems(ctx, params, value, false, true, [ { value: true }, { value: false} ])
     } %}
+
+    {%- if args.fieldset.legend.attributes %}
+        {% set legendHtml %}
+            <span {%- for attribute, value in args.fieldset.legend.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>
+              {{ args.fieldset.legend.html | safe if args.fieldset.legend.html else args.fieldset.legend.text }}
+            </span>
+        {% endset %}
+        {%- set args = merge(args, { fieldset: { legend: { html: legendHtml } } }) %}
+    {%- endif %}
 
     {%- from "govuk/components/radios/macro.njk" import govukRadios %}
     {{- govukRadios(args) }}

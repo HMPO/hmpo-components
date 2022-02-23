@@ -183,7 +183,7 @@ Additional validation errors can be produced and need localisation, for example:
 
     "numeric-year": "Enter a year using numbers only",
     "numeric-month": "Enter a month using numbers only",
-    "numeric-day": "Enter a day using numbers only",
+    "numeric-day": "Enter a day using numbers only"
 }
 ```
 

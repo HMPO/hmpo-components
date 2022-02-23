@@ -60,7 +60,7 @@
     {%- set args = {
         id: params.id,
         fieldset: merge(pageHeading, {
-            legend: hmpoGetOptions(ctx, params, "legend"),
+            legend: hmpoGetOptions(ctx, params, "legend", true) or hmpoGetOptions(ctx, params, "label"),
             attributes: { id: params.id + "-fieldset" }
         }, params.fieldset),
         hint: hmpoGetOptions(ctx, params, "hint", true),
@@ -69,7 +69,17 @@
         formGroup: params.formGroup,
         items: [ dayArgs, monthArgs, yearArgs ] if dayArgs else [ monthArgs, yearArgs ]
     } %}
-{% if args.errorMessage %}{{errorMessage.message}}{% endif %}
+
+    {%- if args.fieldset.legend.attributes %}
+        {% set legendHtml %}
+            <span {%- for attribute, value in args.fieldset.legend.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>
+              {{ args.fieldset.legend.html | safe if args.fieldset.legend.html else args.fieldset.legend.text }}
+            </span>
+        {% endset %}
+        {%- set args = merge(args, { fieldset: { legend: { html: legendHtml } } }) %}
+    {%- endif %}
+
+    {% if args.errorMessage %}{{errorMessage.message}}{% endif %}
     {%- from "./govuk-date.njk" import govukDateInput %}
     {{- govukDateInput(args) }}
 {% endmacro %}

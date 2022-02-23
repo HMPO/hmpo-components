@@ -218,4 +218,18 @@ describe('hmpoRadios', () => {
         expect(cleanHtml($legend)).to.equal('<h1 class="govuk-fieldset__heading">[fields.my-input.legend]</h1>');
     });
 
+    it('renders radio buttons with header attributes', () => {
+        const $ = render({component: 'hmpoRadios', params: {id: 'my-input', isPageHeading: true, legend: { attributes: { 'data-test': 'test value' }}}, ctx: true}, locals);
+        const $legend = $('.govuk-fieldset__legend');
+        expect($legend.attr('class')).to.equal('govuk-fieldset__legend govuk-fieldset__legend--l');
+        expect(cleanHtml($legend)).to.equal('<h1 class="govuk-fieldset__heading"><span data-test="test value">[fields.my-input.legend]</span></h1>');
+    });
+
+    it('renders radio buttons with header label localisation instead of legend when legend is not present', () => {
+        const $ = render.withLocale({ component: 'hmpoRadios', params: {id: 'labeltest', isPageHeading: true, label: { attributes: { 'data-test': 'test value' }}}, ctx: true}, locals);
+        const $legend = $('.govuk-fieldset__legend');
+        expect($legend.attr('class')).to.equal('govuk-fieldset__legend govuk-fieldset__legend--l');
+        expect(cleanHtml($legend)).to.equal('<h1 class="govuk-fieldset__heading"><span data-test="test value">Label text</span></h1>');
+    });
+
 });
