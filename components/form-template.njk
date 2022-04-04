@@ -41,7 +41,9 @@
         {% block innerContent %}
         {% endblock %}
 
-        {{ hmpoSubmit(ctx) }}
+        {% block submitButton %}
+            {{ hmpoSubmit(ctx) }}
+        {% endblock %}
     {% endcall %}
 
 {% endblock %}
