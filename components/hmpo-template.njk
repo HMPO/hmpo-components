@@ -67,8 +67,10 @@
             <div class="govuk-grid-column-two-thirds">
                 {% block mainContent %}
                     <h1 id="header" {% if hmpoH1Class %}class="{{ hmpoH1Class }}" {% endif %}data-page="{{hmpoPageKey}}">{{ translate("pages." + hmpoPageKey + ".h1", { default: hmpoTitle }) | safe }}</h1>
-                    {% from "hmpo-html/macro.njk" import hmpoHtml %}
-                    {{ hmpoHtml(translate("pages." + hmpoPageKey + ".content", { default: [] })) }}
+                    {% block mainContentBody %}
+                        {% from "hmpo-html/macro.njk" import hmpoHtml %}
+                        {{ hmpoHtml(translate("pages." + hmpoPageKey + ".content", { default: [] })) }}
+                    {% endblock %}
                 {% endblock %}
             </div>
         </div>
