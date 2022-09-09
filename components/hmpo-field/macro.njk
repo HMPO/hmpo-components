@@ -50,10 +50,10 @@
             isPageHeading: isPageHeading,
             label: {
                 classes: labelClass
-            } if labelClass and not isPageHeading,
+            } if labelClass and not isPageHeading else undefined,
             fieldset: {
                 legend: { classes: legendClass }
-            } if legendClass and not isPageHeading,
+            } if legendClass and not isPageHeading else undefined,
             conditionals: conditionals
         } | filter(null)) }}
     {% endif %}
