@@ -1,6 +1,8 @@
 {% macro hmpoField(ctx, fieldName, isPageHeading) %}
     {% set fields = ctx().options.fields %}
     {% set field = fields[fieldName] %}
+    {% set labelClass = field.label.classes | default("govuk-label--m") %}
+    {% set legendClass = field.fieldset.legend.classes | default("govuk-fieldset__legend--m") %}
 
     {% if field.type == "radios" %}
         {% from "../hmpo-radios/macro.njk" import hmpoRadios%}
@@ -8,6 +10,7 @@
     {% elif field.type == "checkboxes" %}
         {% from "../hmpo-checkboxes/macro.njk" import hmpoCheckboxes %}
         {% set component = hmpoCheckboxes %}
+        {% set labelClass = null %}
     {% elif field.type == "text" %}
         {% from "../hmpo-text/macro.njk" import hmpoText %}
         {% set component = hmpoText %}
@@ -46,11 +49,11 @@
             id: fieldName,
             isPageHeading: isPageHeading,
             label: {
-                classes: "govuk-label--m"
-            } if not isPageHeading,
+                classes: labelClass
+            } if labelClass and not isPageHeading,
             fieldset: {
-                legend: { classes: "govuk-fieldset__legend--m"}
-            } if not isPageHeading,
+                legend: { classes: legendClass }
+            } if legendClass and not isPageHeading,
             conditionals: conditionals
         } | filter(null)) }}
     {% endif %}
