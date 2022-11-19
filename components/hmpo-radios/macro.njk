@@ -37,6 +37,23 @@
         items: hmpoGetItems(ctx, params, value, false, true, [ { value: true }, { value: false} ])
     } %}
 
+
+    {%- for item in args.items %}
+        {%- if not item.conditional and not params.conditionals[item.value] %}
+            {%- set contentKey = "fields." + (params.contentKey or params.id) %}
+            {%- set key = contentKey + ".items." + item.value + ".reveal" %}
+            {%- set reveal = ctx().translate(key, { self: false }) %}
+            {%- if reveal %}
+                {% from "hmpo-html/macro.njk" import hmpoHtml %}
+                {%- set conditional = { html: hmpoHtml(reveal), id: params.id + "-conditional-" + item.value } %}
+                {%- set item = set(item, 'conditional', conditional) %}
+                {%- set paramConditionals = set(params, 'conditionals', params.conditionals | default({})) %}
+                {%- set param = set(params.conditionals, item.value, conditional) %}
+            {%- endif %}
+        {%- endif %}
+    {%- endfor %}
+
+
     {%- if args.fieldset.legend.attributes %}
         {% set legendHtml %}
             <span {%- for attribute, value in args.fieldset.legend.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>

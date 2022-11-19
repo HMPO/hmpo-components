@@ -1,12 +1,23 @@
 {
     "fields": {
         "my-input": {
+            "hint": "Hint text"
+        },
+        "my-input-reveals": {
+            "items": {
+                "a": {
+                    "reveal": "overridden"
+                },
+                "b": {
+                    "reveal": "second"
+                }
+            }
         },
         "labeltest": {
             "label": "Label text"
         },
         "legendtest": {
-            "label": "Legend text"
+            "legend": "Legend text"
         }
     }
 }

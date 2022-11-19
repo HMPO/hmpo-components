@@ -15,7 +15,7 @@ const views = [
 ];
 
 const locales = [
-    path.resolve(__dirname, 'locale')
+    path.resolve(__dirname, 'locale.json')
 ];
 
 global.render = nunjucksTest.renderer(views, null, require('../lib/globals'), require('../lib/filters'));
