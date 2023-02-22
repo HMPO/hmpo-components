@@ -13,6 +13,9 @@ describe('hmpoRadios', () => {
                     },
                     'my-input-reveals': {
                         items: ['a', 'b', 'c']
+                    },
+                    'my-input-divider': {
+                        items: ['a', { divider: 'test'}, 'c', { divider: true }, 'd', {divider: true, key: 'my.key'}, 'e']
                     }
                 }
             },
@@ -248,6 +251,25 @@ describe('hmpoRadios', () => {
         const $legend = $('.govuk-fieldset__legend');
         expect($legend.attr('class')).to.equal('govuk-fieldset__legend govuk-fieldset__legend--l');
         expect(cleanHtml($legend)).to.equal('<h1 class="govuk-fieldset__heading"><span data-test="test value">Label text</span></h1>');
+    });
+
+    it('renders radio buttons with localised dividers', () => {
+        const $ = render.withLocale({component: 'hmpoRadios', params: {id: 'my-input-divider', isPageHeading: true}, ctx: true}, locals);
+
+        const $item1 = $('.govuk-radios__input').eq(0);
+        expect($item1.attr('value')).to.equal('a');
+        const $itemlabel1 = $('.govuk-radios__label').eq(0);
+        expect($itemlabel1.text().trim()).to.equal('fields.my-input-divider.items.a.label');
+
+        const $div1 = $('.govuk-radios__divider').eq(0);
+        expect($div1.text().trim()).to.equal('test');
+
+        const $div2 = $('.govuk-radios__divider').eq(1);
+        expect($div2.text().trim()).to.equal('fields.my-input-divider.divider.label');
+
+        const $div3 = $('.govuk-radios__divider').eq(2);
+        expect($div3.text().trim()).to.equal('my.key');
+
     });
 
 });
