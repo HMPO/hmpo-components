@@ -153,7 +153,8 @@ describe('hmpoRadios', () => {
             component: 'hmpoRadios', ctx: true, params: {
                 id: 'my-input', inline: true, conditionals: {
                     a: {id: 'a', html: 'a <b>first</b>'},
-                    b: {id: 'b', html: 'b <b>second</b>', classes: 'anotherclass'}
+                    b: {id: 'b', html: 'b <b>second</b>', classes: 'anotherclass'},
+                    c: {html: 'b <b>third</b>'}
                 }
             }
         }, locals);
@@ -170,6 +171,10 @@ describe('hmpoRadios', () => {
         expect($item2.attr('id')).to.equal('b');
         expect($item2.attr('class')).to.equal('govuk-radios__conditional anotherclass');
         expect(cleanHtml($item2)).to.equal('b <b>second</b>');
+        const $item3 = $('.govuk-radios__conditional').eq(2);
+        expect($item3.attr('id')).to.equal('my-input-conditional-c');
+        expect($item3.attr('class')).to.equal('govuk-radios__conditional');
+        expect(cleanHtml($item3)).to.equal('b <b>third</b>');
     });
 
     it('renders items with conditionals from localisation', () => {

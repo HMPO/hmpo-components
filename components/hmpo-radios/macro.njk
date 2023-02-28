@@ -68,7 +68,7 @@
     {% if params.conditionals and params.inline %}
         {% for key, conditional in params.conditionals %}
             {% if conditional.html %}
-                <div id="{{ conditional.id }}"
+                <div id="{{ conditional.id | default(params.id + "-conditional-" + key) }}"
                     class="govuk-radios__conditional{% if conditional.removeInset %} govuk-radios__removeInset{% endif %}{% if conditional.classes %} {{ conditional.classes }}{% endif %}">
                     {{ conditional.html | safe }}
                 </div>
