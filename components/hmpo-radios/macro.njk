@@ -18,6 +18,14 @@
         {%- set attributes = merge({ "data-multi-conditional": "true" }, params.attributes) %}
     {%- endif %}
 
+    {% if params.conditionals and params.inline %}
+        {% for key, conditional in params.conditionals %}
+            {% if not conditional.id %}
+                {% set id = set(conditional, "id", params.id + "-conditional-" + key) %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
     {%- set args = {
         idPrefix: params.id,
         attributes: attributes,
@@ -52,7 +60,6 @@
             {%- endif %}
         {%- endif %}
     {%- endfor %}
-
 
     {%- if args.fieldset.legend.attributes %}
         {% set legendHtml %}
