@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/passports-components",
   "dependencies": {
+    "bytes": "^3.1.2",
     "deep-clone-merge": "^1.5.4",
     "moment": "^2.29.3",
     "underscore": "^1.13.4"

@@ -516,5 +516,38 @@ describe('Filters', () => {
                 result.should.equal('{\n  "foo": {\n    "bar": [\n      "baz"\n    ]\n  }\n}');
             });
         });
+
+        describe('urlencode', () => {
+            it('returns encoded string for value', () => {
+                let result = filters.filters.urlencode.call(context, 'hello "world"');
+                result.should.equal('hello%20%22world%22');
+            });
+
+            it('passes through other values', () => {
+                let result = filters.filters.urlencode.call(context, 1234);
+                result.should.equal(1234);
+                result = filters.filters.urlencode.call(context, undefined);
+                expect(result).to.be.undefined;
+                result = filters.filters.urlencode.call(context, null);
+                expect(result).to.be.null;
+            });
+        });
+
+        describe('bytes', () => {
+            it('returns pretty bytes for number', () => {
+                let result = filters.filters.bytes.call(context, 12345678);
+                result.should.equal('11.77MB');
+            });
+
+            it('passes through other values', () => {
+                let result = filters.filters.bytes.call(context, '12346789');
+                result.should.equal('12346789');
+                result = filters.filters.bytes.call(context, undefined);
+                expect(result).to.be.undefined;
+                result = filters.filters.bytes.call(context, null);
+                expect(result).to.be.null;
+            });
+        });
+
     });
 });
