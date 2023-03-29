@@ -172,7 +172,7 @@ describe('hmpoRadios', () => {
         expect($item2.attr('class')).to.equal('govuk-radios__conditional anotherclass');
         expect(cleanHtml($item2)).to.equal('b <b>second</b>');
         const $item3 = $('.govuk-radios__conditional').eq(2);
-        expect($item3.attr('id')).to.equal('my-input-conditional-c');
+        expect($item3.attr('id')).to.equal('conditional-my-input-c');
         expect($item3.attr('class')).to.equal('govuk-radios__conditional');
         expect(cleanHtml($item3)).to.equal('b <b>third</b>');
     });
@@ -185,6 +185,8 @@ describe('hmpoRadios', () => {
                 }
             }
         }, locals);
+
+        $('.govuk-radios__conditional').length.should.equal(2);
 
         const $item1 = $('.govuk-radios__conditional').eq(0);
         expect(cleanHtml($item1)).to.equal('a <b>first</b>');
