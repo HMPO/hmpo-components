@@ -109,4 +109,32 @@ describe('hmpoHtml', () => {
             '</ul>'
         );
     });
+
+    it('filters out empty items', () => {
+        const html = [
+            'First <b>string</b>',
+            '',
+            null,
+            undefined,
+            'Second <b>string</b>',
+            [
+                'First <b>item</b>',
+                '',
+                null,
+                undefined,
+                'Second <b>item</b>'
+            ]
+        ];
+        const $ = render({ component: 'hmpoHtml', params: html });
+
+        const result = cleanHtml($('body'));
+        expect(result).to.equal(
+            '<p>First <b>string</b></p>' +
+            '<p>Second <b>string</b></p>' +
+            '<ul class="govuk-list govuk-list--bullet">' +
+                '<li>First <b>item</b></li>' +
+                '<li>Second <b>item</b></li>' +
+            '</ul>'
+        );
+    });
 });
