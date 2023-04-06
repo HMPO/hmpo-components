@@ -110,6 +110,46 @@ describe('hmpoHtml', () => {
         );
     });
 
+    it('renders insert content', () => {
+        const html = [
+            'No indent',
+            '> Single indent',
+            { '>': 'single indent object' },
+            { '>': [ 'single indent array' ] },
+            { '> indent-id': [ 'single indent array with id' ] },
+            { '>': [
+                '## Multiple indent array ',
+                'Multiple indent para 2',
+                [ 'indent list item']
+            ] }
+        ];
+        const $ = render({ component: 'hmpoHtml', params: html });
+
+        const result = cleanHtml($('body'));
+        expect(result).to.equal(
+            '<p>No indent</p>' +
+            '<div class="govuk-inset-text">' +
+                '<p>Single indent</p>' +
+            '</div>' +
+            '<div class="govuk-inset-text">' +
+                '<p>single indent object</p>' +
+            '</div>' +
+            '<div class="govuk-inset-text">' +
+                '<p>single indent array</p>' +
+            '</div>' +
+            '<div id="indent-id" class="govuk-inset-text">' +
+                '<p>single indent array with id</p>' +
+            '</div>' +
+            '<div class="govuk-inset-text">' +
+                '<h2>Multiple indent array</h2>' +
+                '<p>Multiple indent para 2</p>' +
+                '<ul class="govuk-list govuk-list--bullet">' +
+                    '<li>indent list item</li>' +
+                '</ul>' +
+            '</div>'
+        );
+    });
+
     it('filters out empty items', () => {
         const html = [
             'First <b>string</b>',
