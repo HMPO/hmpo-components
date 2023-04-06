@@ -25,10 +25,18 @@
 {% macro hmpoHtmlItem(tag, value) %}
     {%- if not isObject(value) %}{%- set value = { "": value } %}{% endif %}
     {%- for id, html in value | filter %}
-        {%- if isArray(html) %}{%- set html = hmpoHtml(html) %}{%- endif %}
-        {%- if tag == "p" and startsWith(html, "## ") %}{%- set tag = "h2" %}{%- set html = substr(html, 3) %}{%- endif %}
-        {%- if tag == "p" and startsWith(html, "### ") %}{%- set tag = "h3" %}{%- set html = substr(html, 4) %}{%- endif %}
-        {%- if tag == "p" and startsWith(html, "#### ") %}{%- set tag = "h4" %}{%- set html = substr(html, 5) %}{%- endif %}
-        <{{tag}}{% if id %} id="{{id}}"{% endif %}>{{ html | safe }}</{{tag}}>
+        {%- if startsWith(id, ">") %}
+            {%- from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+            {{ govukInsetText({ html: hmpoHtml(html), id: substr(id, 2) } | filter) }}
+        {%- elif tag == "p" and startsWith(html, "> ") %}
+            {%- from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+            {{ govukInsetText({ html: hmpoHtml(substr(html, 2)) }) }}
+        {%- else %}
+            {%- if isArray(html) %}{%- set html = hmpoHtml(html) %}{%- endif %}
+            {%- if tag == "p" and startsWith(html, "## ") %}{%- set tag = "h2" %}{%- set html = substr(html, 3) %}{%- endif %}
+            {%- if tag == "p" and startsWith(html, "### ") %}{%- set tag = "h3" %}{%- set html = substr(html, 4) %}{%- endif %}
+            {%- if tag == "p" and startsWith(html, "#### ") %}{%- set tag = "h4" %}{%- set html = substr(html, 5) %}{%- endif %}
+            <{{tag}}{% if id %} id="{{id}}"{% endif %}>{{ html | safe }}</{{tag}}>
+        {%- endif %}
     {%- endfor %}
 {% endmacro %}
