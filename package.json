@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/UKHomeOffice/passports-components.git"
+    "url": "https://github.com/HMPO/hmpo-components.git"
   },
   "keywords": [
     "express",
@@ -26,35 +26,38 @@
   "author": "HMPO",
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "bugs": {
-    "url": "https://github.com/UKHomeOffice/passports-components/issues"
+    "url": "https://github.com/HMPO/hmpo-components/issues"
   },
-  "homepage": "https://github.com/UKHomeOffice/passports-components",
+  "homepage": "https://github.com/HMPO/hmpo-components",
   "dependencies": {
     "bytes": "^3.1.2",
-    "deep-clone-merge": "^1.5.4",
-    "moment": "^2.29.3",
-    "underscore": "^1.13.4"
+    "deep-clone-merge": "^1.5.5",
+    "moment": "^2.29.4",
+    "underscore": "^1.13.6"
   },
   "peerDependencies": {
     "govuk-frontend": "^4",
-    "nunjucks": ">=3"
+    "nunjucks": "^3.2.4"
+  },
+  "optionalDependencies": {
+    "fsevents": "~2.3.2"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
-    "eslint": "^8.18.0",
-    "govuk-frontend": "^4.2.0",
-    "hmpo-nunjucks-test": "^1.3.1",
+    "chai": "^4.3.7",
+    "eslint": "^8.39.0",
+    "govuk-frontend": "^4.6.0",
+    "hmpo-nunjucks-test": "^1.4.1",
     "husky": "^2.7.0",
-    "mocha": "^10.0.0",
+    "mocha": "^10.2.0",
     "node-sass": "^8.0.0",
     "nyc": "^15.1.0",
-    "sass": "^1.53.0",
-    "sinon": "^15.0.1",
+    "sass": "^1.62.1",
+    "sinon": "^15.0.4",
     "sinon-chai": "^3.7.0",
-    "uglify-js": "^3.16.1"
+    "uglify-js": "^3.17.4"
   },
   "nyc": {
     "all": true,
