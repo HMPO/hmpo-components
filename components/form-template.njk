@@ -11,7 +11,7 @@
 {# find the top most question fields #}
 {% set topLevelFields = [] %}
 {% for fieldName, field in options.fields %}
-    {% if not field.dependent %}
+    {% if not field.dependent and not field.group %}
         {% set topLevelFields = topLevelFields | push(fieldName) %}
     {% endif %}
 {% endfor %}
