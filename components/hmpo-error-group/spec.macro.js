@@ -33,6 +33,14 @@ describe('hmpoErrorGroup', () => {
         expect($children.length).to.equal(1);
     });
 
+    it('renders inner html children', () => {
+        const innerHtml = '<span id="child"></span>';
+        const $ = render({ component: 'hmpoErrorGroup', params: {id: 'test-group', html: innerHtml}, ctx: true});
+
+        const $children = $('div #child');
+        expect($children.length).to.equal(1);
+    });
+
     it('renders with a legend header', () => {
         const $ = render({ component: 'hmpoErrorGroup', params: {
             id: 'test-group',

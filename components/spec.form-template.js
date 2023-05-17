@@ -50,6 +50,17 @@ describe('form template', () => {
                     field4: {
                         type: 'checkboxes',
                         dependent: { field: 'field1', value: false }
+                    },
+                    groupField: {
+                        type: 'group'
+                    },
+                    groupField1: {
+                        type: 'text',
+                        group: 'groupField'
+                    },
+                    groupField2: {
+                        type: 'text',
+                        group: 'groupField'
                     }
                 }
             }
@@ -65,5 +76,7 @@ describe('form template', () => {
         expect($('div#conditional-field1 input#field3').attr('type')).to.equal('number');
         expect($('input#field1-false').attr('type')).to.equal('radio');
         expect($('div#conditional-field1-false input#field4').attr('type')).to.equal('checkbox');
+        expect($('div#groupField input#groupField1').attr('type')).to.equal('text');
+        expect($('div#groupField input#groupField2').attr('type')).to.equal('text');
     });
 });

@@ -1,5 +1,5 @@
-{% macro hmpoErrorGroup(ctx, params, base) %}
-    {%- set params = hmpoGetParams(ctx, params, base) %}
+{% macro hmpoErrorGroup(ctx, hmpoParams, base) %}
+    {%- set params = hmpoGetParams(ctx, hmpoParams, base) %}
 
     {%- set pageHeading = {
         legend: {
@@ -51,7 +51,7 @@
             }) | indent(2) | trim }}
         {% endif %}
 
-        {{- params.html if params.html }}{{- caller() if caller }}
+        {{ hmpoParams.html | safe if hmpoParams.html }}{{ caller() if caller }}
     {% endset %}
 
     <div id="{{ params.id }}"

@@ -1,49 +1,58 @@
 {% macro hmpoField(ctx, fieldName, isPageHeading) %}
-    {% set fields = ctx().options.fields %}
-    {% set field = fields[fieldName] %}
-    {% set labelClass = field.label.classes | default("govuk-label--m") %}
-    {% set legendClass = field.fieldset.legend.classes | default("govuk-fieldset__legend--m") %}
+    {%- set fields = ctx().options.fields %}
+    {%- set field = fields[fieldName] %}
+    {%- set labelClass = field.label.classes | default("govuk-label--s" if field.group else "govuk-label--m") %}
+    {%- set legendClass = field.fieldset.legend.classes | default("govuk-fieldset__legend--s" if field.group else "govuk-fieldset__legend--m") %}
 
-    {% if field.type == "radios" %}
+    {%- if field.type == "radios" %}
         {% from "../hmpo-radios/macro.njk" import hmpoRadios%}
         {% set component = hmpoRadios %}
-    {% elif field.type == "checkboxes" %}
+    {%- elif field.type == "checkboxes" %}
         {% from "../hmpo-checkboxes/macro.njk" import hmpoCheckboxes %}
         {% set component = hmpoCheckboxes %}
         {% set labelClass = null %}
-    {% elif field.type == "text" %}
+    {%- elif field.type == "text" %}
         {% from "../hmpo-text/macro.njk" import hmpoText %}
         {% set component = hmpoText %}
-    {% elif field.type == "textarea" %}
+    {%- elif field.type == "textarea" %}
         {% from "../hmpo-textarea/macro.njk" import hmpoTextarea %}
         {% set component = hmpoTextarea %}
-    {% elif field.type == "date" %}
+    {%- elif field.type == "date" %}
         {% from "../hmpo-date/macro.njk" import hmpoDate %}
         {% set component = hmpoDate %}
-    {% elif field.type == "select" %}
+    {%- elif field.type == "select" %}
         {% from "../hmpo-select/macro.njk" import hmpoSelect %}
         {% set component = hmpoSelect %}
-    {% elif field.type == "number" %}
+    {%- elif field.type == "number" %}
         {% from "../hmpo-number/macro.njk" import hmpoNumber %}
         {% set component = hmpoNumber %}
-    {% elif field.type == "phone" %}
+    {%- elif field.type == "phone" %}
         {% from "../hmpo-phone/macro.njk" import hmpoPhone %}
         {% set component = hmpoPhone %}
-    {% endif %}
+    {%- elif field.type == "group" %}
+        {% from "../hmpo-error-group/macro.njk" import hmpoErrorGroup %}
+        {% set component = hmpoErrorGroup %}
+    {%- endif %}
 
-    {% if component %}
-        {% set conditionals = {} %}
+    {%- if component %}
+        {%- set conditionals = {} %}
+        {%- set groupedFields = "" %}
 
-        {% for subFieldName, subField in fields %}
-            {% if subField.dependent.field == fieldName %}
-                {% set existing = conditionals[subField.dependent.value].html %}
-                {% set html %}
+        {%- for subFieldName, subField in fields %}
+            {%- if subField.dependent.field == fieldName %}
+                {%- set existing = conditionals[subField.dependent.value].html %}
+                {%- set html %}
                     {{ existing | safe }}
                     {{ hmpoField(ctx, subFieldName)}}
+                {%- endset %}
+                {%- set conditionals = conditionals | add(subField.dependent.value, { html: html }) %}
+            {%- elif subField.group == fieldName %}
+                {%- set groupedFields %}
+                    {{ groupedFields | safe }}
+                    {{ hmpoField(ctx, subFieldName)}}
                 {% endset %}
-                {% set conditionals = conditionals | add(subField.dependent.value, { html: html }) %}
             {% endif %}
-        {% endfor %}
+        {%- endfor %}
 
         {{ component(ctx, {
             id: fieldName,
@@ -54,9 +63,10 @@
             fieldset: {
                 legend: { classes: legendClass }
             } if legendClass and not isPageHeading else undefined,
-            conditionals: conditionals
+            conditionals: conditionals,
+            html: groupedFields if groupedFields else undefined
         } | filter(null)) }}
-    {% endif %}
+    {%- endif %}
 
     {% from "hmpo-html/macro.njk" import hmpoHtml %}
     {{ hmpoHtml(ctx().translate("fields." + fieldName + ".content", { default: [] })) }}
