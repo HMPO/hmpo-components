@@ -1,9 +1,9 @@
 .hmpo-error-group {
     width: 100%;
+}
 
-    .govuk-form-group .govuk-error-message {
-        display: none;
-    }
+.govuk-form-group.hmpo-hide-errors .hmpo-error-group .govuk-error-message {
+    display: none;
 }
 
 .hmpo-error-group--inline {
