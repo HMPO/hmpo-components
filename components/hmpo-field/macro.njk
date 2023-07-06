@@ -11,7 +11,7 @@
         {% from "../hmpo-checkboxes/macro.njk" import hmpoCheckboxes %}
         {% set component = hmpoCheckboxes %}
         {% set labelClass = null %}
-    {%- elif field.type == "text" %}
+    {%- elif field.type == "text" or field.type == "email" %}
         {% from "../hmpo-text/macro.njk" import hmpoText %}
         {% set component = hmpoText %}
     {%- elif field.type == "textarea" %}
