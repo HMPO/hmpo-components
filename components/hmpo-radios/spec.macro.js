@@ -148,6 +148,31 @@ describe('hmpoRadios', () => {
         expect(cleanHtml($item2)).to.equal('b <b>object</b>');
     });
 
+    it('renders items with hints', () => {
+        locals.options.fields['my-input-hints'] = {
+            items: [
+                'a',
+                { value: 'b', hint: { classes: 'test-hint-class' } },
+                { value: 'c', hint: { html: '<b>item c hint</b>'}  },
+                { value: 'd', hint: { html: '<b>item d hint</b>'}  }
+            ]
+        };
+        const $ = render.withLocale({
+            component: 'hmpoRadios', ctx: true, params: {
+                id: 'my-input-hints'
+            }
+        }, locals);
+
+        const $item1 = $('.govuk-radios__hint').eq(0);
+        expect(cleanHtml($item1)).to.equal('<i>locale b hint</i>');
+        const item1Classes = $item1.attr('class');
+        item1Classes.should.equal('govuk-hint govuk-radios__hint test-hint-class');
+        const $item2 = $('.govuk-radios__hint').eq(1);
+        expect(cleanHtml($item2)).to.equal('<b>item c hint</b>');
+        const $item3 = $('.govuk-radios__hint').eq(2);
+        expect(cleanHtml($item3)).to.equal('<b>item d hint</b>');
+    });
+
     it('renders items with conditionals inline', () => {
         const $ = render.withLocale({
             component: 'hmpoRadios', ctx: true, params: {
