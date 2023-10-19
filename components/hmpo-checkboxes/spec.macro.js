@@ -76,7 +76,7 @@ describe('hmpoCheckboxes', () => {
 
         const $legend = $('.govuk-fieldset__legend');
         expect($legend.text().trim()).to.equal('[fields.my-input.legend]');
-        const $hint = $('.govuk-hint');
+        const $hint = $('.govuk-hint').eq(0);
         expect($hint.text().trim()).to.equal('[fields.my-input.hint]');
     });
 
@@ -100,6 +100,29 @@ describe('hmpoCheckboxes', () => {
         const $itemlabel2 = $('.govuk-checkboxes__label').eq(1);
         expect($itemlabel2.text().trim()).to.equal('[fields.my-input.items.b.label]');
         expect($itemlabel2.attr('id')).to.equal('my-input-b-label');
+    });
+
+    it('renders items with hints', () => {
+        locals.options.fields['my-input-hints'] = {
+            items: [
+                'a',
+                'b',
+                { value: 'c', hint: { html: '<b>item c hint</b>'}  },
+                { value: 'd', hint: { html: '<b>item d hint</b>'}  }
+            ]
+        };
+        const $ = render.withLocale({
+            component: 'hmpoCheckboxes', ctx: true, params: {
+                id: 'my-input-hints'
+            }
+        }, locals);
+
+        const $item1 = $('.govuk-checkboxes__hint').eq(0);
+        expect(cleanHtml($item1)).to.equal('<i>locale b hint</i>');
+        const $item2 = $('.govuk-checkboxes__hint').eq(1);
+        expect(cleanHtml($item2)).to.equal('<b>item c hint</b>');
+        const $item3 = $('.govuk-checkboxes__hint').eq(2);
+        expect(cleanHtml($item3)).to.equal('<b>item d hint</b>');
     });
 
     it('renders radio buttons with header', () => {

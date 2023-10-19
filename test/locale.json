@@ -13,6 +13,21 @@
                 }
             }
         },
+        "my-input-hints": {
+            "items": {
+                "a": {
+                },
+                "b": {
+                    "hint": "<i>locale b hint</i>"
+                },
+                "c": {
+                    "hint": "<i>locale c hint</i>"
+                },
+                "d": {
+                    "hint": "<i>locale d hint</i>"
+                }
+            }
+        },
         "labeltest": {
             "label": "Label text"
         },
