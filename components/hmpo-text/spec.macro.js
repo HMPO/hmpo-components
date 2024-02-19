@@ -49,6 +49,16 @@ describe('hmpoText', () => {
         expect($hint.length).to.equal(0);
     });
 
+    it('renders with label and prefix', () => {
+        const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
+
+        const $label = $('.govuk-label');
+        expect($label.text().trim()).to.equal('[fields.my-input.label]');
+        expect($label.attr('id')).to.equal('my-input-label');
+        const $prefix = $('.govuk-input__prefix');
+        expect($prefix.text().trim()).to.equal('[fields.my-input.prefix]');
+    });
+
     it('renders with value', () => {
         const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
 
