@@ -16,6 +16,7 @@
         var value = input.value || '';
         // javascript is given \n for new lines but they are POSTed as \r\n
         value = value.replace(/\r?\n/g, '\r\n');
+        /* eslint-disable-next-line one-var */
         var length = value.length || 0,
             remaining = max - length;
         if (remaining < 0) {
