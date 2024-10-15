@@ -6,12 +6,11 @@
   "scripts": {
     "pretest": "npm run test:lint",
     "test:lint": "eslint .",
-    "test": "npm run test:unit && npm run test:node-sass && npm run test:sass",
+    "test": "npm run test:unit && npm run test:sass && npm run test:sass",
     "test:unit": "nyc --reporter=lcov --reporter=text-summary _mocha --recursive test 'components/**/spec.*.js'",
-    "test:node-sass": "node-sass -q test/test.scss /dev/null && echo scss compiles in node-sass",
     "test:sass": "sass -q -I . --no-source-map test/test.scss /dev/null && echo scss compiles in sass",
     "posttest": "npm audit --production",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -26,7 +25,7 @@
   "author": "HMPO",
   "license": "MIT",
   "engines": {
-    "node": ">=14"
+    "node": "20.x || 22.x"
   },
   "bugs": {
     "url": "https://github.com/HMPO/hmpo-components/issues"
@@ -47,15 +46,14 @@
   },
   "devDependencies": {
     "chai": "^4.5.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.12.0",
     "govuk-frontend": "^4.8.0",
-    "hmpo-nunjucks-test": "^1.4.2",
-    "husky": "^8.0.3",
-    "mocha": "^10.7.0",
-    "node-sass": "^8.0.0",
-    "nyc": "^17.0.0",
-    "sass": "^1.63.6",
-    "sinon": "^18.0.0",
+    "hmpo-nunjucks-test": "^2.0.0",
+    "husky": "^9.1.6",
+    "mocha": "^10.7.3",
+    "nyc": "^17.1.0",
+    "sass": "^1.79.4",
+    "sinon": "^19.0.2",
     "sinon-chai": "^3.7.0",
     "uglify-js": "^3.17.4"
   },
@@ -66,7 +64,8 @@
       "components/**/script.js",
       "components/common.js",
       "all.js",
-      "test/**"
+      "test/**",
+      "eslint.config.js"
     ],
     "check-coverage": true,
     "skip-full": true,
