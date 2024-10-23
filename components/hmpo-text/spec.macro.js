@@ -50,13 +50,33 @@ describe('hmpoText', () => {
     });
 
     it('renders with label and prefix', () => {
+        const $ = render({ component: 'hmpoText', params: { id: 'my-input', prefix: '£' }, ctx: true }, locals);
+
+        const $label = $('.govuk-label');
+        expect($label.text().trim()).to.equal('[fields.my-input.label]');
+        expect($label.attr('id')).to.equal('my-input-label');
+        const $prefix = $('.govuk-input__prefix');
+        expect($prefix.text()).to.equal('£');
+    });
+
+    it('renders with label and without prefix', () => {
+        const $ = render({ component: 'hmpoText', params: { id: 'my-input', prefix: '' }, ctx: true }, locals);
+
+        const $label = $('.govuk-label');
+        expect($label.text().trim()).to.equal('[fields.my-input.label]');
+        expect($label.attr('id')).to.equal('my-input-label');
+        const $prefix = $('.govuk-input__prefix');
+        expect($prefix.text().trim()).to.equal('');
+    });
+
+    it('renders with label and without prefix when prefix not provided', () => {
         const $ = render({ component: 'hmpoText', params: { id: 'my-input' }, ctx: true }, locals);
 
         const $label = $('.govuk-label');
         expect($label.text().trim()).to.equal('[fields.my-input.label]');
         expect($label.attr('id')).to.equal('my-input-label');
         const $prefix = $('.govuk-input__prefix');
-        expect($prefix.text().trim()).to.equal('[fields.my-input.prefix]');
+        expect($prefix.text().trim()).to.equal('');
     });
 
     it('renders with value', () => {
