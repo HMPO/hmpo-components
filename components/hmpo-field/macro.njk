@@ -32,6 +32,12 @@
     {%- elif field.type == "group" %}
         {% from "../hmpo-error-group/macro.njk" import hmpoErrorGroup %}
         {% set component = hmpoErrorGroup %}
+    {%- elif field.type == "charactercount"%}
+        {% from "../hmpo-character-count/macro.njk" import hmpoCharacterCount %}
+        {% set component = hmpoCharacterCount %}
+    {%- elif field.type == "wordcount"%}
+        {% from "../hmpo-word-count/macro.njk" import hmpoWordCount %}
+        {% set component = hmpoWordCount %}
     {%- endif %}
 
     {%- if component %}

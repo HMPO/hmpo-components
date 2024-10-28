@@ -1,0 +1,7 @@
+{% macro hmpoWordCount(ctx, params, base) %}
+    {%- from "../hmpo-text-count/macro.njk" import hmpoTextCount %}
+    {{- hmpoTextCount(ctx, params, {
+        type: "wordcount",
+        classes: "govuk-!-width-three-quarters"
+    }, base) }}
+{% endmacro %}

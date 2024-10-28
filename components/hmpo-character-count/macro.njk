@@ -1,0 +1,7 @@
+{% macro hmpoCharacterCount(ctx, params, base) %}
+    {%- from "../hmpo-text-count/macro.njk" import hmpoTextCount %}
+    {{- hmpoTextCount(ctx, params, {
+        type: "charactercount",
+        classes: "govuk-!-width-three-quarters"
+    }, base) }}
+{% endmacro %}
