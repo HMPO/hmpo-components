@@ -56,7 +56,7 @@ hmpoForm(ctx, params)
 hmpoErrorGroup(ctx, params)
 hmpoAutoSubmit(ctx, params)
 hmpoSubmit(ctx, params)
-
+hmpoCharacterCount(ctx, params)
 hmpoCheckboxes(ctx, params);
 hmpoDate(ctx, params)
 hmpoNumber(ctx, params)
@@ -65,6 +65,7 @@ hmpoRadios(ctx, params)
 hmpoSelect(ctx, params)
 hmpoText(ctx, params)
 hmpoTextarea(ctx, params)
+hmpoWordCount(ctx,params)
 ```
 
 ### Field parameters
@@ -79,7 +80,6 @@ Label, hint, and legend text is loaded from localisation using a default key str
 
 ### Other available components:
 ```
-hmpoCharsLeft(params);
 hmpoCircleStep(params);
 hmpoCircleStepList(params);
 hmpoClose(params);
@@ -93,9 +93,76 @@ hmpoSidebar(params)
 hmpoWarningText(params)
 ```
 
+## Deprecated form wizard components
+```
+hmpoCharsLeft(ctx, params)
+```
+
 ### Helper and formatting components:
 ```
 hmpoHtml(obj)
+```
+
+## Using hmpoCharacterCount and hmpoWordCount
+hmpoCharacterCount will be replacing hmpoCharsLeft however for backwards compatability it will still be remaining. When using hmpoCharacterCount you will need specify a maxlength validator for the component in fields.js whereas for hmpoWordCount you will need to specify a maxwords validator. An example can be found below. 
+
+```
+'my-character-count': {
+        ...
+        validate: [
+            ...,
+            { type: 'maxlength', arguments: 10 }
+        ]
+    },
+'my-word-count': {
+        ...
+        validate: [
+            ...,
+            { type: 'maxwords', arguments: 10 }
+        ]
+    },
+```
+You may also want to add a translation for the component and that can be found below. You will need to keep %{count} as this is used by the govuk frontend component to parse the character/word count:
+
+```
+"my-character-count": {
+     ...
+     "maxlength": "You can only enter up to {{maxlength}} characters" - required by default
+
+     (The keys bellow will allow translation of the hint text. %{count} is parsed by gds to show dynamic count)
+
+     "textareaDescriptionText": "Enter up to %{count} characters" - shown, instead of dynamic count, to the user if javascript is disabled,
+     "charactersUnderLimitText": {
+        "one": "you have one char left" - shown when user has one characters left
+        "other": "you have %{count} characters left" - shown when user has n characters left
+
+      } - shown to user when they have n characters remaining
+      "charactersAtLimitText": "you have 0 characters remaining" - shown when user has no characters left
+      "charactersOverLimitText": {
+        "one": "you have entered 1 character too many " - shown when user has one character over the limit
+        "other": "you have %{count} characters too many" - shown when user has n. characters over the limit
+
+     } - shown to user when they have exceed number of allowed characters     
+  },
+"my-word-count": {
+     ...
+     "maxlength": "You can only enter up to {{maxlength}} words" - required by default
+
+     (The keys bellow will allow translation of the hint text. %{count} is parsed by gds to show dynamic count)
+
+     "textareaDescriptionText": "Enter up to %{count} chars" - shown, instead of dynamic count, to the user if javascript is disabled,
+     "wordUnderLimitText": {
+        "one": "you have one word left" - shown when user has one word left
+        "other": "you have %{count} wrods left" - shown when user has n words left
+
+      } - shown to user when they have n words remaining
+      "wordsAtLimitText": "you have 0 words remaining" - shown when user has no words left
+      "wordsOverLimitText": {
+        "one": "you have entered one word too many " - shown when user has one word over the limit
+        "other": "you have %{count} words too many" - shown when user has n. words over the limit
+
+     } - shown to user when they have exceed number of allowed words     
+  }
 ```
 
 ## Filters
@@ -113,6 +180,7 @@ currency
 currencyOrFree
 url
 filter
+add
 ```
 
 ### `date` filter

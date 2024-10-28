@@ -1,0 +1,79 @@
+{% macro hmpoTextCount(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set pageHeading = {
+        isPageHeading: true,
+        classes: "govuk-label--l"
+    } if params.isPageHeading %}
+    {%- set args = {
+        id: params.id,
+        name: params.id,
+        label: merge(
+            pageHeading,
+            { attributes: { id: params.id + "-label" } },
+            hmpoGetOptions(ctx, params, "label")
+        ),
+        spellcheck: hmpoGetOptions(ctx, params, "spellcheck", true),
+        threshold: params.threshold,
+        hint: hmpoGetOptions(ctx, params, "hint", true),
+        value: hmpoGetValue(ctx, params),
+        errorMessage: hmpoGetError(ctx, params),
+        inputmode: params.inputmode,
+        countMessage: params.countMessage,
+        classes: "" + (params.classes if params.classes else "govuk-!-width-one-half") + (" js-nopaste" if params.noPaste),
+        formGroup: params.formGroup,
+        autocomplete: params.autocomplete,
+        rows: params.rows,
+        attributes: hmpoGetAttributes(ctx, params, {
+            "aria-required": hmpoGetValidatorAttribute(ctx, params, "required", null, false)
+        } | filter(null))
+    } %}
+
+    {% if params.type == 'wordcount' %}
+
+        {%- set args = args | add("maxwords", hmpoGetValidatorAttribute(ctx, params, "maxwords", 0)) %}
+        {%- set wordsUnderLimitText = hmpoTranslateExtraFieldContent(ctx, params, "wordsUnderLimitText", true) %}
+        {%- set wordsAtLimitText = hmpoTranslateExtraFieldContent(ctx, params, "wordsAtLimitText", true) %}
+        {%- set wordsOverLimitText = hmpoTranslateExtraFieldContent(ctx, params, "wordsOverLimitText", true) %}
+
+        {%- if wordsUnderLimitText != undefined %}
+        {%- set args = args | add("wordsUnderLimitText", wordsUnderLimitText) %}
+        {% endif %}
+
+        {%- if wordsAtLimitText != undefined %}
+        {%- set args = args | add("wordsAtLimitText", wordsAtLimitText) %}
+        {% endif %}
+
+        {%- if wordsOverLimitText != undefined %}
+        {%- set args = args | add("wordsOverLimitText", wordsOverLimitText) %}
+        {% endif %}
+
+    {%- else %}
+
+        {%- set args = args | add("maxlength", hmpoGetValidatorAttribute(ctx, params, "maxlength", 0)) %}
+        {%- set charactersUnderLimitText = hmpoTranslateExtraFieldContent(ctx, params, "charactersUnderLimitText", true) %}
+        {%- set charactersAtLimitText = hmpoTranslateExtraFieldContent(ctx, params, "charactersAtLimitText", true) %}
+        {%- set charactersOverLimitText = hmpoTranslateExtraFieldContent(ctx, params, "charactersOverLimitText", true) %}
+
+        {%- if charactersUnderLimitText != undefined %}
+        {%- set args = args | add("charactersUnderLimitText", charactersUnderLimitText) %}
+        {% endif %}
+
+        {%- if charactersAtLimitText != undefined %}
+        {%- set args = args | add("charactersAtLimitText", charactersAtLimitText) %}
+        {% endif %}
+
+        {%- if charactersOverLimitText != undefined %}
+        {%- set args = args | add("charactersOverLimitText", charactersOverLimitText) %}
+        {% endif %}
+
+    {% endif %}
+
+    {%- set textareaDescriptionText =  hmpoTranslateExtraFieldContent(ctx, params, "textareaDescriptionText", true) %}
+    {%- if textareaDescriptionText != undefined %}
+    {%- set args = args | add("textareaDescriptionText", textareaDescriptionText) %}
+    {% endif %}
+    
+    {%- from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+    {{- govukCharacterCount(args) }}
+{% endmacro %}

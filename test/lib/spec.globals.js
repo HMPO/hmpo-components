@@ -143,6 +143,32 @@ describe('Globals', () => {
             });
         });
 
+        describe('hmpoTranslateExtraFieldContent returns translation when key exists', () => {
+            const context = sinon.stub();
 
+            context.withArgs('translate').returns((key) => {
+                return key;
+            });
+            const fieldKey = 'test';
+            const params = {id: 'id'};
+
+            const translation = globals.globals.hmpoTranslateExtraFieldContent(context, params, fieldKey);
+
+            translation.should.equal('fields.id.test');
+        });
+
+        describe('hmpoTranslateExtraFieldContent returns undefined when locale doesn\'t exist', () => {
+            const context = sinon.stub();
+
+            context.withArgs('translate').returns((key) => {
+                return `[${key}]`;
+            });
+            const fieldKey = 'test';
+            const params = {id: 'id'};
+
+            const translation = globals.globals.hmpoTranslateExtraFieldContent(context, params, fieldKey);
+
+            expect(translation).to.be.undefined;
+        });
     });
 });
