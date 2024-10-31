@@ -124,44 +124,58 @@ hmpoCharacterCount will be replacing hmpoCharsLeft however for backwards compata
 ```
 You may also want to add a translation for the component and that can be found below. You will need to keep %{count} as this is used by the govuk frontend component to parse the character/word count:
 
+**Messages in the validation object are required by default**
+
 ```
 "my-character-count": {
      ...
-     "maxlength": "You can only enter up to {{maxlength}} characters" - required by default
-
      (The keys bellow will allow translation of the hint text. %{count} is parsed by gds to show dynamic count)
 
      "textareaDescriptionText": "Enter up to %{count} characters" - shown, instead of dynamic count, to the user if javascript is disabled,
+     
      "charactersUnderLimitText": {
         "one": "you have one char left" - shown when user has one characters left
         "other": "you have %{count} characters left" - shown when user has n characters left
 
       } - shown to user when they have n characters remaining
+
       "charactersAtLimitText": "you have 0 characters remaining" - shown when user has no characters left
+
       "charactersOverLimitText": {
         "one": "you have entered 1 character too many " - shown when user has one character over the limit
         "other": "you have %{count} characters too many" - shown when user has n. characters over the limit
 
-     } - shown to user when they have exceed number of allowed characters     
+     } - shown to user when they have exceed number of allowed characters
+
+     validation: {
+        ...
+        "maxlength": "You can only enter up to {{maxlength}} characters" - required by default
+     }   
   },
 "my-word-count": {
      ...
-     "maxlength": "You can only enter up to {{maxlength}} words" - required by default
-
      (The keys bellow will allow translation of the hint text. %{count} is parsed by gds to show dynamic count)
 
      "textareaDescriptionText": "Enter up to %{count} chars" - shown, instead of dynamic count, to the user if javascript is disabled,
-     "wordUnderLimitText": {
+
+     "wordsUnderLimitText": {
         "one": "you have one word left" - shown when user has one word left
         "other": "you have %{count} wrods left" - shown when user has n words left
 
       } - shown to user when they have n words remaining
+
       "wordsAtLimitText": "you have 0 words remaining" - shown when user has no words left
+
       "wordsOverLimitText": {
         "one": "you have entered one word too many " - shown when user has one word over the limit
         "other": "you have %{count} words too many" - shown when user has n. words over the limit
 
-     } - shown to user when they have exceed number of allowed words     
+     } - shown to user when they have exceed number of allowed words 
+
+     validation: {
+        ...
+        "maxwords": "You can only enter up to {{maxwords}} words" - required by default
+     }    
   }
 ```
 
