@@ -11,7 +11,7 @@ chai.use(require('sinon-chai'));
 
 const views = [
     path.resolve(__dirname, '..', 'components'),
-    path.resolve(__dirname, '..', 'node_modules', 'govuk-frontend'),
+    path.resolve(__dirname, '..', 'node_modules', 'govuk-frontend', 'dist'),
 ];
 
 const locales = [

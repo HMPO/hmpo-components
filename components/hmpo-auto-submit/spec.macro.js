@@ -11,7 +11,7 @@ describe('hmpoAutoSubmit', () => {
         expect(cleanHtml($('.hmpo-auto-submit__spinner span'))).to.equal('[govuk.loading]');
         expect(cleanHtml($('.hmpo-auto-submit__html'))).to.equal('');
         expect(cleanHtml($('.hmpo-auto-submit__help'))).to.equal('');
-        expect(cleanHtml($('.hmpo-auto-submit__manual'))).to.equal('<button data-prevent-double-click="true" class="govuk-button button" data-module="govuk-button">[buttons.next]</button>');
+        expect(cleanHtml($('.hmpo-auto-submit__manual'))).to.equal('<button type="submit" data-prevent-double-click="true" class="govuk-button button" data-module="govuk-button">[buttons.next]</button>');
     });
 
     it('renders with custom values', () => {
@@ -33,6 +33,6 @@ describe('hmpoAutoSubmit', () => {
         expect(cleanHtml($('.hmpo-auto-submit__spinner span'))).to.equal('test');
         expect(cleanHtml($('.hmpo-auto-submit__html'))).to.equal('<h1>foo</h1>');
         expect(cleanHtml($('.hmpo-auto-submit__help'))).to.equal('<b>bar</b>');
-        expect(cleanHtml($('.hmpo-auto-submit__manual'))).to.equal('<i>manual</i><button data-prevent-double-click="true" class="govuk-button button" data-module="govuk-button">[buttons.next]</button>');
+        expect(cleanHtml($('.hmpo-auto-submit__manual'))).to.equal('<i>manual</i><button type="submit" data-prevent-double-click="true" class="govuk-button button" data-module="govuk-button">[buttons.next]</button>');
     });
 });
