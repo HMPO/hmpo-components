@@ -65,7 +65,7 @@
     {% endif %}
     {% block hmpoContent %}
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+            <div class="{{ gridColumn | default('govuk-grid-column-two-thirds') }}">
                 {% block mainContent %}
                     <h1 id="header" {% if hmpoH1Class %}class="{{ hmpoH1Class }}" {% endif %}data-page="{{hmpoPageKey}}">{{ translate("pages." + hmpoPageKey + ".h1", { default: hmpoTitle }) | safe }}</h1>
                     {% block mainContentBody %}
@@ -79,6 +79,6 @@
 {% endblock %}
 
 {% block bodyEnd %}
-    <script src="{{assetPath}}/javascripts/{{ applicationJavascript | default("application.js") }}"></script>
+    <script type="module" src="{{assetPath}}/javascripts/{{ applicationJavascript | default("application.js") }}"></script>
     {% block scripts %}{% endblock %}
 {% endblock %}
