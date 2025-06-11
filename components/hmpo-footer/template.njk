@@ -29,6 +29,22 @@
       </div>
       <hr class="govuk-footer__section-break">
     {% endif %}
+
+    {% if params.organisation and (params.organisation.logo or params.organisation.name) %}
+          <div class="govuk-footer__organisation">
+            {% if params.organisation.logo %}
+              <span class="govuk-footer__organisation-logo">
+                {{ params.organisation.logo | safe }}
+              </span>
+            {% endif %}
+            {% if params.organisation.name %}
+              <span class="govuk-footer__organisation-name">
+                {{ params.organisation.name }}
+              </span>
+            {% endif %}
+          </div>
+    {% endif %}
+
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
         {% if params.meta %}
@@ -50,6 +66,7 @@
             </div>
           {% endif %}
         {% endif %}
+
         {#- The SVG needs `focusable="false"` so that Internet Explorer does not
         treat it as an interactive element - without this it will be
         'focusable' when using the keyboard to navigate. #}
