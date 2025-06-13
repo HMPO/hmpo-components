@@ -14,6 +14,15 @@
     {{ (translate("govuk.error", { default: "Error" }) + ": ") if errorlist.length }}{{ hmpoTitle | safe }} {{ "– " + govukServiceName | safe if govukServiceName }} – GOV.UK
 {% endblock %}
 
+{% block bodyStart %}
+    {% block cookieBanner %}
+        {% from "hmpo-cookie-banner/macro.njk" import hmpoCookieBanner %}
+        {{ hmpoCookieBanner({
+            html: translate("govuk.cookieBanner")
+        }) }}
+    {% endblock %}
+{% endblock %}
+
 {% from "govuk/components/skip-link/macro.njk" import govukSkipLink %}
 {% block skipLink %}
     {{ govukSkipLink({
@@ -23,12 +32,6 @@
 {% endblock %}
 
 {% block header %}
-    {% block cookieBanner %}
-        {% from "hmpo-cookie-banner/macro.njk" import hmpoCookieBanner %}
-        {{ hmpoCookieBanner({
-            html: translate("govuk.cookieBanner")
-        }) }}
-    {% endblock %}
     {% block govukHeader %}
         {{ govukHeader({
             assetsPath: assetPath + '/images',
