@@ -33,11 +33,16 @@
         {{ govukHeader({
             assetsPath: assetPath + '/images',
             homepageUrl: govukHomePage or "https://gov.uk",
-            serviceName: govukServiceName,
-            navigation: govukNavigation,
-            serviceUrl: govukServiceUrl or "/",
             containerClasses: "govuk-width-container",
             useTudorCrown: true
+        }) }}
+    {% endblock %}
+    {% block govukServiceNav %}
+        {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+        {{ govukServiceNavigation({
+            navigation: govukNavigation,
+            serviceName: govukServiceName,
+            serviceUrl: govukServiceUrl or "/"
         }) }}
     {% endblock %}
 {% endblock %}
