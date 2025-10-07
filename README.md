@@ -157,6 +157,7 @@ const nunjucksEnv = nunjucks.configure([
     path.resolve(__dirname, 'views'),
     path.resolve(__dirname, 'node_modules', 'hmpo-components', 'components'),
     path.resolve(__dirname, 'node_modules', 'govuk-frontend')
+    path.resolve(__dirname, 'node_modules', '@x-govuk',  'govuk-prototype-components', 'src', 'x-govuk', 'components')
 ], {
     express: app,
     dev: true, // Set to false in production
@@ -261,6 +262,8 @@ Label, hint, and legend text is loaded from localisation using a default key str
 For a comprehensive list of all available parameters, refer to the [GOV.UK Frontend documentation](https://design-system.service.gov.uk/).
 
 ### Other available components:
+
+- `hmpoAutocomplete(ctx, params)`: Generates an autocomplete (`<select>`) component preloaded with list of items given and handled by GOV.UK Prototype Components.
 
 - `hmpoCircleStep(params)`: Generates a numbered step in a list with a circular icon, optional title, and description, allowing custom classes and attributes for styling and accessibility.
 
