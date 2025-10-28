@@ -4,8 +4,11 @@
     {%- set labelClass = field.label.classes | default("govuk-label--s" if field.group else "govuk-label--m") %}
     {%- set legendClass = field.fieldset.legend.classes | default("govuk-fieldset__legend--s" if field.group else "govuk-fieldset__legend--m") %}
 
-    {%- if field.type == "radios" %}
-        {% from "../hmpo-radios/macro.njk" import hmpoRadios%}
+    {%- if field.type == "autocomplete" %}
+        {% from "../hmpo-autocomplete/macro.njk" import hmpoAutocomplete %}
+        {% set component = hmpoAutocomplete %}
+    {%- elif field.type == "radios" %}
+        {% from "../hmpo-radios/macro.njk" import hmpoRadios %}
         {% set component = hmpoRadios %}
     {%- elif field.type == "checkboxes" %}
         {% from "../hmpo-checkboxes/macro.njk" import hmpoCheckboxes %}
