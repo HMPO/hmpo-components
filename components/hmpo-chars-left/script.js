@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 8.0.5. Use hmpo-character-count instead.
+ */
 (function (scope, window) {
     'use strict';
 
