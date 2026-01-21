@@ -20,7 +20,7 @@
     margin-bottom: 0;
 }
 
-@include mq($media-type: print) {
+@media print {
     .hmpo-cookie-banner {
         display: none !important;
     }
