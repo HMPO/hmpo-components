@@ -1,0 +1,44 @@
+
+{% macro hmpoTaskList(ctx, params, fieldName) %}
+    {%- set translate = ctx("translate") %}
+    {%- set values = ctx("values") or {} %}
+
+    {%- set labelText = translate("fields." + fieldName + ".label", { default: null }) if fieldName else null %}
+    {%- if labelText %}
+        <h2 class="govuk-heading-m">{{ labelText }}</h2>
+    {%- endif %}
+
+    {%- set taskItems = [] %}
+    {%- for task in params.tasks or [] %}
+        {%- set statusValue = values[task.statusField] %}
+        {%- set statusKey = statusValue if (statusValue and statusValue in params.statuses) else 'default' %}
+        {%- set statusColour = params.statuses[statusKey] %}
+        {%- set statusText = translate("fields." + fieldName + ".statuses." + statusKey) %}
+
+        {%- if statusColour %}
+            {%- set taskStatus = { tag: { text: statusText, classes: "govuk-tag--" + statusColour } } %}
+        {%- else %}
+            {%- set taskStatus = { text: statusText } %}
+        {%- endif %}
+
+        {%- set titleKey = "fields." + fieldName + ".tasks." + task.id + ".title" %}
+        {%- set translatedTitle = translate(titleKey) %}
+        {%- set taskItem = {
+            title: {
+                text: translatedTitle
+            },
+            href: task.href,
+            status: taskStatus
+        } %}
+
+        {%- set taskItems = taskItems.concat([taskItem]) %}
+    {%- endfor %}
+
+    {%- from "govuk/components/task-list/macro.njk" import govukTaskList %}
+    {{ govukTaskList({
+        idPrefix: fieldName | default("task-list"),
+        items: taskItems,
+        classes: params.classes,
+        attributes: params.attributes
+    }) }}
+{% endmacro %}

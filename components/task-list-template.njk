@@ -1,0 +1,16 @@
+{% extends "app-template.njk" %}
+
+{% from "hmpo-field/macro.njk" import hmpoField %}
+{% from "hmpo-submit/macro.njk" import hmpoSubmit %}
+
+{% block mainContentBody %}
+    {{ super() }}
+
+    {% for fieldName, field in options.fields %}
+        {{ hmpoField(ctx, fieldName) }}
+    {% endfor %}
+
+    {% block submitButton %}
+        {{ hmpoSubmit(ctx) }}
+    {% endblock %}
+{% endblock %}
