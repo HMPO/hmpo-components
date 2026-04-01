@@ -245,6 +245,73 @@ Components can be called as macros:
 
 - `hmpoTextCount(ctx, params)`: Generates a text area with a character or word count limit, applying validation, error messages, accessibility attributes, and custom messages for under, at, and over-limit states.
 
+- `hmpoTaskList(ctx, params, fieldName)`: Renders a GOV.UK task list showing task titles, status (completed/incomplete), and href links. All labels and status text are resolved from locale strings using the provided field name. Used for displaying application progress or workflow steps in a display-only format.
+
+#### Task list usage
+
+Define the field with a `type` of `task-list`, a `statuses` map, and an array of `tasks`:
+
+```js
+// fields.js
+module.exports = {
+  taskList: {
+    type: 'task-list',
+    statuses: {
+      default: 'blue',       // blue tag for incomplete tasks
+      completed: false        // false = plain text, no tag
+    },
+    tasks: [
+      { id: 'personalDetails', href: '/apply/your-name', statusField: 'personalDetailsComplete' },
+      { id: 'documents',       href: '/apply/upload-passport', statusField: 'documentsComplete' }
+    ]
+  }
+}
+```
+
+Add matching locale strings:
+
+```yaml
+# locales/en/fields.yml
+taskList:
+  label: Your application
+  statuses:
+    default: Incomplete
+    completed: Completed
+  tasks:
+    personalDetails:
+      title: Personal details
+    documents:
+      title: Documents
+```
+
+In the corresponding steps configuration, use `noPost`, `checkJourney: false`, and `hub: true` on the hub step, and `setValuesOnSave` on each section's final step. Also set `nonLinearJourney: true` on the wizard to enable edit-mode support for the non-linear structure:
+
+```js
+// steps.js
+module.exports = {
+  '/task-list': {
+    fields: ['taskList'],
+    noPost: true,
+    checkJourney: false,
+    hub: true
+  },
+  '/upload-passport': {
+    editable: true,
+    next: 'task-list',
+    setValuesOnSave: [{ key: 'documentsComplete', value: 'completed' }]
+  }
+}
+
+// index.js
+app.use(wizard(steps, fields, {
+  name: 'my-wizard',
+  editBackStep: 'summary',
+  nonLinearJourney: true
+}));
+```
+
+The `statuses` map keys correspond to session values stored via `setValuesOnSave`. When a task's `statusField` value matches a key in `statuses`, that status is rendered. The value in the map is a [GOV.UK tag colour](https://design-system.service.gov.uk/components/tag/) (e.g. `'blue'`, `'light-blue'`) or `false` for plain text with no tag.
+
 
 ### Field parameters
 Most govuk-frontend parameters can be specified in the fields config, or supplied to the component directly.

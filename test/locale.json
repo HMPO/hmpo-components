@@ -33,6 +33,22 @@
         },
         "legendtest": {
             "legend": "Legend text"
+        },
+        "taskList": {
+            "label": "Your application",
+            "statuses": {
+                "default": "Incomplete",
+                "completed": "Completed",
+                "inProgress": "In progress"
+            },
+            "tasks": {
+                "taskOne": {
+                    "title": "Task one"
+                },
+                "taskTwo": {
+                    "title": "Task two"
+                }
+            }
         }
     }
 }

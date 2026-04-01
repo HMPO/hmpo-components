@@ -38,6 +38,9 @@
     {%- elif field.type == "wordcount"%}
         {% from "../hmpo-word-count/macro.njk" import hmpoWordCount %}
         {% set component = hmpoWordCount %}
+    {%- elif field.type == "task-list" %}
+        {% from "../hmpo-task-list/macro.njk" import hmpoTaskList %}
+        {{ hmpoTaskList(ctx, field, fieldName) }}
     {%- endif %}
 
     {%- if component %}
