@@ -5,11 +5,6 @@
 {% set govukServiceName = translate(govukServiceNameKey or "govuk.serviceName") %}
 {% set assetPath = assetPath | default(assetsPath) | default("/public") %}
 
-{% block head %}
-    <!--[if lte IE 8]><link href="{{assetPath}}/stylesheets/{{ applicationStyleSheetIE8 | default("application-ie8.css") }}" rel="stylesheet" type="text/css"><![endif]-->
-    <!--[if gt IE 8]><!--><link href="{{assetPath}}/stylesheets/{{ applicationStyleSheet | default("application.css") }}" media="all" rel="stylesheet" type="text/css"><!--<![endif]-->
-{% endblock %}
-
 {% block pageTitle %}
     {{ (translate("govuk.error", { default: "Error" }) + ": ") if errorlist.length }}{{ hmpoTitle | safe }} {{ "– " + govukServiceName | safe if govukServiceName }} – GOV.UK
 {% endblock %}
