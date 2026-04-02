@@ -6,15 +6,14 @@
         action: params.action | default(ctx("action")) | default(""),
         method: params.method | default("POST"),
         autocomplete: "off",
-        novalidate: "true",
         spellcheck: "false"
     }) %}
 
-    <form {%- for attribute, value in attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>
+    <form {%- for attribute, value in attributes %} {{ attribute }}="{{ value }}" novalidate {% endfor -%}>
         {{- params.content if params.content }}{{- caller() if caller }}
         {%- set csrfToken = ctx("csrf-token") %}
         {%- if csrfToken %}
-            <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}" />
+            <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
         {%- endif %}
     </form>
 {% endmacro %}
