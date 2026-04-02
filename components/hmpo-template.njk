@@ -6,8 +6,8 @@
 {% set assetPath = assetPath | default(assetsPath) | default("/public") %}
 
 {% block head %}
-    <!--[if lte IE 8]><link href="{{assetPath}}/stylesheets/{{ applicationStyleSheetIE8 | default("application-ie8.css") }}" rel="stylesheet" type="text/css" /><![endif]-->
-    <!--[if gt IE 8]><!--><link href="{{assetPath}}/stylesheets/{{ applicationStyleSheet | default("application.css") }}" media="all" rel="stylesheet" type="text/css" /><!--<![endif]-->
+    <!--[if lte IE 8]><link href="{{assetPath}}/stylesheets/{{ applicationStyleSheetIE8 | default("application-ie8.css") }}" rel="stylesheet" type="text/css"><![endif]-->
+    <!--[if gt IE 8]><!--><link href="{{assetPath}}/stylesheets/{{ applicationStyleSheet | default("application.css") }}" media="all" rel="stylesheet" type="text/css"><!--<![endif]-->
 {% endblock %}
 
 {% block pageTitle %}
