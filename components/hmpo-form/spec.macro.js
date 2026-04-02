@@ -74,4 +74,11 @@ describe('hmpoForm', () => {
         const $component = $('form');
         expect($component.attr('enctype')).to.equal('multipart/form-data');
     });
+
+    it('renders novalidate attribute', () => {
+        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
+        const $component = $('form');
+        expect($component.attr('novalidate')).to.equal('');
+    });
+
 });
