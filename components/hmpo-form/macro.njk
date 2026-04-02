@@ -13,7 +13,7 @@
         {{- params.content if params.content }}{{- caller() if caller }}
         {%- set csrfToken = ctx("csrf-token") %}
         {%- if csrfToken %}
-            <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}" />
+            <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
         {%- endif %}
     </form>
 {% endmacro %}
