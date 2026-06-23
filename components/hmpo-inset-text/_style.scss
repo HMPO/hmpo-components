@@ -1,9 +1,9 @@
 .hmpo-inset-info {
-    border-color: govuk-colour("light-blue");
-    background-color: mix(govuk-colour("light-blue"), white, 10);
+    border-color: govuk-colour("blue", $variant: "tint-25");
+    background-color: mix(govuk-colour("blue", $variant: "tint-25"), white, 10);
 }
 
 .hmpo-inset-success {
-    border-color: govuk-colour("turquoise");
-    background-color: mix(govuk-colour("turquoise"), white, 10);
+    border-color: govuk-colour("teal");
+    background-color: mix(govuk-colour("teal"), white, 10);
 }

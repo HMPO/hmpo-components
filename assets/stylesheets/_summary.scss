@@ -8,7 +8,7 @@
     }
 
     .govuk-summary-list__key {
-        color: $govuk-secondary-text-colour;
+        color: govuk-functional-colour(secondary-text);
         font-weight: normal;
         @include govuk-media-query($from: tablet) {
             padding: 1em 1em 1em 0;
