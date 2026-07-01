@@ -12,7 +12,7 @@ npm install [--save] hmpo-components;
 ## ESM and Bundler Requirements
 
 **NOTE:**
-`hmpo-components` **v8.0.2 and above** uses [GOV.UK Frontend v5+](https://github.com/alphagov/govuk-frontend), which requires [ECMAScript Modules (ESM)](https://nodejs.org/api/esm.html) and a modern JavaScript bundler.
+`hmpo-components` **v10.x and above** is compatible with [GOV.UK Frontend v6+](https://github.com/alphagov/govuk-frontend), which requires [ECMAScript Modules (ESM)](https://nodejs.org/api/esm.html) and a modern JavaScript bundler.
 
 ### How to Bundle ESM JavaScript
 
@@ -85,6 +85,27 @@ npm run build:js
 > If you previously included scripts directly with `<script>`, you will need to update your build pipeline to use ESM and a bundler.
 
 _For more options and troubleshooting, see the [Rollup documentation](https://rollupjs.org/) and plugin docs._
+
+## GOV.UK Frontend v6 Migration Notes
+
+### Version and Sass support
+
+- This package is validated against GOV.UK Frontend `6.x` (including `6.3.0`).
+- GOV.UK Frontend Sass entrypoint usage has been migrated to `@use` in project Sass checks.
+
+### Breaking change for template overrides (v6-only block API)
+
+`hmpo-template.njk` now exposes v6-native GOV.UK template block names only.
+
+- Use `govukSkipLink` (not `skipLink`)
+- Use `govukServiceNavigation` (not `govukServiceNav`)
+- Use `containerStart` (not `beforeContent`)
+
+If your service extends `hmpo-template.njk` and still overrides the legacy block names above, you must update those overrides.
+
+### Header option removal
+
+- GOV.UK Header option `useTudorCrown` is removed in GOV.UK Frontend v6 and must not be passed.
 
 ## Usage
 
