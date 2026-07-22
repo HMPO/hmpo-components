@@ -268,6 +268,47 @@ Components can be called as macros:
 
 - `hmpoTaskList(ctx, params, fieldName)`: Renders a GOV.UK task list showing task titles, status (completed/incomplete), and href links. All labels and status text are resolved from locale strings using the provided field name. Used for displaying application progress or workflow steps in a display-only format.
 
+- `hmpoFileUpload(ctx, params, base)`: Renders a GOV.UK file upload input, including translated label and hint text, plus validation error messaging.
+
+#### File upload field type usage
+
+Define a field with a `type` of `file-upload` to render it via `hmpoField`:
+
+```js
+// fields.js
+module.exports = {
+  applicantPassport: {
+    type: 'file-upload',
+    attributes: {
+      accept: 'image/jpeg,image/png,application/pdf'
+    }
+  }
+}
+```
+
+When any field on a page has `type: 'file-upload'`, `hmpoForm` will automatically add `enctype="multipart/form-data"`.
+
+#### File upload label sizing
+
+When `hmpoField` renders a `file-upload` field, it does not force the shared default label size class (`govuk-label--m` / `govuk-label--s`). This keeps the GOV.UK file upload label styling as the default.
+
+You can still customise label sizing per field by setting `label.classes` in your field config:
+
+```js
+// fields.js
+module.exports = {
+  applicantPassport: {
+    type: 'file-upload',
+    label: {
+      classes: 'govuk-label--m'
+    },
+    attributes: {
+      accept: 'image/jpeg,image/png,application/pdf'
+    }
+  }
+}
+```
+
 #### Task list usage
 
 Define the field with a `type` of `task-list`, a `statuses` map, and an array of `tasks`:
