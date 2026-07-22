@@ -41,6 +41,10 @@
     {%- elif field.type == "task-list" %}
         {% from "../hmpo-task-list/macro.njk" import hmpoTaskList %}
         {{ hmpoTaskList(ctx, field, fieldName) }}
+    {%- elif field.type == "file-upload" %}
+        {% from "../hmpo-file-upload/macro.njk" import hmpoFileUpload %}
+        {% set labelClass = null %}
+        {% set component = hmpoFileUpload %}
     {%- endif %}
 
     {%- if component %}

@@ -79,4 +79,40 @@ describe('form template', () => {
         expect($('div#groupField input#groupField1').attr('type')).to.equal('text');
         expect($('div#groupField input#groupField2').attr('type')).to.equal('text');
     });
+
+    it('sets multipart encoding when file-upload fields are present', () => {
+        const locale = {
+            fields: {
+                uploadDocument: {
+                    label: 'Upload a document'
+                }
+            }
+        };
+
+        const locals = {
+            translate: (key, options = {}) => {
+                if (!Array.isArray(key)) key = [ key ];
+                const value = key.reduce((val, key) => {
+                    if (val !== undefined) return val;
+                    return key && key.split('.').reduce((val, part) => val && val[part], locale);
+                }, undefined);
+                if (value !== undefined) return value;
+                if (options.default) return options.default;
+                if (options.self === false) return undefined;
+                return '[' + key[0] + ']';
+            },
+            options: {
+                route: '/upload-route',
+                fields: {
+                    uploadDocument: {
+                        type: 'file-upload'
+                    }
+                }
+            }
+        };
+
+        const $ = render({ template: 'form-template.njk' }, locals);
+        expect($('form').attr('enctype')).to.equal('multipart/form-data');
+        expect($('input#uploadDocument').attr('type')).to.equal('file');
+    });
 });

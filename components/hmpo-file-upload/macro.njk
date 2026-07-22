@@ -1,0 +1,28 @@
+{% macro hmpoFileUpload(ctx, params, base) %}
+    {%- set params = hmpoGetParams(ctx, params, base) %}
+
+    {%- set pageHeading = {
+        isPageHeading: true,
+        classes: "govuk-label--l"
+    } if params.isPageHeading %}
+
+    {%- set args = {
+        id: params.id,
+        name: params.id,
+        label: merge(
+            pageHeading,
+            { attributes: { id: params.id + "-label" } },
+            hmpoGetOptions(ctx, params, "label")
+        ),
+        hint: hmpoGetOptions(ctx, params, "hint", true),
+        errorMessage: hmpoGetError(ctx, params),
+        classes: params.classes,
+        formGroup: params.formGroup,
+        attributes: hmpoGetAttributes(ctx, params, {}),
+        javascript: params.javascript if params.javascript is defined else true
+    } %}
+
+    {%- from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+    {{ govukFileUpload(args) }}
+{% endmacro %}
+
