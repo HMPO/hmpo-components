@@ -114,5 +114,44 @@ describe('form template', () => {
         const $ = render({ template: 'form-template.njk' }, locals);
         expect($('form').attr('enctype')).to.equal('multipart/form-data');
         expect($('input#uploadDocument').attr('type')).to.equal('file');
+        expect($('label[for="uploadDocument"]').attr('class')).to.equal('govuk-label govuk-label--l');
+    });
+
+    it('supports custom file-upload label classes from field config', () => {
+        const locale = {
+            fields: {
+                uploadDocument: {
+                    label: 'Upload a document'
+                }
+            }
+        };
+
+        const locals = {
+            translate: (key, options = {}) => {
+                if (!Array.isArray(key)) key = [ key ];
+                const value = key.reduce((val, key) => {
+                    if (val !== undefined) return val;
+                    return key && key.split('.').reduce((val, part) => val && val[part], locale);
+                }, undefined);
+                if (value !== undefined) return value;
+                if (options.default) return options.default;
+                if (options.self === false) return undefined;
+                return '[' + key[0] + ']';
+            },
+            options: {
+                route: '/upload-route',
+                fields: {
+                    uploadDocument: {
+                        type: 'file-upload',
+                        label: {
+                            classes: 'govuk-label--m'
+                        }
+                    }
+                }
+            }
+        };
+
+        const $ = render({ template: 'form-template.njk' }, locals);
+        expect($('label[for="uploadDocument"]').attr('class')).to.equal('govuk-label govuk-label--m');
     });
 });
