@@ -115,6 +115,8 @@ describe('form template', () => {
         expect($('form').attr('enctype')).to.equal('multipart/form-data');
         expect($('input#uploadDocument').attr('type')).to.equal('file');
         expect($('label[for="uploadDocument"]').attr('class')).to.equal('govuk-label govuk-label--l');
+        expect($('label[for="uploadDocument"]').attr('id')).to.equal('uploadDocument-label');
+        expect($('input#uploadDocument').attr('aria-labelledby')).to.equal('uploadDocument-label');
     });
 
     it('supports custom file-upload label classes from field config', () => {
@@ -193,5 +195,7 @@ describe('form template', () => {
         const $ = render({ template: 'form-template.njk' }, locals);
         expect($('input[type="file"]').attr('id')).to.equal('custom-upload-id');
         expect($('label.govuk-label').attr('for')).to.equal('custom-upload-id');
+        expect($('label.govuk-label').attr('id')).to.equal('custom-upload-id-label');
+        expect($('input[type="file"]').attr('aria-labelledby')).to.equal('custom-upload-id-label');
     });
 });

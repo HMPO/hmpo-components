@@ -3,6 +3,8 @@
     {%- set attributes = hmpoGetAttributes(ctx, params, {}) %}
     {%- set inputId = attributes.id if attributes.id else params.id %}
     {%- set attributes = attributes | delete("id") if attributes.id else attributes %}
+    {%- set labelId = inputId + "-label" %}
+    {%- set attributes = merge({ "aria-labelledby": labelId }, attributes) %}
 
     {%- set pageHeading = {
         isPageHeading: true,
@@ -14,7 +16,7 @@
         name: params.id,
         label: merge(
             pageHeading,
-            { attributes: { id: inputId + "-label" } },
+            { attributes: { id: labelId } },
             hmpoGetOptions(ctx, params, "label")
         ),
         hint: hmpoGetOptions(ctx, params, "hint", true),
