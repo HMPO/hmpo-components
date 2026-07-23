@@ -1,5 +1,8 @@
 {% macro hmpoFileUpload(ctx, params, base) %}
     {%- set params = hmpoGetParams(ctx, params, base) %}
+    {%- set attributes = hmpoGetAttributes(ctx, params, {}) %}
+    {%- set inputId = attributes.id if attributes.id else params.id %}
+    {%- set attributes = attributes | delete("id") if attributes.id else attributes %}
 
     {%- set pageHeading = {
         isPageHeading: true,
@@ -7,18 +10,18 @@
     } if params.isPageHeading %}
 
     {%- set args = {
-        id: params.id,
+        id: inputId,
         name: params.id,
         label: merge(
             pageHeading,
-            { attributes: { id: params.id + "-label" } },
+            { attributes: { id: inputId + "-label" } },
             hmpoGetOptions(ctx, params, "label")
         ),
         hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessage: hmpoGetError(ctx, params),
         classes: params.classes,
         formGroup: params.formGroup,
-        attributes: hmpoGetAttributes(ctx, params, {}),
+        attributes: attributes,
         javascript: params.javascript if params.javascript is defined else true
     } %}
 
