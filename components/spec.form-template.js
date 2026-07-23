@@ -156,46 +156,4 @@ describe('form template', () => {
         const $ = render({ template: 'form-template.njk' }, locals);
         expect($('label[for="uploadDocument"]').attr('class')).to.equal('govuk-label govuk-label--m');
     });
-
-    it('associates label with file input when a custom id attribute is provided', () => {
-        const locale = {
-            fields: {
-                uploadDocument: {
-                    label: 'Upload a document'
-                }
-            }
-        };
-
-        const locals = {
-            translate: (key, options = {}) => {
-                if (!Array.isArray(key)) key = [ key ];
-                const value = key.reduce((val, key) => {
-                    if (val !== undefined) return val;
-                    return key && key.split('.').reduce((val, part) => val && val[part], locale);
-                }, undefined);
-                if (value !== undefined) return value;
-                if (options.default) return options.default;
-                if (options.self === false) return undefined;
-                return '[' + key[0] + ']';
-            },
-            options: {
-                route: '/upload-route',
-                fields: {
-                    uploadDocument: {
-                        type: 'file-upload',
-                        attributes: {
-                            id: 'custom-upload-id',
-                            accept: 'application/pdf'
-                        }
-                    }
-                }
-            }
-        };
-
-        const $ = render({ template: 'form-template.njk' }, locals);
-        expect($('input[type="file"]').attr('id')).to.equal('custom-upload-id');
-        expect($('label.govuk-label').attr('for')).to.equal('custom-upload-id');
-        expect($('label.govuk-label').attr('id')).to.equal('custom-upload-id-label');
-        expect($('input[type="file"]').attr('aria-labelledby')).to.equal('custom-upload-id-label');
-    });
 });

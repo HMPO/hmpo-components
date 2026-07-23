@@ -1,9 +1,7 @@
 {% macro hmpoFileUpload(ctx, params, base) %}
     {%- set params = hmpoGetParams(ctx, params, base) %}
     {%- set attributes = hmpoGetAttributes(ctx, params, {}) %}
-    {%- set inputId = attributes.id if attributes.id else params.id %}
-    {%- set attributes = attributes | delete("id") if attributes.id else attributes %}
-    {%- set labelId = inputId + "-label" %}
+    {%- set labelId = params.id + "-label" %}
     {%- set attributes = merge({ "aria-labelledby": labelId }, attributes) %}
 
     {%- set pageHeading = {
@@ -12,7 +10,7 @@
     } if params.isPageHeading %}
 
     {%- set args = {
-        id: inputId,
+        id: params.id,
         name: params.id,
         label: merge(
             pageHeading,
