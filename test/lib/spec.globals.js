@@ -170,5 +170,26 @@ describe('Globals', () => {
 
             expect(translation).to.be.undefined;
         });
+
+        it('orders grouped date errors by day, month, and year in the error summary', () => {
+            const context = sinon.stub();
+            const groupError = { key: 'date', type: 'required-year', field: 'date-year' };
+            const monthError = { key: 'date-month', type: 'date-month', field: 'date-month' };
+
+            context.withArgs('errorlist').returns([groupError]);
+            context.withArgs('errors').returns({
+                date: groupError,
+                'date-month': monthError,
+                'date-year': { key: 'date-year', type: 'required', field: 'date-year' }
+            });
+            context.withArgs('options.dateFields').returns(['date']);
+            context.withArgs('translate').returns(key => Array.isArray(key) ? key[0] : key);
+
+            const summary = globals.globals.hmpoGetErrorSummary(context);
+
+            summary.should.have.length(2);
+            summary[0].href.should.equal('#date-month');
+            summary[1].href.should.equal('#date-year');
+        });
     });
 });
