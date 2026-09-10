@@ -511,6 +511,20 @@ The `DateController` mixin adds day, month, and year fields for a YYYY-MM-DD dat
 
 The date field must use the `date` validator to use this functionality.
 
+To display all applicable date-part validation errors at once, and list them in
+day, month, year order in the error summary, enable `showMultipleErrors` on that
+date field. This is disabled by default, preserving the existing single-error
+behaviour.
+
+```
+fields: {
+  dateOfBirth: {
+    validate: ['required', 'date'],
+    showMultipleErrors: true
+  }
+}
+```
+
 Additional validation errors can be produced and need localisation, for example:
 
 ```
