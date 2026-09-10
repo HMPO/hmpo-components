@@ -70,9 +70,9 @@
         hint: hmpoGetOptions(ctx, params, "hint", true),
         errorMessages: [
             parentError,
-            dayErrorMessage if not parentError or parentError.field != day.id,
-            monthErrorMessage if not parentError or parentError.field != month.id,
-            yearErrorMessage if not parentError or parentError.field != year.id
+            dayErrorMessage if params.showMultipleErrors == true and (not parentError or parentError.field != day.id),
+            monthErrorMessage if params.showMultipleErrors == true and (not parentError or parentError.field != month.id),
+            yearErrorMessage if params.showMultipleErrors == true and (not parentError or parentError.field != year.id)
         ] | filter,
         classes: params.classes,
         formGroup: params.formGroup,
