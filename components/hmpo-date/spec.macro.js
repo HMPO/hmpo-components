@@ -55,4 +55,37 @@ describe('hmpoDate', () => {
         expect(cleanHtml($legend)).to.equal('<h1 class="govuk-fieldset__heading"><span data-test="test value">Label text</span></h1>');
     });
 
+    it('renders all child validation errors', () => {
+        locals.errors = {
+            'my-input': {
+                key: 'my-input',
+                type: 'required-year',
+                field: 'my-input-year',
+                errorGroup: 'my-input'
+            },
+            'my-input-month': {
+                key: 'my-input-month',
+                type: 'date-month',
+                field: 'my-input-month',
+                errorGroup: 'my-input'
+            },
+            'my-input-year': {
+                key: 'my-input-year',
+                type: 'required',
+                field: 'my-input-year',
+                errorGroup: 'my-input'
+            }
+        };
+
+        const $ = render({ component: 'hmpoDate', params: { id: 'my-input' }, ctx: true }, locals);
+        const $errors = $('.govuk-error-message');
+
+        expect($errors).to.have.length(2);
+        expect($errors.eq(0).attr('id')).to.equal('my-input-error');
+        expect($errors.eq(1).attr('id')).to.equal('my-input-month-error');
+        expect($('.govuk-fieldset').attr('aria-describedby')).to.equal('my-input-hint my-input-error my-input-month-error');
+        expect($('#my-input-month').hasClass('govuk-input--error')).to.equal(true);
+        expect($('#my-input-year').hasClass('govuk-input--error')).to.equal(true);
+    });
+
 });
