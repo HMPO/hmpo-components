@@ -15,39 +15,40 @@
 {% endblock %}
 
 {% from "govuk/components/skip-link/macro.njk" import govukSkipLink %}
-{% block skipLink %}
+{% block govukSkipLink %}
     {{ govukSkipLink({
         href: '#main-content',
         text: translate("govuk.skipLink")
     }) }}
 {% endblock %}
 
-{% block header %}
+{% block headerStart %}
     {% block cookieBanner %}
         {% from "hmpo-cookie-banner/macro.njk" import hmpoCookieBanner %}
         {{ hmpoCookieBanner({
             html: translate("govuk.cookieBanner")
         }) }}
     {% endblock %}
-    {% block govukHeader %}
-        {{ govukHeader({
-            assetsPath: assetPath + '/images',
-            homepageUrl: govukHomePage or "https://gov.uk",
-            containerClasses: "govuk-width-container",
-            useTudorCrown: true
-        }) }}
-    {% endblock %}
-    {% block govukServiceNav %}
-        {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
-        {{ govukServiceNavigation({
-            navigation: govukNavigation,
-            serviceName: govukServiceName,
-            serviceUrl: govukServiceUrl or "/"
-        }) }}
-    {% endblock %}
 {% endblock %}
 
-{% block beforeContent %}
+{% block govukHeader %}
+    {{ govukHeader({
+        assetsPath: assetPath + '/images',
+        homepageUrl: govukHomePage or "https://gov.uk",
+        containerClasses: "govuk-width-container"
+    }) }}
+{% endblock %}
+
+{% block govukServiceNavigation %}
+    {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+    {{ govukServiceNavigation({
+        navigation: govukNavigation,
+        serviceName: govukServiceName,
+        serviceUrl: govukServiceUrl or "/"
+    }) }}
+{% endblock %}
+
+{% block containerStart %}
     {% block backLink %}
         {% if backLink %}
             {% from "govuk/components/back-link/macro.njk" import govukBackLink %}

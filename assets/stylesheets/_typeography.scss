@@ -29,6 +29,10 @@ $hmpo-text-size: "small" !default;
     }
 }
 
+.govuk-notification-banner__header .govuk-notification-banner__title {
+    color: govuk-functional-colour(inverse-text);
+}
+
 main p {
     @extend .govuk-body;
 }

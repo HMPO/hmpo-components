@@ -68,12 +68,12 @@ describe('hmpoTaskList', () => {
     });
 
     it('supports additional statuses like inProgress', () => {
-        statuses.inProgress = 'light-blue';
+        statuses.inProgress = 'teal';
         locals.values = { taskOneStatus: 'inProgress' };
         const $ = renderTask({ tasks: [tasks[0]], statuses });
         const $tag = $('.govuk-tag');
         expect($tag.text().trim()).to.equal('In progress');
-        expect($tag.attr('class')).to.contain('govuk-tag--light-blue');
+        expect($tag.attr('class')).to.contain('govuk-tag--teal');
     });
 
     it('idPrefix is derived from fieldName', () => {
