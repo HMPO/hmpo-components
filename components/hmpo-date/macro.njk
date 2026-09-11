@@ -13,6 +13,7 @@
     {%- if not params.inexact %}
         {%- set day = hmpoGetParams(ctx, { id: params.id + "-day" }) %}
         {%- set dayError = hmpoGetError(ctx, day) %}
+        {%- set dayErrorMessage = hmpoGetError(ctx, day, true) %}
         {%- set dayArgs = {
             id: day.id,
             name: day.id,
@@ -29,6 +30,7 @@
 
     {%- set month = hmpoGetParams(ctx, { id: params.id + "-month" }) %}
     {%- set monthError = hmpoGetError(ctx, month) %}
+    {%- set monthErrorMessage = hmpoGetError(ctx, month, true) %}
     {%- set monthArgs = {
         id: month.id,
         name: month.id,
@@ -44,6 +46,7 @@
 
     {%- set year = hmpoGetParams(ctx, { id: params.id + "-year" }) %}
     {%- set yearError = hmpoGetError(ctx, year) %}
+    {%- set yearErrorMessage = hmpoGetError(ctx, year, true) %}
     {%- set yearArgs = {
         id: year.id,
         name: year.id,
@@ -57,6 +60,7 @@
         classes: "govuk-input--width-4" + (" govuk-input--error" if yearError)
     } %}
 
+    {%- set parentError = hmpoGetError(ctx, params) %}
     {%- set args = {
         id: params.id,
         fieldset: merge(pageHeading, {
@@ -64,7 +68,12 @@
             attributes: { id: params.id + "-fieldset" }
         }, params.fieldset),
         hint: hmpoGetOptions(ctx, params, "hint", true),
-        errorMessage: hmpoGetError(ctx, params) or dayError or monthError or yearError,
+        errorMessages: [
+            parentError,
+            dayErrorMessage if params.showMultipleErrors == true and (not parentError or parentError.field != day.id),
+            monthErrorMessage if params.showMultipleErrors == true and (not parentError or parentError.field != month.id),
+            yearErrorMessage if params.showMultipleErrors == true and (not parentError or parentError.field != year.id)
+        ] | filter,
         classes: params.classes,
         formGroup: params.formGroup,
         items: [ dayArgs, monthArgs, yearArgs ] if dayArgs else [ monthArgs, yearArgs ]
@@ -79,7 +88,6 @@
         {%- set args = merge(args, { fieldset: { legend: { html: legendHtml } } }) %}
     {%- endif %}
 
-    {% if args.errorMessage %}{{errorMessage.message}}{% endif %}
     {%- from "./govuk-date.njk" import govukDateInput %}
     {{- govukDateInput(args) }}
 {% endmacro %}
