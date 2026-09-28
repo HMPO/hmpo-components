@@ -19,4 +19,17 @@ describe('hmpo template', () => {
         expect($('.govuk-service-navigation').length).to.equal(1);
         expect($('#back .govuk-back-link').attr('href')).to.equal('/previous-page');
     });
+
+    it('positions the cookie banner after the opening body tag and before the skip link', () => {
+        const $ = render({ template: 'hmpo-template.njk' });
+        const html = $.html();
+
+        const bodyIndex = html.indexOf('<body');
+        const cookieBannerIndex = html.indexOf('hmpo-cookie-banner');
+        const skipLinkIndex = html.indexOf('govuk-skip-link');
+
+        expect(bodyIndex).to.be.greaterThan(-1);
+        expect(cookieBannerIndex).to.be.greaterThan(bodyIndex);
+        expect(skipLinkIndex).to.be.greaterThan(cookieBannerIndex);
+    });
 });
