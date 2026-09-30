@@ -499,6 +499,7 @@ describe('Date Mixin', () => {
 
                 errors['date1'].type.should.equal('numeric');
                 errors['date1'].field.should.equal('date1-day');
+                errors['date1'].aggregate.should.equal(true);
                 errors['date1-day'].type.should.equal('numeric-day');
                 errors['date1-month'].type.should.equal('numeric-month');
                 errors['date1-year'].type.should.equal('numeric-year');
@@ -625,7 +626,7 @@ describe('Date Mixin', () => {
 
                 errors['date1'].should.eql(new instance.Error(
                     'date1',
-                    { type: 'date', errorGroup: 'date1', field: 'date1-day' },
+                    { type: 'date', errorGroup: 'date1', field: 'date1-day', aggregate: true },
                     req));
                 errors['date1-day'].type.should.equal('date-day');
                 errors['date1-month'].type.should.equal('date-month');

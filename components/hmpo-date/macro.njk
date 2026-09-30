@@ -62,7 +62,7 @@
 
     {%- set parentError = hmpoGetError(ctx, params) %}
     {%- set parentValidationError = ctx('errors.' + params.id) %}
-    {%- set hasAggregateError = parentValidationError.type == 'required' or parentValidationError.type == 'numeric' or parentValidationError.type == 'date' %}
+    {%- set hasAggregateError = parentValidationError.aggregate == true %}
     {%- set args = {
         id: params.id,
         fieldset: merge(pageHeading, {

@@ -117,7 +117,8 @@ describe('hmpoDate', () => {
             'my-input': {
                 key: 'my-input',
                 type: 'required',
-                errorGroup: 'my-input'
+                errorGroup: 'my-input',
+                aggregate: true
             },
             'my-input-day': {
                 key: 'my-input-day',
@@ -145,13 +146,31 @@ describe('hmpoDate', () => {
         expect($('.govuk-error-message').attr('id')).to.equal('my-input-error');
     });
 
+    it('renders a parent validation error without child errors in the fieldset', () => {
+        locals.errors = {
+            'my-input': {
+                key: 'my-input',
+                type: 'custom-date-validation',
+                errorGroup: 'my-input',
+                aggregate: true
+            }
+        };
+
+        const $ = render({ component: 'hmpoDate', params: { id: 'my-input' }, ctx: true }, locals);
+        const $fieldset = $('.govuk-fieldset');
+
+        expect($fieldset.find('.govuk-error-message')).to.have.length(1);
+        expect($fieldset.find('.govuk-error-message').attr('id')).to.equal('my-input-error');
+    });
+
     it('renders only the aggregate error when all date parts fail validation', () => {
         locals.errors = {
             'my-input': {
                 key: 'my-input',
                 type: 'date',
                 field: 'my-input-day',
-                errorGroup: 'my-input'
+                errorGroup: 'my-input',
+                aggregate: true
             },
             'my-input-day': {
                 key: 'my-input-day',
@@ -188,7 +207,8 @@ describe('hmpoDate', () => {
                 key: 'my-input',
                 type: 'numeric',
                 field: 'my-input-month',
-                errorGroup: 'my-input'
+                errorGroup: 'my-input',
+                aggregate: true
             },
             'my-input-month': {
                 key: 'my-input-month',
@@ -218,7 +238,8 @@ describe('hmpoDate', () => {
                 key: 'my-input',
                 type: 'numeric',
                 field: 'my-input-day',
-                errorGroup: 'my-input'
+                errorGroup: 'my-input',
+                aggregate: true
             },
             'my-input-day': {
                 key: 'my-input-day',
