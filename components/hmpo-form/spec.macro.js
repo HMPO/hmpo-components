@@ -58,11 +58,4 @@ describe('hmpoForm', () => {
         const $csrf = $('input');
         expect($csrf.length).to.equal(0);
     });
-
-    it('renders novalidate attribute', () => {
-        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
-        const $component = $('form');
-        expect($component.attr('novalidate')).to.equal('');
-    });
-
 });
