@@ -12,7 +12,7 @@ npm install [--save] hmpo-components;
 ## ESM and Bundler Requirements
 
 **NOTE:**
-`hmpo-components` **v10.x** is compatible with [GOV.UK Frontend v6.x](https://github.com/alphagov/govuk-frontend), which requires [ECMAScript Modules (ESM)](https://nodejs.org/api/esm.html) and a modern JavaScript bundler.
+`hmpo-components` **v11.x** is compatible with [GOV.UK Frontend v6.x](https://github.com/alphagov/govuk-frontend), which requires [ECMAScript Modules (ESM)](https://nodejs.org/api/esm.html) and a modern JavaScript bundler.
 
 ### How to Bundle ESM JavaScript
 
