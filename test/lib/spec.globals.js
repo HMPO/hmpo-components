@@ -282,7 +282,8 @@ describe('Globals', () => {
             const groupError = {
                 key: 'marriageDateOfMarriage',
                 type: 'after-month',
-                field: 'marriageDateOfMarriage'
+                field: 'marriageDateOfMarriage',
+                aggregate: true
             };
 
             context.withArgs('errorlist').returns([groupError]);
@@ -299,7 +300,7 @@ describe('Globals', () => {
 
         it('does not duplicate a custom date validator error that targets a date part', () => {
             const context = sinon.stub();
-            const groupError = { key: 'date', type: 'future', field: 'date-year' };
+            const groupError = { key: 'date', type: 'future', field: 'date-year', aggregate: true };
 
             context.withArgs('errorlist').returns([groupError]);
             context.withArgs('errors').returns({ date: groupError });
@@ -315,7 +316,7 @@ describe('Globals', () => {
 
         it('keeps an all-empty required date as one error summary item', () => {
             const context = sinon.stub();
-            const groupError = { key: 'date', type: 'required' };
+            const groupError = { key: 'date', type: 'required', aggregate: true };
 
             context.withArgs('errorlist').returns([groupError]);
             context.withArgs('errors').returns({
@@ -336,7 +337,7 @@ describe('Globals', () => {
 
         it('keeps all date-part validation failures as one error summary item', () => {
             const context = sinon.stub();
-            const groupError = { key: 'date', type: 'date', field: 'date-day' };
+            const groupError = { key: 'date', type: 'date', field: 'date-day', aggregate: true };
 
             context.withArgs('errorlist').returns([groupError]);
             context.withArgs('errors').returns({
@@ -357,7 +358,7 @@ describe('Globals', () => {
 
         it('keeps all inexact date numeric failures as one error summary item', () => {
             const context = sinon.stub();
-            const groupError = { key: 'date', type: 'numeric', field: 'date-month' };
+            const groupError = { key: 'date', type: 'numeric', field: 'date-month', aggregate: true };
 
             context.withArgs('errorlist').returns([groupError]);
             context.withArgs('errors').returns({ date: groupError });
@@ -373,7 +374,7 @@ describe('Globals', () => {
 
         it('includes an aggregate date error when only child errors are in the error list', () => {
             const context = sinon.stub();
-            const groupError = { key: 'date', type: 'numeric', field: 'date-month' };
+            const groupError = { key: 'date', type: 'numeric', field: 'date-month', aggregate: true };
             const monthError = { key: 'date-month', type: 'numeric-month', field: 'date-month' };
             const yearError = { key: 'date-year', type: 'numeric-year', field: 'date-year' };
 
