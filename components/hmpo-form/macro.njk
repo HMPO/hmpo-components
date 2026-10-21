@@ -9,7 +9,7 @@
         spellcheck: "false"
     }) %}
 
-    <form {%- for attribute, value in attributes %} {{ attribute }}="{{ value }}" novalidate {% endfor -%}>
+    <form {%- for attribute, value in attributes %} {{ attribute }}="{{ value }}"{% endfor %} novalidate>
         {{- params.content if params.content }}{{- caller() if caller }}
         {%- set csrfToken = ctx("csrf-token") %}
         {%- if csrfToken %}
