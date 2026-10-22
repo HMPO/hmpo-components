@@ -58,4 +58,20 @@ describe('hmpoForm', () => {
         const $csrf = $('input');
         expect($csrf.length).to.equal(0);
     });
+
+    it('does not render enctype when no file-upload fields are present', () => {
+        locals.options = { fields: { field1: { type: 'text' } } };
+        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
+
+        const $component = $('form');
+        expect($component.attr('enctype')).to.be.undefined;
+    });
+
+    it('renders multipart/form-data enctype when a file-upload field is present', () => {
+        locals.options = { fields: { field1: { type: 'text' }, field2: { type: 'file-upload' } } };
+        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
+
+        const $component = $('form');
+        expect($component.attr('enctype')).to.equal('multipart/form-data');
+    });
 });
