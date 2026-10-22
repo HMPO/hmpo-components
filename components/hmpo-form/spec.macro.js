@@ -1,5 +1,8 @@
 'use strict';
 
+const nunjucks = require('nunjucks');
+const globals = require('../../lib/globals');
+
 describe('hmpoForm', () => {
     let locals;
 
@@ -58,4 +61,24 @@ describe('hmpoForm', () => {
         const $csrf = $('input');
         expect($csrf.length).to.equal(0);
     });
+
+    it('renders novalidate attribute', () => {
+        const $ = render({ component: 'hmpoForm', params: {}, ctx: true }, locals);
+        const $component = $('form');
+        expect($component.attr('novalidate')).to.equal('');
+    });
+
+    it('renders novalidate once in the source, outside the attribute loop', () => {
+        const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(__dirname + '/..'));
+        globals.addGlobals(env);
+        const html = env.renderString(
+            '{% from "hmpo-form/macro.njk" import hmpoForm %}{{ hmpoForm(ctx) }}',
+            { ctx: key => locals[key] }
+        );
+
+        expect(html.match(/\bnovalidate\b/g)).to.have.lengthOf(1);
+        expect(html).to.include('spellcheck="false" novalidate>');
+        expect(html).to.include('<input type="hidden" name="x-csrf-token" value="abcd1234">');
+    });
+
 });
