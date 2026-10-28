@@ -37,10 +37,48 @@ describe('hmpoAutocomplete', () => {
         expect($hint.text().trim()).to.equal('[fields.my-input.hint]');
     });
 
+    it('associates the label and hint with the select', () => {
+        const $ = render({ component: 'hmpoAutocomplete', params: { id: 'my-input' }, ctx: true }, locals);
+
+        expect($('.govuk-label').attr('for')).to.equal($('select').attr('id'));
+        expect($('.govuk-hint').attr('id')).to.equal('my-input-hint');
+        expect($('select').attr('aria-describedby').split(/\s+/)).to.include('my-input-hint');
+    });
+
+    it('omits the hint and its accessibility reference when no translation exists', () => {
+        locals.translate = sinon.stub();
+        locals.translate.returnsArg(0);
+        locals.translate.withArgs('fields.my-input.hint').returns(undefined);
+
+        const $ = render({ component: 'hmpoAutocomplete', params: { id: 'my-input' }, ctx: true }, locals);
+
+        expect($('.govuk-hint').length).to.equal(0);
+        expect($('select').attr('aria-describedby')).to.be.undefined;
+    });
+
     it('renders label as header', () => {
         const $ = render({ component: 'hmpoAutocomplete', params: { id: 'my-input', isPageHeading: true }, ctx: true }, locals);
         const $label = $('h1 .govuk-label');
         expect($label.attr('class')).to.equal('govuk-label govuk-label--l');
+    });
+
+    it('renders custom label text and classes as a page heading', () => {
+        const $ = render({
+            component: 'hmpoAutocomplete',
+            params: {
+                id: 'my-input',
+                isPageHeading: true,
+                label: { text: 'Country', classes: 'govuk-label--m' }
+            },
+            ctx: true
+        }, locals);
+
+        const $label = $('h1 .govuk-label');
+        expect($label.length).to.equal(1);
+        expect($label.text().trim()).to.equal('Country');
+        expect($label.hasClass('govuk-label--m')).to.be.true;
+        expect($label.attr('id')).to.equal('my-input-label');
+        expect($label.attr('for')).to.equal('my-input');
     });
 
     it('renders a custom label without a page heading', () => {
@@ -98,6 +136,23 @@ describe('hmpoAutocomplete', () => {
         expect($('.govuk-form-group').hasClass('country-select')).to.be.true;
     });
 
+    it('prefers explicit autocomplete options over field configuration', () => {
+        Object.assign(locals.options.fields['my-input'], {
+            allowEmpty: true,
+            showNoOptionsFound: false
+        });
+
+        const $ = render({
+            component: 'hmpoAutocomplete',
+            params: { id: 'my-input', allowEmpty: false, showNoOptionsFound: true },
+            ctx: true
+        }, locals);
+
+        expect($('option').eq(0).attr('disabled')).to.equal('disabled');
+        expect($('option').eq(0).text().trim()).to.equal('Select an option');
+        expect($('select').attr('data-show-no-options-found')).to.equal('true');
+    });
+
     it('selects a saved value using item text when no item value is provided', () => {
         locals.values = { 'my-input': 'b' };
 
@@ -135,6 +190,32 @@ describe('hmpoAutocomplete', () => {
 
         expect($('option[value=""]').attr('selected')).to.equal('selected');
         expect($('option[value="b"]').attr('selected')).to.be.undefined;
+    });
+
+    it('renders the error message, styling and accessibility references when an error is present', () => {
+        locals.errors = {
+            'my-input': { key: 'my-input', type: 'validator' }
+        };
+
+        const $ = render({ component: 'hmpoAutocomplete', params: { id: 'my-input' }, ctx: true }, locals);
+
+        const $component = $('select');
+        expect($('#my-input-error').text().trim()).to.equal('[govuk.error]: [fields.my-input.validation.validator]');
+        expect($('.govuk-form-group').hasClass('govuk-form-group--error')).to.be.true;
+        expect($component.hasClass('govuk-select--error')).to.be.true;
+        expect($component.attr('aria-describedby').split(/\s+/)).to.include.members(['my-input-hint', 'my-input-error']);
+    });
+
+    it('renders only the default empty option when no items are configured', () => {
+        locals.options.fields['my-input'].items = [];
+
+        const $ = render({ component: 'hmpoAutocomplete', params: { id: 'my-input' }, ctx: true }, locals);
+
+        expect($('select').length).to.equal(1);
+        expect($('option').length).to.equal(1);
+        expect($('option').attr('value')).to.equal('');
+        expect($('option').text().trim()).to.equal('Select an option');
+        expect($('option').attr('disabled')).to.equal('disabled');
     });
 
     it('renders items with matching names and labels', () => {
