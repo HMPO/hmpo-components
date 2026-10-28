@@ -14,6 +14,7 @@
         value: value,
         allowEmpty: params.allowEmpty | default(false),
         showNoOptionsFound: params.showNoOptionsFound | default(true),
+        isPageHeading: params.isPageHeading | default(false),
         label: merge(
             pageHeading,
             { attributes: { id: params.id + "-label" } },
