@@ -316,19 +316,6 @@ module.exports = {
 ```njk
 {% from "hmpo-autocomplete/macro.njk" import hmpoAutocomplete %}
 
-//When isPageHeading: true
-
-{{ hmpoAutocomplete(
-    ctx,
-    {
-      id: "countryOrTerritory",
-      items: countries,
-      isPageHeading: true
-    }
-  ) }}
-
-//When isPageHeading: false and custom label params
-
 {{ hmpoAutocomplete(
       ctx,
       {
@@ -336,8 +323,7 @@ module.exports = {
         items: nationalities,
         label: {
           classes: "govuk-label--m"
-        },
-        isPageHeading: false
+        }
       }
     ) }}
 ```
