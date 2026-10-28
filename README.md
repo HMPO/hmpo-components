@@ -256,6 +256,8 @@ Components can be called as macros:
 
 - `hmpoSelect(ctx, params, base)`: Generates a dropdown (`<select>`) component, handling labels, hints, error messages, accessibility attributes, required validation, and pre-selected values while ensuring consistency with GOV.UK design standards.
 
+- `hmpoAutocomplete(ctx, params, base)`: Wraps the X-GOV.UK autocomplete with HMPO labels, hints, errors, and selected values from field context (submitted error values take precedence). Items use `{ text, value }`; omit `value` to submit the text instead. Defaults to `allowEmpty: false` and `showNoOptionsFound: true`, both configurable through params or field options. Supports `formGroup.classes`, `label.classes`, and explicit `isPageHeading: true`.
+
 - `hmpoText(ctx, params, base)`: Generates a text input or textarea field, handling labels, prefixes, error messages, accessibility attributes, validation rules, and optional no-past restrictions.
 
 - `hmpoTextarea(ctx, params, base)`: Creates a textarea input by reusing `hmpoText`, setting the input type to `textarea` and applying a `govuk-!-width-three-quarters` class for styling and consistency.
@@ -308,6 +310,28 @@ module.exports = {
   }
 }
 ```
+
+#### Autocomplete usage
+
+```njk
+{% from "hmpo-autocomplete/macro.njk" import hmpoAutocomplete %}
+
+{{ hmpoAutocomplete(ctx, {
+  id: "countryOrTerritory",
+  items: countries,
+  isPageHeading: true,
+  formGroup: { classes: "country-select" }
+}) }}
+```
+
+When replacing an app-specific wrapper taking `(ctx, countries, fieldName, options)`,
+move `countries` to `items`, `fieldName` to `id`, `labelClasses` to `label.classes`,
+and `formGroupClasses` to `formGroup.classes`. The selected value is read from HMPO
+context, so an explicit `options.value` is not needed. Set `isPageHeading: true`
+where the label should be the page heading; it is not enabled by default.
+
+Apps must include the X-GOV.UK component template search path, styles, and
+autocomplete JavaScript initialisation.
 
 #### Task list usage
 

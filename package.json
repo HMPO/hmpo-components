@@ -1,6 +1,6 @@
 {
   "name": "hmpo-components",
-  "version": "11.4.0",
+  "version": "11.5.0",
   "description": "Component wrappers for wizard fields",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "underscore": "^1.13.7"
   },
   "peerDependencies": {
+    "@x-govuk/govuk-prototype-components": "^6.0.0",
     "govuk-frontend": "^6.4.0",
     "nunjucks": "^3.2.4"
   },
@@ -50,6 +51,7 @@
     "serialize-javascript": "^7.0.3"
   },
   "devDependencies": {
+    "@x-govuk/govuk-prototype-components": "^6.0.0",
     "chai": "^4.5.0",
     "eslint": "^9.39.5",
     "globals": "^15.11.0",
