@@ -316,13 +316,29 @@ module.exports = {
 ```njk
 {% from "hmpo-autocomplete/macro.njk" import hmpoAutocomplete %}
 
+{# With explicit isPageHeading: true #}
+
+{{ hmpoAutocomplete(
+    ctx,
+    {
+      id: "countryOrTerritory",
+      items: countries,
+      isPageHeading: true
+    }
+  ) }}
+
+{# With defined label and formGroup, without explicit isPageHeading: true #}
+
 {{ hmpoAutocomplete(
       ctx,
       {
-        id: "nationality",
-        items: nationalities,
+        id: "permanentAddressCountry",
+        items: addressCountries,
         label: {
           classes: "govuk-label--m"
+        },
+        formGroup: {
+          classes: "country-select"
         }
       }
     ) }}
