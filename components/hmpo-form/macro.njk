@@ -2,9 +2,18 @@
 {% macro hmpoForm(ctx, params, base) %}
     {%- set params = hmpoGetParams(ctx, params, base) %}
 
+    {%- set fields = ctx("options.fields") or {} %}
+    {%- set hasFileUploadField = false %}
+    {%- for _, field in fields %}
+        {%- if field.type == "file-upload" %}
+            {%- set hasFileUploadField = true %}
+        {%- endif %}
+    {%- endfor %}
+
     {%- set attributes = hmpoGetAttributes(ctx, params, {
         action: params.action | default(ctx("action")) | default(""),
         method: params.method | default("POST"),
+        enctype: "multipart/form-data" if hasFileUploadField else undefined,
         autocomplete: "off",
         novalidate: "true",
         spellcheck: "false"
