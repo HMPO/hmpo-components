@@ -47,6 +47,11 @@
         window.hmpoOn('blur', $input, syncName);
         window.hmpoOn('change', $input, syncName);
 
+        // Upstream renames the hidden select's id, detaching it from the label
+        if (!labelledBy && scope.getElementById(id + '-label')) {
+            $select.setAttribute('aria-labelledby', id + '-label');
+        }
+
         $select.setAttribute('data-loaded', 'true');
     }
 
