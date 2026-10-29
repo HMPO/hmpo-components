@@ -177,6 +177,7 @@ app.set('view engine', 'html');
 const nunjucksEnv = nunjucks.configure([
     path.resolve(__dirname, 'views'),
     path.resolve(__dirname, 'node_modules', 'hmpo-components', 'components'),
+    path.resolve(__dirname, 'node_modules', '@x-govuk', 'govuk-prototype-components', 'src', 'x-govuk', 'components'),
     path.resolve(__dirname, 'node_modules', 'govuk-frontend')
 ], {
     express: app,
@@ -256,7 +257,7 @@ Components can be called as macros:
 
 - `hmpoSelect(ctx, params, base)`: Generates a dropdown (`<select>`) component, handling labels, hints, error messages, accessibility attributes, required validation, and pre-selected values while ensuring consistency with GOV.UK design standards.
 
-- `hmpoAutocomplete(ctx, params, base)`: Wraps the X-GOV.UK autocomplete with HMPO labels, hints, errors, and selected values from field context (submitted error values take precedence). Items use `{ text, value }`; omit `value` to submit the text instead. Defaults to `allowEmpty: false` and `showNoOptionsFound: true`, both configurable through params or field options. Supports `formGroup.classes`, `label.classes`, and explicit `isPageHeading: true`.
+- `hmpoAutocomplete(ctx, params, base)`: Wraps the X-GOV.UK autocomplete for generic item lists, with HMPO labels, hints, validation errors and context-based selected values. Supports `type: 'autocomplete'` field rendering. See [Autocomplete usage](#autocomplete-usage) for configuration, locale strings and defaults.
 
 - `hmpoText(ctx, params, base)`: Generates a text input or textarea field, handling labels, prefixes, error messages, accessibility attributes, validation rules, and optional no-past restrictions.
 
@@ -313,45 +314,57 @@ module.exports = {
 
 #### Autocomplete usage
 
-```njk
-{% from "hmpo-autocomplete/macro.njk" import hmpoAutocomplete %}
+Define the field with a `type` of `autocomplete` and an `items` list:
 
-{# With explicit isPageHeading: true #}
-
-{{ hmpoAutocomplete(
-    ctx,
-    {
-      id: "countryOrTerritory",
-      items: countries,
-      isPageHeading: true
-    }
-  ) }}
-
-{# With defined label and formGroup, without explicit isPageHeading: true #}
-
-{{ hmpoAutocomplete(
-      ctx,
-      {
-        id: "permanentAddressCountry",
-        items: addressCountries,
-        label: {
-          classes: "govuk-label--m"
-        },
-        formGroup: {
-          classes: "country-select"
-        }
-      }
-    ) }}
+```js
+module.exports = {
+  autocompleteExample: {
+    type: 'autocomplete',
+    items: [{ text: 'First item' }, { text: 'Second item' }],
+    validate: 'required'
+  }
+};
 ```
 
-When replacing an app-specific wrapper taking `(ctx, countries, fieldName, options)`,
-move `countries` to `items`, `fieldName` to `id`, `labelClasses` to `label.classes`,
-and `formGroupClasses` to `formGroup.classes`. The selected value is read from HMPO
-context, so an explicit `options.value` is not needed. Set `isPageHeading: true`
-where the label should be the page heading; it is not enabled by default.
+Add matching locale strings, using the same key as the field configuration:
 
-Apps must include the X-GOV.UK component template search path, styles, and
-autocomplete JavaScript initialisation.
+```yaml
+# locales/en/fields.yml
+autocompleteExample:
+  label: Choose an item
+  hint: Start typing an item name and select from the list
+  validation:
+    required: Enter an item and select from the list
+```
+
+The `hint` is optional. Item labels come from `items[].text` in the field configuration, rather than from locale item keys.
+
+Render it through the normal form template or `hmpoField(ctx, "autocompleteExample")`. For direct macro calls, pass the field key as `params.id`:
+
+```njk
+{% from "hmpo-autocomplete/macro.njk" import hmpoAutocomplete %}
+{{ hmpoAutocomplete(ctx, { id: "autocompleteExample" }) }}
+```
+
+Items can represent any domain, but must be objects containing `text` and an optional `value`, not plain strings or arbitrary objects. Omit `value` to submit the item's text, or provide it when the submitted value should differ from the label.
+
+Selected values are read from HMPO context, with submitted error values taking precedence over saved values.
+
+Optional settings can be supplied in the field configuration or macro params, with explicit macro params taking precedence:
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `allowEmpty` | `false` | Allow the empty option to be selected; does not replace server-side validation. |
+| `showNoOptionsFound` | `true` | Show feedback when no items match. |
+| `label.classes` | None for direct macro calls | Add label classes. |
+| `formGroup.classes` | None | Add form-group classes. |
+| `isPageHeading` | `false` for direct macro calls | Render the label as a page heading; the normal form template manages this automatically. |
+
+Autocomplete JavaScript (in `all.js`) and styles (in `all.scss`) are bundled and initialise automatically, meaning no separate import or setup is needed. When migrating, remove app-specific `Autocomplete` imports and initialisers, plus helpers that clear stale selections or synchronise the select's name. Apps must still add the X-GOV.UK component path to the [Nunjucks configurations](./README.md#L180).
+
+Editing an answer clears the previous selection, and clearing the input omits the field from submission. Server-side validation is still required. Without JavaScript, the component remains a native HTML select.
+
+See the [X-GOV.UK autocomplete documentation](https://govuk-prototype-components.x-govuk.org/autocomplete/) for upstream guidance.
 
 #### Task list usage
 
