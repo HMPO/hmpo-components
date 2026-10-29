@@ -314,13 +314,16 @@ module.exports = {
 
 #### Autocomplete usage
 
-Define the field with a `type` of `autocomplete` and an `items` list:
+Define a field with a `type` of `autocomplete` and an `items` list to render it via `hmpoField`:
 
 ```js
 module.exports = {
   autocompleteExample: {
     type: 'autocomplete',
-    items: [{ text: 'First item' }, { text: 'Second item' }],
+    items: [
+      { text: 'First item', value: 'First item' },
+      { text: 'Second item', value: 'Second item' }
+    ],
     validate: 'required'
   }
 };
@@ -337,16 +340,9 @@ autocompleteExample:
     required: Enter an item and select from the list
 ```
 
-The `hint` is optional. Item labels come from `items[].text` in the field configuration, rather than from locale item keys.
+The `hint` is optional.
 
-Render it through the normal form template or `hmpoField(ctx, "autocompleteExample")`. For direct macro calls, pass the field key as `params.id`:
-
-```njk
-{% from "hmpo-autocomplete/macro.njk" import hmpoAutocomplete %}
-{{ hmpoAutocomplete(ctx, { id: "autocompleteExample" }) }}
-```
-
-Items can represent any domain, but must be objects containing `text` and an optional `value`, not plain strings or arbitrary objects. Omit `value` to submit the item's text, or provide it when the submitted value should differ from the label.
+Items can represent any domain, but must be objects containing `text` and `value`, not plain strings or arbitrary objects. `text` is the label shown to the user and `value` is what is submitted. Always set `value`, even when it is the same as `text`. This is because `hmpo-form-wizard` validates submissions against each item's `value` and does not fall back to `text`, so an item without a `value` will fail validation. The underlying autocomplete template does fall back to `text` when `value` is omitted, but that only helps when the field is not validated against `items`.
 
 Selected values are read from HMPO context, with submitted error values taking precedence over saved values.
 
@@ -360,11 +356,34 @@ Optional settings can be supplied in the field configuration or macro params, wi
 | `formGroup.classes` | None | Add form-group classes. |
 | `isPageHeading` | `false` for direct macro calls | Render the label as a page heading; the normal form template manages this automatically. |
 
-Autocomplete JavaScript (in `all.js`) and styles (in `all.scss`) are bundled and initialise automatically, meaning no separate import or setup is needed. When migrating, remove app-specific `Autocomplete` imports and initialisers, plus helpers that clear stale selections or synchronise the select's name. Apps must still add the X-GOV.UK component path to the Nunjucks configurations defined above.
+Autocomplete JavaScript (in `all.js`) and styles (in `all.scss`) are bundled and initialise automatically, meaning no separate import or setup is needed. When migrating to use this component, remove app-specific `Autocomplete` imports and initialisers, plus helpers that clear stale selections or synchronise the select's name. Apps must still add the X-GOV.UK component path to the Nunjucks configurations defined above.
 
-Editing an answer clears the previous selection, and clearing the input omits the field from submission. Server-side validation is still required. Without JavaScript, the component remains a native HTML select.
+Editing an answer clears the previous selection, and clearing the input omits the field from submission. Server-side validation is still required. Without JavaScript or if JavaScript is disabled, the component remains a native HTML select.
 
 See the [X-GOV.UK autocomplete documentation](https://govuk-prototype-components.x-govuk.org/autocomplete/) for upstream guidance.
+
+#### Autocomplete label sizing
+
+When `hmpoField` renders an `autocomplete` field, it applies the shared default label size class (`govuk-label--m`, or `govuk-label--s` for grouped fields). When the field is the page heading, the label is rendered as `govuk-label--l` instead.
+
+You can customise label sizing per field by setting `label.classes` in your field config:
+
+```js
+// fields.js
+module.exports = {
+  autocompleteExample: {
+    type: 'autocomplete',
+    items: [
+      { text: 'First item', value: 'First item' },
+      { text: 'Second item', value: 'Second item' }
+    ],
+    label: {
+      classes: 'govuk-label--s'
+    },
+    validate: 'required'
+  }
+};
+```
 
 #### Task list usage
 
