@@ -25,6 +25,12 @@ describe('hmpoAutocomplete', () => {
         expect($component.attr('name')).to.equal('my-input');
     });
 
+    it('marks the select for the bundled autocomplete script', () => {
+        const $ = render({ component: 'hmpoAutocomplete', params: { id: 'my-input' }, ctx: true }, locals);
+
+        expect($('select').attr('data-module')).to.equal('autocomplete');
+    });
+
     it('renders with label and hint', () => {
         const $ = render({ component: 'hmpoAutocomplete', params: { id: 'my-input' }, ctx: true }, locals);
 

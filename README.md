@@ -360,7 +360,7 @@ Optional settings can be supplied in the field configuration or macro params, wi
 | `formGroup.classes` | None | Add form-group classes. |
 | `isPageHeading` | `false` for direct macro calls | Render the label as a page heading; the normal form template manages this automatically. |
 
-Autocomplete JavaScript (in `all.js`) and styles (in `all.scss`) are bundled and initialise automatically, meaning no separate import or setup is needed. When migrating, remove app-specific `Autocomplete` imports and initialisers, plus helpers that clear stale selections or synchronise the select's name. Apps must still add the X-GOV.UK component path to the [Nunjucks configurations](./README.md#L180).
+Autocomplete JavaScript (in `all.js`) and styles (in `all.scss`) are bundled and initialise automatically, meaning no separate import or setup is needed. When migrating, remove app-specific `Autocomplete` imports and initialisers, plus helpers that clear stale selections or synchronise the select's name. Apps must still add the X-GOV.UK component path to the Nunjucks configurations defined above.
 
 Editing an answer clears the previous selection, and clearing the input omits the field from submission. Server-side validation is still required. Without JavaScript, the component remains a native HTML select.
 
