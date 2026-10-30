@@ -329,7 +329,7 @@ module.exports = {
 };
 ```
 
-Add matching locale strings, using the same key as the field configuration:
+Add matching locale strings, using the same key as the field config:
 
 ```yaml
 # locales/en/fields.yml
@@ -340,13 +340,11 @@ autocompleteExample:
     required: Enter an item and select from the list
 ```
 
-The `hint` is optional.
+Items must be an array of objects containing `text` and `value`. `text` is the label shown to the user and `value` is what is submitted. **Always set `value`**, even when it is the same as `text`. This is because `hmpo-form-wizard` validates submissions against each item's `value` but does not fall back to `text` when there is no `value` against an item, meaning submission of a selection will fail in these cases. The underlying component can fall back to `text` when `value` is omitted, but that only helps when the field is not validated against `items`.
 
-Items can represent any domain, but must be objects containing `text` and `value`, not plain strings or arbitrary objects. `text` is the label shown to the user and `value` is what is submitted. Always set `value`, even when it is the same as `text`. This is because `hmpo-form-wizard` validates submissions against each item's `value` and does not fall back to `text`, so an item without a `value` will fail validation. The underlying autocomplete template does fall back to `text` when `value` is omitted, but that only helps when the field is not validated against `items`.
+Selected values are read from HMPO context, with submitted error values taking precedence over saved values. Editing an answer clears the previous selection, and clearing the input omits the field from submission. Server-side validation is still required.
 
-Selected values are read from HMPO context, with submitted error values taking precedence over saved values.
-
-Optional settings can be supplied in the field configuration or macro params, with explicit macro params taking precedence:
+Optional settings can be supplied in the field config or as direct macro params:
 
 | Setting | Default | Purpose |
 | --- | --- | --- |
@@ -356,15 +354,13 @@ Optional settings can be supplied in the field configuration or macro params, wi
 | `formGroup.classes` | None | Add form-group classes. |
 | `isPageHeading` | `false` for direct macro calls | Render the label as a page heading; the normal form template manages this automatically. |
 
-Autocomplete JavaScript (in `all.js`) and styles (in `all.scss`) are bundled and initialise automatically, meaning no separate import or setup is needed. When migrating to use this component, remove app-specific `Autocomplete` imports and initialisers, plus helpers that clear stale selections or synchronise the select's name. Apps must still add the X-GOV.UK component path to the Nunjucks configurations defined above.
-
-Editing an answer clears the previous selection, and clearing the input omits the field from submission. Server-side validation is still required. Without JavaScript or if JavaScript is disabled, the component remains a native HTML select.
+Autocomplete JavaScript and styles are now bundled and initialised automatically within `all.js` and `all.scss`. When migrating to use this component, remove app-specific `Autocomplete` initialisers, plus helpers that clear stale selections or synchronise the select's name. Without JavaScript or if JavaScript is disabled, the component remains a native HTML `<select>`. Apps must still import `@x-govuk/govuk-prototype-components` and add the X-GOV.UK component path to the Nunjucks configurations defined above.
 
 See the [X-GOV.UK autocomplete documentation](https://govuk-prototype-components.x-govuk.org/autocomplete/) for upstream guidance.
 
 #### Autocomplete label sizing
 
-When `hmpoField` renders an `autocomplete` field, it applies the shared default label size class (`govuk-label--m`, or `govuk-label--s` for grouped fields). When the field is the page heading, the label is rendered as `govuk-label--l` instead.
+When `hmpoField` renders an `autocomplete` field, it applies the shared default label size class (`govuk-label--m`/`govuk-label--s`). When the field is the page heading, the label is rendered as `govuk-label--l` instead.
 
 You can customise label sizing per field by setting `label.classes` in your field config:
 
