@@ -177,6 +177,7 @@ app.set('view engine', 'html');
 const nunjucksEnv = nunjucks.configure([
     path.resolve(__dirname, 'views'),
     path.resolve(__dirname, 'node_modules', 'hmpo-components', 'components'),
+    path.resolve(__dirname, 'node_modules', '@x-govuk', 'govuk-prototype-components', 'src', 'x-govuk', 'components'),
     path.resolve(__dirname, 'node_modules', 'govuk-frontend')
 ], {
     express: app,
@@ -256,6 +257,8 @@ Components can be called as macros:
 
 - `hmpoSelect(ctx, params, base)`: Generates a dropdown (`<select>`) component, handling labels, hints, error messages, accessibility attributes, required validation, and pre-selected values while ensuring consistency with GOV.UK design standards.
 
+- `hmpoAutocomplete(ctx, params, base)`: Wraps the X-GOV.UK autocomplete for generic item lists, with HMPO labels, hints, validation errors and context-based selected values. Supports `type: 'autocomplete'` field rendering. See [Autocomplete usage](#autocomplete-usage) for configuration, locale strings and defaults.
+
 - `hmpoText(ctx, params, base)`: Generates a text input or textarea field, handling labels, prefixes, error messages, accessibility attributes, validation rules, and optional no-past restrictions.
 
 - `hmpoTextarea(ctx, params, base)`: Creates a textarea input by reusing `hmpoText`, setting the input type to `textarea` and applying a `govuk-!-width-three-quarters` class for styling and consistency.
@@ -307,6 +310,75 @@ module.exports = {
     }
   }
 }
+```
+
+#### Autocomplete usage
+
+Define a field with a `type` of `autocomplete` and an `items` list to render it via `hmpoField`:
+
+```js
+module.exports = {
+  autocompleteExample: {
+    type: 'autocomplete',
+    items: [
+      { text: 'First item', value: 'First item' },
+      { text: 'Second item', value: 'Second item' }
+    ],
+    validate: 'required'
+  }
+};
+```
+
+Add matching locale strings, using the same key as the field config:
+
+```yaml
+# locales/en/fields.yml
+autocompleteExample:
+  label: Choose an item
+  hint: Start typing an item name and select from the list
+  validation:
+    required: Enter an item and select from the list
+```
+
+Items must be an array of objects containing `text` and `value`. `text` is the label shown to the user and `value` is what is submitted. **Always set `value`**, even when it is the same as `text`. This is because `hmpo-form-wizard` validates submissions against each item's `value` but does not fall back to `text` when there is no `value` against an item, meaning submission of a selection will fail in these cases. The underlying component can fall back to `text` when `value` is omitted, but that only helps when the field is not validated against `items`.
+
+Selected values are read from HMPO context, with submitted error values taking precedence over saved values. Editing an answer clears the previous selection, and clearing the input omits the field from submission. Server-side validation is still required.
+
+Optional settings can be supplied in the field config or as direct macro params:
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `allowEmpty` | `false` | Allow the empty option to be selected; does not replace server-side validation. |
+| `showNoOptionsFound` | `true` | Show feedback when no items match. |
+| `label.classes` | None for direct macro calls | Add label classes. |
+| `formGroup.classes` | None | Add form-group classes. |
+| `isPageHeading` | `false` for direct macro calls | Render the label as a page heading; the normal form template manages this automatically. |
+
+Autocomplete JavaScript and styles are now bundled and initialised automatically within `all.js` and `all.scss`. When migrating to use this component, remove app-specific `Autocomplete` initialisers, plus helpers that clear stale selections or synchronise the select's name. Without JavaScript or if JavaScript is disabled, the component remains a native HTML `<select>`. Apps must still import `@x-govuk/govuk-prototype-components` and add the X-GOV.UK component path to the Nunjucks configurations defined above.
+
+See the [X-GOV.UK autocomplete documentation](https://govuk-prototype-components.x-govuk.org/autocomplete/) for upstream guidance.
+
+#### Autocomplete label sizing
+
+When `hmpoField` renders an `autocomplete` field, it applies the shared default label size class (`govuk-label--m`/`govuk-label--s`). When the field is the page heading, the label is rendered as `govuk-label--l` instead.
+
+You can customise label sizing per field by setting `label.classes` in your field config:
+
+```js
+// fields.js
+module.exports = {
+  autocompleteExample: {
+    type: 'autocomplete',
+    items: [
+      { text: 'First item', value: 'First item' },
+      { text: 'Second item', value: 'Second item' }
+    ],
+    label: {
+      classes: 'govuk-label--s'
+    },
+    validate: 'required'
+  }
+};
 ```
 
 #### Task list usage
