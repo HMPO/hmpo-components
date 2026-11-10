@@ -256,7 +256,7 @@ Components can be called as macros:
 
 - `hmpoSelect(ctx, params, base)`: Generates a dropdown (`<select>`) component, handling labels, hints, error messages, accessibility attributes, required validation, and pre-selected values while ensuring consistency with GOV.UK design standards.
 
-- `hmpoText(ctx, params, base)`: Generates a text input or textarea field, handling labels, prefixes, error messages, accessibility attributes, validation rules, and optional no-past restrictions.
+- `hmpoText(ctx, params, base)`: Generates a text input or textarea field, handling labels, prefixes, error messages, accessibility attributes, validation rules, and optional no-past restrictions. Set `params.disableMaxlengthAttribute` to `true` to omit the HTML `maxlength` attribute while keeping the `maxlength` validator and its error message; this is `false` by default.
 
 - `hmpoTextarea(ctx, params, base)`: Creates a textarea input by reusing `hmpoText`, setting the input type to `textarea` and applying a `govuk-!-width-three-quarters` class for styling and consistency.
 
